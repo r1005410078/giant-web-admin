@@ -1,5 +1,5 @@
 FROM node:8.11.3-slim
-RUN yum install -y nginx
+RUN apt-get install -y nginx
 WORKDIR /app
 COPY . /app/
 EXPOSE 80
