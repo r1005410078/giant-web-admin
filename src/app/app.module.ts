@@ -19,7 +19,11 @@ const routers: Routes = [
   {path: "matters",loadChildren: './matters/matters.module#MattersModule'}, // 注意事项
   {path: "discover",loadChildren: './discover/discover.module#DiscoverModule'},
   {path: "vehicle-manages", loadChildren: "./vehicle-manages/vehicle-manages.module#VehicleManagesModule"},
-  {path: "user", loadChildren: "./user/user.module#UserModule"}
+  {path: "user", loadChildren: "./user/user.module#UserModule"},
+  { path: '',
+    redirectTo: '/oreders/app-will-payment',
+    pathMatch: 'full'
+  },
 ]
 
 registerLocaleData(zh);

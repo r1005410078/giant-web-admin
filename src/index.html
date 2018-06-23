@@ -9,6 +9,10 @@
   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=WBAlPcPGut0Ge5QaXcDYUAQIzwb3hAEE	"></script>
 </head>
 <body>
+  <h1 id="loading">首次加载很慢, 耐心等待...</h1>
   <app-root></app-root>
+  <script>
+    document.getElementById('loading').remove()
+  </script>
 </body>
 </html>

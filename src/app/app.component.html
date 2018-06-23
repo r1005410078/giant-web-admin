@@ -5,7 +5,7 @@
       <h1>东钱湖单车驿站</h1>
     </div>
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
-      <li nz-submenu>
+      <li nz-submenu [(nzOpen)]="openMap.sub1" (nzOpenChange)="openHandler('sub1')">
         <span title><i class="anticon anticon-user"></i><span class="nav-text">订单管理</span></span>
         <ul>
           <li nz-menu-item>
@@ -19,35 +19,35 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu>
+      <li nz-submenu [(nzOpen)]="openMap.sub2" (nzOpenChange)="openHandler('sub2')">
         <span title><i class="anticon anticon-user"></i><span class="nav-text">套餐管理</span></span>
         <ul>
           <li nz-menu-item routerLink="/tao-can/add-tc">新增套餐</li>
           <li nz-menu-item routerLink="/tao-can/list-tc">套餐列表</li>
         </ul>
       </li>
-      <li nz-submenu>
+      <li nz-submenu [(nzOpen)]="openMap.sub3" (nzOpenChange)="openHandler('sub3')">
         <span title><i class="anticon anticon-user"></i><span class="nav-text">驿站管理</span></span>
         <ul>
           <li nz-menu-item routerLink="/station/add">添加驿站</li>
           <li nz-menu-item routerLink="/station/list">驿站列表</li>
         </ul>
       </li>
-      <li nz-submenu>
+      <li nz-submenu [(nzOpen)]="openMap.sub4" (nzOpenChange)="openHandler('sub4')">
         <span title><i class="anticon anticon-user"></i><span class="nav-text">推荐路线</span></span>
         <ul>
           <li nz-menu-item routerLink="/suggest-route/add">添加路线</li>
           <li nz-menu-item routerLink="/suggest-route/list">路线列表</li>
         </ul>
       </li>
-      <li nz-submenu>
+      <li nz-submenu [(nzOpen)]="openMap.sub5" (nzOpenChange)="openHandler('sub5')">
         <span title><i class="anticon anticon-user"></i><span class="nav-text">骑车注意事项</span></span>
         <ul>
           <li nz-menu-item routerLink="/matters/add">添加注意事项</li>
           <li nz-menu-item routerLink="/matters/list">注意事项列表</li>
         </ul>
       </li>
-      <li nz-submenu>
+      <li nz-submenu [(nzOpen)]="openMap.sub6" (nzOpenChange)="openHandler('sub6')">
         <span title><i class="anticon anticon-user"></i><span class="nav-text">发现</span></span>
         <ul>
           <li nz-menu-item routerLink="/discover/add">投放广告</li>
@@ -56,14 +56,14 @@
           <li nz-menu-item routerLink="/discover/red-packet-list">红包列表</li>
         </ul>
       </li>
-      <li nz-submenu>
+      <li nz-submenu [(nzOpen)]="openMap.sub7" (nzOpenChange)="openHandler('sub7')">
         <span title><i class="anticon anticon-user"></i><span class="nav-text">车辆管理</span></span>
         <ul>
           <li nz-menu-item routerLink="/vehicle-manages/add">车辆录入</li>
           <li nz-menu-item routerLink="/vehicle-manages/list">车辆追踪</li>
         </ul>
       </li>
-      <li nz-submenu>
+      <li nz-submenu [(nzOpen)]="openMap.sub8" (nzOpenChange)="openHandler('sub')">
         <span title><i class="anticon anticon-user"></i><span class="nav-text">用户信息</span></span>
         <ul>
           <li nz-menu-item routerLink="/user/list">用户列表</li>
