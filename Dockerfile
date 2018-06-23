@@ -7,6 +7,6 @@ EXPOSE 80
 RUN npm install -g @angular/cli \
     && npm install \
     && ng build  \
-    && cp -r dist/* /var/www/html \
+    && cp -r dist/web-admin/* /var/www/html \
     && rm -rf /app
 CMD ["nginx","-g","daemon off;"]
