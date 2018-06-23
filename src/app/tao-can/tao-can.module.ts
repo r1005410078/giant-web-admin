@@ -4,8 +4,6 @@ import { AddTcComponent } from './add-tc/add-tc.component';
 import { ListTcComponent } from './list-tc/list-tc.component';
 import { Routes, Router, RouterModule } from '@angular/router';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { CommonsModule } from '../commons/commons.module';
 import { UpdateDetailComponent } from './update-detail/update-detail.component';
 
