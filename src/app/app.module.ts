@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonsModule } from './commons/commons.module';
@@ -41,7 +41,7 @@ registerLocaleData(zh);
     RouterModule.forRoot(routers),
     NgZorroAntdModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }, BmapService],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN }, BmapService, { provide: LocationStrategy, useClass: HashLocationStrategy, }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

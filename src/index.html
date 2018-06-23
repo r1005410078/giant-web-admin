@@ -3,16 +3,34 @@
 <head>
   <meta charset="utf-8">
   <title>WebAdmin</title>
-  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=WBAlPcPGut0Ge5QaXcDYUAQIzwb3hAEE	"></script>
 </head>
+<style>
+#loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #003333;
+  background-size: 163px;
+}
+.scene {
+  width: 550px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -225px;
+  margin-left: -200px;
+}
+</style>
 <body>
-  <h1 id="loading">首次加载很慢, 耐心等待...</h1>
+  <div id="loading">
+    <div class="scene">
+      <img src="/assets/imgs/timg.gif" alt="" srcset="">
+    </div>
+  </div>
   <app-root></app-root>
-  <script>
-    document.getElementById('loading').remove()
-  </script>
 </body>
 </html>
