@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/quill/dist/quill.snow.css";
+
+.tangram-suggestion-main {
+    z-index: 1000;
+}
+
+.introduce {
+    width: 500px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* .ant-list-vertical .ant-list-item-meta-title {
+    margin-bottom: -9px !important;
+} */
+
+.ant-breadcrumb-link {
+    cursor: pointer;
+}

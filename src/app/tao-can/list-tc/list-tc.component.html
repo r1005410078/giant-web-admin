@@ -1,0 +1,51 @@
+<nz-breadcrumb style="padding:15px 0">
+  <nz-breadcrumb-item>套餐管理</nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    套餐列表
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<nz-table
+  #ajaxTable
+  nzShowSizeChanger
+  [nzFrontPagination]="false"
+  [nzData]="data"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  [(nzPageIndex)]="pageIndex"
+  [(nzPageSize)]="pageSize"
+  (nzPageIndexChange)="searchData()"
+  (nzPageSizeChange)="searchData(true)">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzSortKey="username">配图</th>
+      <th nzSortKey="username">套餐名字</th>
+      <th nzSortKey="phoneNumber">套餐押金</th>
+      <th nzSortKey="startTime">租金区间一</th>
+      <th nzSortKey="ridingTime">租金区间二</th>
+      <th nzSortKey="ridingTime">租金区间三</th>
+      <th nzSortKey="vehicleNumber">套餐介绍</th>
+      <th nzSortKey="depositAmount">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td><span class='peitu-span' (click)="showModal()">套餐配图.png</span></td>
+      <td>亲子套餐</td>
+      <td>120</td>
+      <td>50分钟内, ￥20</td>
+      <td>320分钟内, ￥20</td>
+      <td>602分钟内, ￥20</td>
+      <td><p class="introduce">
+        车主身份ID，扫描QR绑定您的爱车
+        享受更贴心的服务车主身份ID，扫描QR绑定您的爱车
+        享受更贴心的服务车主身份ID，扫描QR绑定您的爱车
+        享受更贴心的服务
+      </p></td>
+      <td><a routerLink="/tao-can/list-tc/12">编辑</a> <a style="margin-left: 5px">删除</a>  </td>
+    </tr>
+  </tbody>
+</nz-table>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisible"  (nzOnCancel)="handleCancel()" nzTitle="套餐配图">
+  <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2878337702,2985218161&fm=27&gp=0.jpg" alt="套餐配图" width="100%" srcset="">
+</nz-modal>

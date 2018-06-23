@@ -1,0 +1,34 @@
+<nz-breadcrumb style="padding:15px 0">
+  <nz-breadcrumb-item>驿站管理</nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    驿站列表
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<nz-list
+[nzDataSource]="data"
+[nzItemLayout]="'vertical'"
+[nzRenderItem]="item"
+[nzPagination]="pagination">
+  <ng-template #item let-item>
+      <nz-list-item [nzContent]="item.content" [nzActions]="[starAction,likeAction,msgAction]" [nzExtra]="extra">
+          <ng-template #starAction><i class="anticon anticon-delete" style="margin-right: 8px;"></i> 删除</ng-template>
+          <ng-template #likeAction><a routerLink="/station/list/1213">
+            <i class="anticon anticon-form" style="margin-right: 8px;"></i> 编辑</a>
+          </ng-template>
+          <nz-list-item-meta
+              [nzAvatar]="item.avatar"
+              [nzDescription]="item.description"
+              [nzTitle]="nzTitle">
+              <ng-template #nzTitle>{{item.title}}</ng-template>
+          </nz-list-item-meta>
+          <ng-template #extra>
+              <img width="150" alt="logo" src="http://img1.imgtn.bdimg.com/it/u=233004436,3095538597&fm=27&gp=0.jpg">
+          </ng-template>
+      </nz-list-item>
+  </ng-template>
+  <ng-template #pagination>
+      <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+  </ng-template>
+</nz-list>
+  

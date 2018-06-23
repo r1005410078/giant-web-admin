@@ -1,0 +1,51 @@
+<nz-breadcrumb style="padding:15px 0">
+    <nz-breadcrumb-item>红包管理</nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      红包列表
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  
+  <nz-table
+    #ajaxTable
+    nzShowSizeChanger
+    [nzFrontPagination]="false"
+    [nzData]="data"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th nzSortKey="username">祝福语</th>
+        <th nzSortKey="username">活动说明</th>
+        <th nzSortKey="phoneNumber">套餐押金</th>
+        <th nzSortKey="startTime">活动开始时间</th>
+        <th nzSortKey="ridingTime">活动结束时间</th>
+        <th nzSortKey="ridingTime">红包总个数</th>
+        <th nzSortKey="vehicleNumber">红包总金额</th>
+        <th nzSortKey="ridingTime">红包最大金额</th>
+        <th nzSortKey="vehicleNumber">红包最小金额</th>
+        <th nzSortKey="depositAmount">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of ajaxTable.data">
+        <td>祝福语</td>
+        <td>活动说明</td>
+        <td>套餐押金</td>
+        <td>1-1</td>
+        <td>2-1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td><a routerLink="/discover/red-packet-list/12">编辑</a> <a style="margin-left: 5px">删除</a></td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisible"  (nzOnCancel)="handleCancel()" nzTitle="套餐配图">
+    <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2878337702,2985218161&fm=27&gp=0.jpg" alt="套餐配图" width="100%" srcset="">
+  </nz-modal>
+  

@@ -1,0 +1,20 @@
+
+<div class="oreder-header">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      订单管理
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      {{title}}
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+</div>
+
+<div class="oreder-search">
+  <nz-input-group nzSearch nzSize="large" [nzSuffix]="suffixButton">
+    <input type="text" nz-input placeholder="请输入手机号">
+  </nz-input-group>
+  <ng-template #suffixButton>
+    <button nz-button nzType="primary" nzSize="large" nzSearch>搜索</button>
+  </ng-template>
+</div>

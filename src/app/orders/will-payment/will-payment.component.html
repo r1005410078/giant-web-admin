@@ -1,0 +1,33 @@
+
+<app-header title="待付押金"></app-header>
+
+<nz-table
+  #ajaxTable
+  nzShowSizeChanger
+  [nzFrontPagination]="false"
+  [nzData]="dataSet"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  [(nzPageIndex)]="pageIndex"
+  [(nzPageSize)]="pageSize"
+  (nzPageIndexChange)="searchData()"
+  (nzPageSizeChange)="searchData(true)">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzSortKey="username">用户名</th>
+      <th nzSortKey="phoneNumber">手机号</th>
+      <th nzShowFilter nzSortKey="station" [nzFilters]="station" (nzFilterChange)="updateFilter($event)"><span>租车驿站</span></th>
+      <th nzSortKey="depositPaymentMethod"><span>押金付款方式</span></th>
+      <th nzSortKey="depositAmount"><span>押金金额</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>11</td>
+      <td>22</td>
+      <td>33</td>
+      <td>11</td>
+      <td>22</td>
+    </tr>
+  </tbody>
+</nz-table>

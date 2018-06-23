@@ -1,0 +1,12 @@
+<nz-upload class="avatar-uploader"
+    nzAction="https://jsonplaceholder.typicode.com/posts/"
+    nzName="avatar"
+    nzListType="picture-card"
+    [nzShowUploadList]="false"
+    (nzChange)="handleChange($event)">
+    <ng-container *ngIf="!avatarUrl">
+      <i class="anticon anticon-plus"></i>
+      <div class="ant-upload-text">上传</div>
+    </ng-container>
+    <img style="height: 100%;" *ngIf="avatarUrl" [src]="avatarUrl" class="avatar">
+  </nz-upload>

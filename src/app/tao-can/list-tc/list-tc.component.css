@@ -1,0 +1,26 @@
+.introduce {
+    width: 300px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+::ng-deep .vertical-center-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+::ng-deep .vertical-center-modal .ant-modal {
+    top: 0;
+}
+
+::ng-deep .ant-modal-footer {
+    display: none;
+}
+
+.peitu-span {
+  text-decoration: underline;
+  color: cornflowerblue;
+  cursor: pointer;
+}

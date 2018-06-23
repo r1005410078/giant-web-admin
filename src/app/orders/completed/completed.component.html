@@ -1,0 +1,46 @@
+
+<app-header title="已完成订单"></app-header>
+
+<nz-table
+  #ajaxTable
+  nzShowSizeChanger
+  [nzFrontPagination]="false"
+  [nzData]="dataSet"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  [(nzPageIndex)]="pageIndex"
+  [(nzPageSize)]="pageSize"
+  (nzPageIndexChange)="searchData()"
+  (nzPageSizeChange)="searchData(true)">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzSortKey="username">用户名</th>
+      <th nzSortKey="phoneNumber">手机号</th>
+      <th nzShowSort nzSortKey="startTime">开始时间</th>
+      <th nzShowSort nzSortKey="ridingTime"><span>骑行时间</span></th>
+      <th nzShowFilter nzSortKey="station" [nzFilters]="station" (nzFilterChange)="updateFilter($event)"><span>租车驿站</span></th>
+      <th nzShowFilter nzSortKey="station" [nzFilters]="station" (nzFilterChange)="updateFilter($event)"><span>还车驿站</span></th>
+      <th nzSortKey="vehicleNumber"><span>车辆编号</span></th>
+      <th nzShowFilter nzSortKey="depositPaymentMethod"><span>押金付款方式</span></th>
+      <th nzSortKey="depositAmount"><span>押金金额</span></th>
+      <th nzShowFilter nzSortKey="depositPaymentMethod"><span>租金付款方式</span></th>
+      <th nzSortKey="depositAmount"><span>租金金额</span></th>
+      <th nzSortKey="depositAmount"><span>留言</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>11</td>
+      <td>22</td>
+      <td>33</td>
+      <td>11</td>
+      <td>22</td>
+      <td>33</td>
+      <td>11</td>
+      <td>22</td>
+      <td>22</td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<button style="margin-top: 30px; float: right;" nz-button nzType="primary" [nzSize]="size"><i class="anticon anticon-download"></i>导出Excel订单</button>

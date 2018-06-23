@@ -1,0 +1,17 @@
+<nz-breadcrumb style="padding:15px 0">
+  <nz-breadcrumb-item>车辆管理</nz-breadcrumb-item>
+  <nz-breadcrumb-item routerLink="/vehicle-manages/list">
+    车辆追踪
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    {{id}}
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<div style="padding:20px 20px;">
+  <nz-timeline>
+    <nz-timeline-item>用户小艾，A驿站到B驿站 (2015-09-01)</nz-timeline-item>
+    <nz-timeline-item>用户小迪，C驿站到B驿站 (2015-10-01)</nz-timeline-item>
+    <nz-timeline-item >P调度到B驿站 2015-12-01</nz-timeline-item>
+    <nz-timeline-item nzColor="red" [nzDot]="dotTemplate">用户小李骑行中...</nz-timeline-item>
+  </nz-timeline>
+</div>

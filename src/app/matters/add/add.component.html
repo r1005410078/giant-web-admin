@@ -1,0 +1,26 @@
+<nz-breadcrumb *ngIf="isHideNav" style="padding:15px 0; margin-bottom: 20px">
+  <nz-breadcrumb-item>骑车注意事项</nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    添加注意事项
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<nz-form-item  nzFlex>
+  <nz-form-label nzSpan="3" nzRequired>骑车注意事项配图</nz-form-label>
+  <nz-form-control nzSpan="12">
+    <app-illustration></app-illustration>
+  </nz-form-control>
+</nz-form-item>
+<nz-form-item  nzFlex>
+  <nz-form-label nzSpan="3" nzRequired>骑车注意事项名称</nz-form-label>
+  <nz-form-control nzSpan="12">
+    <input nz-input formControlName="taoCanName" placeholder="请输入骑车注意事项名称">
+  </nz-form-control>
+</nz-form-item>
+<div nz-row>
+  <div nz-col nzSpan="3" style="text-align: right">骑车注意事项介绍：</div>
+  <div nz-col nzSpan="20">
+    <app-quill></app-quill>
+  </div>
+</div>
+
+<button nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
