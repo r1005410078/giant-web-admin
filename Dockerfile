@@ -1,6 +1,4 @@
 FROM node:6.10.3-slim
-RUN yum update \    
-    && yum install -y nginx
 WORKDIR /app
 COPY . /app/
 EXPOSE 80
