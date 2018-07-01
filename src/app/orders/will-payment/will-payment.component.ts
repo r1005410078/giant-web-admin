@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./will-payment.component.css']
 })
 export class WillPaymentComponent implements OnInit {
-
+  dataSet = [1]
   constructor() { }
 
   ngOnInit() {

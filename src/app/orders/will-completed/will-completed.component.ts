@@ -11,7 +11,7 @@ export class WillCompletedComponent implements OnInit {
   pageIndex = 1;
   pageSize = 10;
   total = 1;
-  dataSet = [];
+  dataSet = [1];
   loading = true;
   sortValue = null;
   sortKey = null;

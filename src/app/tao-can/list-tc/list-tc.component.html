@@ -20,29 +20,28 @@
     <tr>
       <th nzSortKey="username">配图</th>
       <th nzSortKey="username">套餐名字</th>
-      <th nzSortKey="phoneNumber">套餐押金</th>
       <th nzSortKey="startTime">租金区间一</th>
       <th nzSortKey="ridingTime">租金区间二</th>
       <th nzSortKey="ridingTime">租金区间三</th>
+      <th nzSortKey="username">套餐数量</th>
+      <th nzSortKey="username">启用状态</th>
       <th nzSortKey="vehicleNumber">套餐介绍</th>
       <th nzSortKey="depositAmount">操作</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of ajaxTable.data">
-      <td><span class='peitu-span' (click)="showModal()">套餐配图.png</span></td>
-      <td>亲子套餐</td>
-      <td>120</td>
-      <td>50分钟内, ￥20</td>
-      <td>320分钟内, ￥20</td>
-      <td>602分钟内, ￥20</td>
+      <td><span class='peitu-span' (click)="showModal()">{{data.cover_img}}</span></td>
+      <td>{{data.name}}</td>
+      <td *ngFor="let inter of data.interval">
+        开始时间： {{inter.start_time}} - 结束时间： {{inter.end_time}} - 金额 {{inter.money}}
+      </td>
+      <td>{{data.bike_count}}</td>
+      <td>{{data.status}}</td>
       <td><p class="introduce">
-        车主身份ID，扫描QR绑定您的爱车
-        享受更贴心的服务车主身份ID，扫描QR绑定您的爱车
-        享受更贴心的服务车主身份ID，扫描QR绑定您的爱车
-        享受更贴心的服务
+        {{data.content}}
       </p></td>
-      <td><a routerLink="/tao-can/list-tc/12">编辑</a> <a style="margin-left: 5px">删除</a>  </td>
+      <td><a routerLink="/tao-can/list-tc/{{data.id}}">编辑</a><a style="margin-left: 5px">删除</a></td>
     </tr>
   </tbody>
 </nz-table>

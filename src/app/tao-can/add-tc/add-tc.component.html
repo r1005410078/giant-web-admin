@@ -5,7 +5,7 @@
   </nz-breadcrumb-item>
 </nz-breadcrumb>
 
-<form style="margin-top: 30px" nz-form (ngSubmit)="_submitForm($event, groupName.value)" nzLayout="horizontal">
+<form style="margin-top: 30px" nz-form nzLayout="horizontal" [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item  nzFlex>
     <nz-form-label nzSpan="3" nzRequired>套餐配图</nz-form-label>
     <nz-form-control nzSpan="12">
@@ -15,74 +15,57 @@
   <nz-form-item  nzFlex>
     <nz-form-label nzSpan="3" nzRequired>套餐名字</nz-form-label>
     <nz-form-control nzSpan="12">
-      <input nz-input formControlName="taoCanName" placeholder="请输入套餐名字">
+      <input nz-input formControlName="name" placeholder="请输入套餐名字">
+      <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">请输入套餐名字！</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item  nzFlex>
-    <nz-form-label nzSpan="3" nzRequired>套餐押金</nz-form-label>
-    <nz-form-control nzSpan="12">
-      <input nz-input formControlName="taoCanName" placeholder="请输入套餐押金">
-    </nz-form-control>
-  </nz-form-item>
-
+    <nz-form-label nzSpan="3" nzRequired>套餐数量</nz-form-label>
+      <nz-form-control nzSpan="12">
+        <input nz-input formControlName="bike_count" placeholder="套餐数量">
+        <nz-form-explain *ngIf="validateForm.get('bike_count').dirty && validateForm.get('bike_count').errors">请输入套餐名字！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
   <nz-form-item  nzFlex>
-    <nz-form-label nzSpan="3" nzRequired>租金区间一</nz-form-label>
+    <nz-form-label nzSpan="3" nzRequired>开启状态</nz-form-label>
     <nz-form-control nzSpan="12">
-      <nz-input-group nzAddOnAfter="分钟">
-        <input nz-input formControlName="taoCanName" placeholder="请输入时间">
-      </nz-input-group> 
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item  nzFlex>
-    <nz-form-label nzSpan="3" nzRequired>租金</nz-form-label>
-    <nz-form-control nzSpan="12">
-      <nz-input-group nzAddOnAfter="￥">
-        <input nz-input formControlName="taoCanName" placeholder="请输入区间一租金">
-      </nz-input-group> 
+      <nz-select style="width: 100%" [ngModel]="'1'"  formControlName="status" nzAllowClear nzPlaceHolder="Choose">
+        <nz-option nzValue="1" nzLabel="开启"></nz-option>
+        <nz-option nzValue="0" nzLabel="关闭"></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item  nzFlex>
-    <nz-form-label nzSpan="3" nzRequired>租金区间二</nz-form-label>
-    <nz-form-control nzSpan="12">
-      <nz-input-group nzAddOnAfter="分钟">
-        <input nz-input formControlName="taoCanName" placeholder="请输入时间">
-      </nz-input-group> 
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item  nzFlex>
-    <nz-form-label nzSpan="3" nzRequired>租金</nz-form-label>
-    <nz-form-control nzSpan="12">
-      <nz-input-group nzAddOnAfter="￥">
-        <input nz-input formControlName="taoCanName" placeholder="请输入区间二租金">
-      </nz-input-group> 
-    </nz-form-control>
-  </nz-form-item>
-
-  <nz-form-item  nzFlex>
-    <nz-form-label nzSpan="3" nzRequired>租金区间三</nz-form-label>
-    <nz-form-control nzSpan="12">
-      <nz-input-group nzAddOnAfter="分钟">
-        <input nz-input formControlName="taoCanName" placeholder="请输入时间">
-      </nz-input-group> 
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item  nzFlex>
-    <nz-form-label nzSpan="3" nzRequired>租金</nz-form-label>
-    <nz-form-control nzSpan="12">
-      <nz-input-group nzAddOnAfter="￥">
-        <input nz-input formControlName="taoCanName" placeholder="请输入区间三租金">
-      </nz-input-group> 
-    </nz-form-control>
-  </nz-form-item>  
-</form>
-<div nz-row>
-  <div nz-col nzSpan="3" style="text-align: right">套餐介绍：</div>
-  <div nz-col nzSpan="20">
-    <app-quill></app-quill>
+  <div formArrayName="interval" >
+    <div *ngFor="let item of interval.controls; let i=index" [formGroupName]="i" >
+      <nz-form-item nzFlex>
+        <nz-form-label nzSpan="3" nzRequired>租金区间一</nz-form-label>
+        <nz-form-control nzSpan="12">
+          <nz-input-group nzAddOnAfter="分钟">
+            <input nz-input formControlName="time" placeholder="请输入时间">
+          </nz-input-group>
+          <nz-form-explain *ngIf="item.get(['time']).dirty && item.get(['time']).errors">请输入租金时间！</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item  nzFlex>
+        <nz-form-label nzSpan="3" nzRequired>租金</nz-form-label>
+        <nz-form-control nzSpan="12">
+          <nz-input-group nzAddOnAfter="￥">
+            <input nz-input formControlName="money" placeholder="请输入区间一租金">
+          </nz-input-group>
+          <nz-form-explain *ngIf="item.get(['money']).dirty && item.get(['money']).errors">请输入租金金额！</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
   </div>
-</div>
-<button nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
+  <div nz-row>
+    <div nz-col nzSpan="3" style="text-align: right">套餐介绍：</div>
+    <div nz-col nzSpan="20">
+      <app-quill></app-quill>
+    </div>
+  </div>
+  <button nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
+</form>
 
 
 

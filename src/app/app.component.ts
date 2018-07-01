@@ -1,4 +1,6 @@
-import { Component, ViewChild, TemplateRef, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
+import { UserinfoService } from './userinfo.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,33 +8,12 @@ import { Component, ViewChild, TemplateRef, AfterContentInit } from '@angular/co
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterContentInit {
-  title = 'app';
-  isCollapsed = false;
-
-  /** custom trigger can be TemplateRef **/
-  changeTrigger(): void {
-   
+  constructor (private router: Router, private userinfo: UserinfoService) {}
+  onLogout () {
+    this.userinfo.cookie.remove("id")
+    console.log(1111)
+    this.router.navigateByUrl("/login")
   }
-
-  openMap = {
-    sub1: true,
-    sub2: false,
-    sub3: false,
-    sub4: false,
-    sub5: false,
-    sub6: false,
-    sub7: false,
-    sub8: false,
-  };
-
-  openHandler(value: string): void {
-    for (const key in this.openMap) {
-      if (key !== value) {
-        this.openMap[ key ] = false;
-      }
-    }
-  }
-
   ngAfterContentInit () {
     document.getElementById('loading').remove()
   }

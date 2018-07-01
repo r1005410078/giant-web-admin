@@ -4,7 +4,7 @@
       创建红包
     </nz-breadcrumb-item>
   </nz-breadcrumb>
-  
+
   <form style="margin-top: 30px" nz-form (ngSubmit)="_submitForm($event, groupName.value)" nzLayout="horizontal">
     <nz-form-item  nzFlex>
       <nz-form-label nzSpan="3" nzRequired>祝福语</nz-form-label>
@@ -18,7 +18,7 @@
         <input nz-input formControlName="taoCanName" placeholder="请输入活动说明">
       </nz-form-control>
     </nz-form-item>
-  
+
     <nz-form-item  nzFlex>
       <nz-form-label nzSpan="3" nzRequired>活动开始时间</nz-form-label>
       <nz-form-control nzSpan="12">
@@ -31,11 +31,11 @@
         <input nz-input formControlName="taoCanName" placeholder="请输入时间">
       </nz-form-control>
     </nz-form-item>
-  
+
     <nz-form-item  nzFlex>
-      <nz-form-label nzSpan="3" nzRequired>红包总个数</nz-form-label>
+      <nz-form-label nzSpan="3" nzRequired>红包概率</nz-form-label>
       <nz-form-control nzSpan="12">
-        <input nz-input formControlName="taoCanName" placeholder="请输入红包总个数">
+        <input nz-input formControlName="taoCanName" placeholder="请输入红包概率">
       </nz-form-control>
     </nz-form-item>
     <nz-form-item  nzFlex>
@@ -43,16 +43,16 @@
       <nz-form-control nzSpan="12">
         <nz-input-group nzAddOnAfter="￥">
           <input nz-input formControlName="taoCanName" placeholder="请输入红包总金额">
-        </nz-input-group> 
+        </nz-input-group>
       </nz-form-control>
     </nz-form-item>
-  
+
     <nz-form-item  nzFlex>
       <nz-form-label nzSpan="3" nzRequired>红包最大金额</nz-form-label>
       <nz-form-control nzSpan="12">
         <nz-input-group nzAddOnAfter="￥">
           <input nz-input formControlName="taoCanName" placeholder="请输入红包最大金额">
-        </nz-input-group> 
+        </nz-input-group>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item  nzFlex>
@@ -60,13 +60,12 @@
       <nz-form-control nzSpan="12">
         <nz-input-group nzAddOnAfter="￥">
           <input nz-input formControlName="taoCanName" placeholder="请输入红包最小金额">
-        </nz-input-group> 
+        </nz-input-group>
       </nz-form-control>
-    </nz-form-item> 
+    </nz-form-item>
   </form>
   <button nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
-  
-  
-  
-  
-  
+
+
+
+

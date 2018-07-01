@@ -12,10 +12,11 @@
     text-overflow:ellipsis;
 }
 
-/* .ant-list-vertical .ant-list-item-meta-title {
-    margin-bottom: -9px !important;
-} */
-
 .ant-breadcrumb-link {
     cursor: pointer;
+}
+
+.ant-layout-content {
+  margin-top: 70px;
+  padding: 0 20px;
 }

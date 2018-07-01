@@ -1,47 +1,48 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { NZ_I18N, zh_CN, NgZorroAntdModule } from 'ng-zorro-antd';
 import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, Router } from '@angular/router';
+import { UserinfoService } from './userinfo.service';
+import { HttpClientModule } from '@angular/common/http';
+import { NzNotificationService } from 'ng-zorro-antd';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuComponent } from './commons/menu/menu.component';
 import { CommonsModule } from './commons/commons.module';
-import { BmapService } from './bmap.service';
 
 const routers: Routes = [
-  {path: 'oreders', loadChildren: './orders/orders.module#OrdersModule'},
-  {path: "tao-can", loadChildren: './tao-can/tao-can.module#TaoCanModule'},
-  {path: "station", loadChildren: './station/station.module#StationModule'},
-  {path: "suggest-route", loadChildren: './suggest-route/suggest-route.module#SuggestRouteModule'},
-  {path: "matters",loadChildren: './matters/matters.module#MattersModule'}, // 注意事项
-  {path: "discover",loadChildren: './discover/discover.module#DiscoverModule'},
-  {path: "vehicle-manages", loadChildren: "./vehicle-manages/vehicle-manages.module#VehicleManagesModule"},
-  {path: "user", loadChildren: "./user/user.module#UserModule"},
-  { path: '',
-    redirectTo: '/oreders/app-will-payment',
-    pathMatch: 'full'
+  {
+    path: 'giant',
+    canLoad: [UserinfoService],
+    loadChildren: './admin/admin.module#AdminModule'
   },
+  {path: 'menu', component: MenuComponent, outlet: 'aux'},
+  {
+    path: 'login', loadChildren: './login/login.module#LoginModule',
+    canActivate: [UserinfoService]
+  }
 ]
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MenuComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
     CommonsModule,
-    BrowserAnimationsModule,
+    BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(routers),
-    NgZorroAntdModule
+    NgZorroAntdModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }, BmapService, { provide: LocationStrategy, useClass: HashLocationStrategy, }],
+  providers: [NzNotificationService, UserinfoService, { provide: NZ_I18N, useValue: zh_CN }, { provide: LocationStrategy, useClass: HashLocationStrategy, }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

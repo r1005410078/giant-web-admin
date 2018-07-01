@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
-import { HttpClient } from '@angular/common/http';
-const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
+import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
+import { ComboService } from '../combo.service';
+
 @Component({
   selector: 'app-list-tc',
   templateUrl: './list-tc.component.html',
   styleUrls: ['./list-tc.component.css']
 })
 export class ListTcComponent implements OnInit {
-  loading = true; // bug
-  loadingMore = false;
-  showLoadingMore = true;
-  data = [];
+  private loading = true; // bug
+  private data = [];
 
   isVisible = false;
 
+  constructor(private comboService: ComboService, private msg: NzMessageService, private notification: NzNotificationService) { }
 
-  constructor(private http: HttpClient, private msg: NzMessageService) { }
-  
   showModal(): void {
     this.isVisible = true;
   }
@@ -33,14 +30,20 @@ export class ListTcComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData((res: any) => {
-      this.data = res.results;
-      this.loading = false;
-    });
+    this.getData()
   }
 
-  getData(callback: (res: any) => void): void {
-    this.http.get(fakeDataUrl).subscribe((res: any) => callback(res));
+  getData(page = 1, page_size = 10): void {
+    this.comboService.getList({page, page_size}).subscribe({
+      next: (res: any) => {
+        this.data = res.results;
+        this.loading = false;
+      },
+      error: err => {
+        this.loading = false
+        this.notification.error("服务的错误", "获取套餐列表失败！！")
+      }
+    })
   }
 
 }

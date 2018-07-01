@@ -6,6 +6,8 @@ import { Routes, Router, RouterModule } from '@angular/router';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CommonsModule } from '../commons/commons.module';
 import { UpdateDetailComponent } from './update-detail/update-detail.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ComboService } from './combo.service';
 
 const TaoCanRoutes: Routes = [
   {path: "add-tc", component: AddTcComponent},
@@ -18,8 +20,11 @@ const TaoCanRoutes: Routes = [
     CommonsModule,
     CommonModule,
     NgZorroAntdModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(TaoCanRoutes)
   ],
+  providers: [ComboService],
   declarations: [AddTcComponent, ListTcComponent, UpdateDetailComponent]
 })
 export class TaoCanModule { }
