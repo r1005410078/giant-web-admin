@@ -7,7 +7,7 @@ import Quill, { DeltaStatic, Sources } from "quill";
   styleUrls: ['./quill.component.css']
 })
 export class QuillComponent implements OnInit, AfterContentInit {
-  private editor: Quill
+  public editor: Quill
   public get editorInnerHTML () {
     return this.imageb64toUrl();
   }
@@ -31,6 +31,6 @@ export class QuillComponent implements OnInit, AfterContentInit {
     this.editor = new Quill('#editor', {
       modules: { toolbar: '#toolbar' },
       theme: 'snow'
-    });
+    })
   }
 }

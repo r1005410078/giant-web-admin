@@ -20,9 +20,7 @@
     <tr>
       <th nzSortKey="username">配图</th>
       <th nzSortKey="username">套餐名字</th>
-      <th nzSortKey="startTime">租金区间一</th>
-      <th nzSortKey="ridingTime">租金区间二</th>
-      <th nzSortKey="ridingTime">租金区间三</th>
+      <th nzSortKey="interval">租金区间</th>
       <th nzSortKey="username">套餐数量</th>
       <th nzSortKey="username">启用状态</th>
       <th nzSortKey="vehicleNumber">套餐介绍</th>
@@ -33,18 +31,20 @@
     <tr *ngFor="let data of ajaxTable.data">
       <td><span class='peitu-span' (click)="showModal()">{{data.cover_img}}</span></td>
       <td>{{data.name}}</td>
-      <td *ngFor="let inter of data.interval">
-        开始时间： {{inter.start_time}} - 结束时间： {{inter.end_time}} - 金额 {{inter.money}}
+      <td>
+        <p *ngFor="let inter of data.interval">
+          开始时间： {{inter.start_time}} - 结束时间： {{inter.end_time}} - 金额 {{inter.money}}
+        </p>
       </td>
       <td>{{data.bike_count}}</td>
       <td>{{data.status}}</td>
       <td><p class="introduce">
         {{data.content}}
       </p></td>
-      <td><a routerLink="/tao-can/list-tc/{{data.id}}">编辑</a><a style="margin-left: 5px">删除</a></td>
+      <td><a routerLink="/giant/tao-can/list-tc/{{data.id}}">编辑</a><a style="margin-left: 5px">删除</a></td>
     </tr>
   </tbody>
 </nz-table>
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisible"  (nzOnCancel)="handleCancel()" nzTitle="套餐配图">
-  <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2878337702,2985218161&fm=27&gp=0.jpg" alt="套餐配图" width="100%" srcset="">
+  <img [src]="data.cover_img" alt="套餐配图" width="100%" srcset="">
 </nz-modal>

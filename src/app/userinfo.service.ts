@@ -27,7 +27,7 @@ export class UserinfoService implements CanLoad, CanActivate{
    * 获取用户信息
    */
   public get info ():Userinfo {
-    if (!this._info && this.cookie.get('id')) {
+    if (!this._info && this.cookie.get('token')) {
       this.getUserInfo()
     }
     return this._info
@@ -47,8 +47,8 @@ export class UserinfoService implements CanLoad, CanActivate{
    * @param u
    */
   getUserInfo () {
-    if (this.cookie.get('id')) {
-      return this.http.post('/system/user/detail', {id: this.cookie.get('id')})
+    if (this.cookie.get('token')) {
+      return this.http.post('/system/user/detail', {id: this.cookie.get('token')})
         .subscribe({
           next: (u: Userinfo) => {
             this._info = new Userinfo(
@@ -72,7 +72,7 @@ export class UserinfoService implements CanLoad, CanActivate{
     if (route.path === '') {
       return true
     }
-    if (this.cookie.get('id')) {
+    if (this.cookie.get('token')) {
       return true
     }
     this.router.navigate(['/login']);
@@ -80,10 +80,15 @@ export class UserinfoService implements CanLoad, CanActivate{
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.cookie.get('id')) {
+    if (this.cookie.get('token')) {
       this.router.navigate(['/giant']);
       return false
     }
     return true
+  }
+
+  logout () {
+    this.cookie.remove("token")
+    this.router.navigateByUrl("/login")
   }
 }

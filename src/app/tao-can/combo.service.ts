@@ -11,7 +11,7 @@ export class ComboService {
   constructor(private http: HttpClient) { }
 
   public saveOrUpdate (params: SaveRequestParams) {
-    return this.http.post('/api/system/combo/saveOrUpdate', params)
+    return this.http.post('http://localhost:4200/api/system/combo/saveOrUpdate', params)
   }
 
   public getDetail (params: DetailRequestParams) {

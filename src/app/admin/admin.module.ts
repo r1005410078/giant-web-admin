@@ -28,7 +28,6 @@ const routers: Routes = [
   imports: [
     CommonModule,
     CommonsModule,
-    HttpClientModule,
     RouterModule.forChild(routers),
     NgZorroAntdModule,
   ],

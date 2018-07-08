@@ -10,9 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AppComponent implements AfterContentInit {
   constructor (private router: Router, private userinfo: UserinfoService) {}
   onLogout () {
-    this.userinfo.cookie.remove("id")
-    console.log(1111)
-    this.router.navigateByUrl("/login")
+    this.userinfo.logout()
   }
   ngAfterContentInit () {
     document.getElementById('loading').remove()

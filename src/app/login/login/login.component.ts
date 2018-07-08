@@ -7,6 +7,11 @@ import {
 } from '@angular/forms';
 import { UserinfoService } from '../../userinfo.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { loginApi } from '../../api';
+import { NzNotificationService } from 'ng-zorro-antd';
+import { catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -24,16 +29,35 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
-    this.userinfo.cookie.set("id", "11")
-    this.router.navigateByUrl('/giant')
+    if (this.validateForm.valid) {
+      this.http.post(loginApi, this.validateForm.value)
+      .pipe(catchError(this.handleError()))
+      .subscribe((value: {ok: boolean, data?: {token: string}, error_msg?: string}) => {
+        if (value.error_msg) {
+          this.notification.error("登陆错误", value.error_msg);
+        }
+        if (value.ok) {
+          this.notification.success("登陆", "登陆成功!");
+          this.userinfo.cookie.set('token', value.data.token)
+          this.router.navigateByUrl('/giant')
+        }
+      })
+    }
   }
 
-  constructor(private router: Router, private fb: FormBuilder, private userinfo: UserinfoService) {
+  private handleError () {
+    return (error: any): Observable<any> => {
+      this.notification.error("服务的错误", "登陆失败!");
+      return of(null);
+    };
+  }
+
+  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder, private userinfo: UserinfoService, private notification: NzNotificationService) {
   }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [ null, [ Validators.required ] ],
+      username: [ null, [ Validators.required ] ],
       password: [ null, [ Validators.required ] ]
     });
   }

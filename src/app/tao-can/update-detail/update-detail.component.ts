@@ -15,8 +15,9 @@ class Crisis {
 export class UpdateDetailComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute) { }
-  
-  public id;
+
+  private id;
+
   ngOnInit() {
     this.activatedRoute.params.subscribe(queryParams => {
       console.log(queryParams)

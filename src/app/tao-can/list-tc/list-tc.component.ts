@@ -30,13 +30,15 @@ export class ListTcComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(1111)
     this.getData()
   }
 
-  getData(page = 1, page_size = 10): void {
+  getData(page = 1, page_size = 100): void {
     this.comboService.getList({page, page_size}).subscribe({
       next: (res: any) => {
-        this.data = res.results;
+        // console.log(res)
+        this.data = res.data.data;
         this.loading = false;
       },
       error: err => {

@@ -20,35 +20,64 @@ export class AddTcComponent implements OnInit {
   private interval: FormArray;
 
   @Input()
+  private id = null
+
+  @Input()
   private isHideNav = true
 
   @ViewChild(QuillComponent)
   private quillComponent: QuillComponent;
 
+  private formDefaultValues = {
+    "name": null,
+    "interval": [
+      {
+        "start_time": null,
+        "end_time": null,
+        "money": null
+      },
+    ],
+    "bike_count": null,
+    "status": null,
+    "cover_img": null,
+    "content": null,
+    "create_time": null,
+    "update_time": null
+  }
+
   constructor(private fb: FormBuilder, private comboService: ComboService, private notification: NzNotificationService) { }
 
   ngOnInit() {
-    this.interval = this.fb.array([
-      this.fb.group({
-        time: [ null, [ Validators.required ] ],
-        money: [ null, [ Validators.required ] ],
-      }),
-      this.fb.group({
-        time: [ null, [ Validators.required ] ],
-        money: [ null, [ Validators.required ] ],
-      }),
-      this.fb.group({
-        time: [ null, [ Validators.required ] ],
-        money: [ null, [ Validators.required ] ],
+    const dft = this.formDefaultValues
+    this.interval = this.fb.array(
+      dft.interval.map(({start_time, money}) => {
+        return this.fb.group({
+          time: [ start_time, [ Validators.required ] ],
+          money: [ money, [ Validators.required ] ],
+        })
       })
-    ])
+    )
 
     this.validateForm = this.fb.group({
-      name: [ null, [ Validators.required ] ],
-      bike_count: [ null, [ Validators.required ] ],
-      status: ['', [Validators.required]],
+      name: [ dft.name, [ Validators.required ] ],
+      bike_count: [ dft.bike_count, [ Validators.required ] ],
+      status: [ dft.status, [Validators.required]],
       interval: this.interval
     });
+
+    if (this.id) {
+      this.comboService.getDetail({id: this.id})
+        .subscribe({
+          next: (ret: any) => {
+            this.formDefaultValues = ret.data
+            this.quillComponent.editor.pasteHTML(this.formDefaultValues.content)
+          },
+          error: err => {
+            this.notification.error("服务的错误", "获取套餐详情失败 =>" + JSON.stringify(err))
+          }
+        })
+    }
+
   }
 
   submitForm(): void {

@@ -6,11 +6,13 @@ import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@ang
 import zh from '@angular/common/locales/zh';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { UserinfoService } from './userinfo.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './commons/menu/menu.component';
 import { CommonsModule } from './commons/commons.module';
+import { AuthInterceptorService } from './auth-interceptor.service';
+import { QiniuUploadService } from './qiniu-upload.service';
 
 const routers: Routes = [
   {
@@ -40,7 +42,13 @@ registerLocaleData(zh);
     RouterModule.forRoot(routers),
     NgZorroAntdModule,
   ],
-  providers: [NzNotificationService, UserinfoService, { provide: NZ_I18N, useValue: zh_CN }, { provide: LocationStrategy, useClass: HashLocationStrategy, }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+    QiniuUploadService,
+    NzNotificationService,
+    UserinfoService,
+    { provide: NZ_I18N, useValue: zh_CN }, { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
