@@ -4,26 +4,37 @@
     添加车辆
   </nz-breadcrumb-item>
 </nz-breadcrumb>
-  
-<form style="margin-top: 30px" nz-form (ngSubmit)="_submitForm($event, groupName.value)" nzLayout="horizontal">
+
+<form [formGroup]="vehicleGroup" style="margin-top: 30px" nz-form (ngSubmit)="submitForm()" nzLayout="horizontal">
   <nz-form-item  nzFlex>
     <nz-form-label nzSpan="3" nzRequired>车辆编号</nz-form-label>
     <nz-form-control nzSpan="12">
-      <input nz-input formControlName="taoCanName" placeholder="请输入车辆编号">
+      <input nz-input formControlName="bike_no" placeholder="请输入车辆编号">
+      <nz-form-explain *ngIf="vehicleGroup.get('bike_no').dirty && vehicleGroup.get('bike_no').errors">请输入车辆编号！</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item  nzFlex>
     <nz-form-label nzSpan="3" nzRequired>车的押金</nz-form-label>
     <nz-form-control nzSpan="12">
       <nz-input-group nzAddOnAfter="￥">
-        <input nz-input formControlName="taoCanName" placeholder="请输入车的押金">
-      </nz-input-group> 
+        <input nz-input formControlName="bike_money" placeholder="请输入车的押金">
+      </nz-input-group>
+      <nz-form-explain *ngIf="vehicleGroup.get('bike_money').dirty && vehicleGroup.get('bike_money').errors">请输入车的押金！</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3">类型</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <nz-input-group>
+        <input nz-input formControlName="bike_type" placeholder="请输入车的类型">
+        <nz-form-explain *ngIf="vehicleGroup.get('bike_type').dirty && vehicleGroup.get('bike_type').errors"></nz-form-explain>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <button [nzLoading]="loading" nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
 </form>
-<button nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
-  
-  
-  
-  
-  
+
+
+
+
+

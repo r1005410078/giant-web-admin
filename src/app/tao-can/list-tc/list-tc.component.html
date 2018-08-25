@@ -14,37 +14,36 @@
   [nzTotal]="total"
   [(nzPageIndex)]="pageIndex"
   [(nzPageSize)]="pageSize"
-  (nzPageIndexChange)="searchData()"
-  (nzPageSizeChange)="searchData(true)">
+  (nzPageIndexChange)="getData()"
+  (nzPageSizeChange)="getData()">
   <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
       <th nzSortKey="username">配图</th>
       <th nzSortKey="username">套餐名字</th>
       <th nzSortKey="interval">租金区间</th>
-      <th nzSortKey="username">套餐数量</th>
+      <th nzSortKey="username">车辆数量</th>
       <th nzSortKey="username">启用状态</th>
-      <th nzSortKey="vehicleNumber">套餐介绍</th>
       <th nzSortKey="depositAmount">操作</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of ajaxTable.data">
-      <td><span class='peitu-span' (click)="showModal()">{{data.cover_img}}</span></td>
+      <td><span class='peitu-span' (click)="showModal(data.cover_img)">{{data.cover_img}}</span></td>
       <td>{{data.name}}</td>
       <td>
         <p *ngFor="let inter of data.interval">
-          开始时间： {{inter.start_time}} - 结束时间： {{inter.end_time}} - 金额 {{inter.money}}
+          <span class="price">￥{{inter.money}}</span> 收费区间：{{inter.start_time}} 至 {{inter.end_time < 9999 ? inter.end_time : '∞' }}
         </p>
       </td>
       <td>{{data.bike_count}}</td>
       <td>{{data.status}}</td>
-      <td><p class="introduce">
-        {{data.content}}
-      </p></td>
-      <td><a routerLink="/giant/tao-can/list-tc/{{data.id}}">编辑</a><a style="margin-left: 5px">删除</a></td>
+      <td>
+        <a routerLink="/giant/tao-can/list-tc/{{data.id}}">编辑</a>
+        <a nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(data)" nzPlacement="bottomLeft" style="margin-left: 5px; color: red">删除</a>
+      </td>
     </tr>
   </tbody>
 </nz-table>
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisible"  (nzOnCancel)="handleCancel()" nzTitle="套餐配图">
-  <img [src]="data.cover_img" alt="套餐配图" width="100%" srcset="">
+  <img [src]="imgSrc" alt="套餐配图" width="100%" srcset="">
 </nz-modal>

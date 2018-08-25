@@ -11,14 +11,14 @@ export class ComboService {
   constructor(private http: HttpClient) { }
 
   public saveOrUpdate (params: SaveRequestParams) {
-    return this.http.post('http://localhost:4200/api/system/combo/saveOrUpdate', params)
+    return this.http.post('/api/system/combo/saveOrUpdate', params);
   }
 
   public getDetail (params: DetailRequestParams) {
-    return this.http.post('/api/system/combo/detail', params)
+    return this.http.post('/api/system/combo/detail', params);
   }
 
   public getList (params: ListRequestParams) {
-    return this.http.post('/api/system/combo/list', params)
+    return this.http.post('/api/system/combo/list', params);
   }
 }

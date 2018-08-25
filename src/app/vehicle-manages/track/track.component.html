@@ -7,11 +7,14 @@
     {{id}}
   </nz-breadcrumb-item>
 </nz-breadcrumb>
-<div style="padding:20px 20px;">
+<div style="padding:20px 20px;"  *ngFor="let item of data">
   <nz-timeline>
-    <nz-timeline-item>用户小艾，A驿站到B驿站 (2015-09-01)</nz-timeline-item>
-    <nz-timeline-item>用户小迪，C驿站到B驿站 (2015-10-01)</nz-timeline-item>
-    <nz-timeline-item >P调度到B驿站 2015-12-01</nz-timeline-item>
-    <nz-timeline-item nzColor="red" [nzDot]="dotTemplate">用户小李骑行中...</nz-timeline-item>
+    <nz-timeline-item>{{item.order_sn}}</nz-timeline-item>
+    <nz-timeline-item>车辆编号：{{item.bike_no}}</nz-timeline-item>
+    <nz-timeline-item>出发地点：{{item.rent_station_name}}</nz-timeline-item>
+    <nz-timeline-item>换车地点：{{item.return_station_name}}</nz-timeline-item>
+    <nz-timeline-item>姓名：{{item.real_name}}</nz-timeline-item>
+    <nz-timeline-item>创建时间： {{item.create_time}}</nz-timeline-item>
+    <nz-timeline-item>更新时间： {{item.update_time}}</nz-timeline-item>
   </nz-timeline>
 </div>

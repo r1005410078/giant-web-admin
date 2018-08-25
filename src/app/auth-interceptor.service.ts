@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import {of} from 'rxjs'
+import {of} from 'rxjs';
 import { Router } from '@angular/router';
 import { UserinfoService } from './userinfo.service';
 import { NzNotificationService } from 'ng-zorro-antd';
@@ -19,17 +19,20 @@ export class AuthInterceptorService implements HttpInterceptor {
     return next.handle(req.clone()).pipe(
       map((event) => {
         if (event instanceof HttpResponse) {
-          console.error('HttpResponse error')
+          // console.error('HttpResponse error')
         }
         return event;
       }),
       catchError(event => {
         if (event.status === 401) {
-          this.userinfo.logout()
-          this.notification.error("登陆", "登陆已失效, 请重新登陆")
+          this.userinfo.logout();
+          this.notification.error('登陆', '登陆已失效, 请重新登陆');
         }
-        return of(event.error)
+        if (event.status === 400) {
+          this.notification.error('错误', event.error.error_msg);
+        }
+        return of(event.error);
       })
-    )
+    );
   }
 }

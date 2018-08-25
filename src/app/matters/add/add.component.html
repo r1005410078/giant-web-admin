@@ -4,23 +4,26 @@
     添加注意事项
   </nz-breadcrumb-item>
 </nz-breadcrumb>
-<nz-form-item  nzFlex>
-  <nz-form-label nzSpan="3" nzRequired>骑车注意事项配图</nz-form-label>
-  <nz-form-control nzSpan="12">
-    <app-illustration></app-illustration>
-  </nz-form-control>
-</nz-form-item>
-<nz-form-item  nzFlex>
-  <nz-form-label nzSpan="3" nzRequired>骑车注意事项名称</nz-form-label>
-  <nz-form-control nzSpan="12">
-    <input nz-input formControlName="taoCanName" placeholder="请输入骑车注意事项名称">
-  </nz-form-control>
-</nz-form-item>
-<div nz-row>
-  <div nz-col nzSpan="3" style="text-align: right">骑车注意事项介绍：</div>
-  <div nz-col nzSpan="20">
-    <app-quill></app-quill>
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="4" nzRequired>路线配图</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <app-illustration [uploadImg]="formGroup.get('cover_img').value"></app-illustration>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="4" nzRequired>骑车注意事项名称</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <input nz-input [value]="formGroup.get('title').value" formControlName="title" placeholder="请输入骑车注意事项名称">
+    </nz-form-control>
+  </nz-form-item>
+  <div nz-row>
+    <div nz-col nzSpan="4" style="text-align: right">骑车注意事项介绍：</div>
+    <div nz-col nzSpan="18">
+      <app-quill>
+        {{formGroup.get('content').value}}
+      </app-quill>
+    </div>
   </div>
-</div>
-
-<button nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
+  <button [nzLoading]="loading" nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
+</form>

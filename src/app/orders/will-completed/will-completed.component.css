@@ -1,0 +1,9 @@
+.settlement {
+  cursor: pointer;
+  user-select: none;
+  text-decoration: underline;
+}
+
+.settlement:active {
+  color: #40a9ff;
+}

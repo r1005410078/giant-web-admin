@@ -4,7 +4,7 @@
       用户列表
     </nz-breadcrumb-item>
   </nz-breadcrumb>
-  
+  <button [disabled]="!displayDataChecked.length" nz-button nzType="primary" (click)="sendsXX(data)">发送短信</button>
   <nz-table
     #ajaxTable
     nzShowSizeChanger
@@ -14,22 +14,23 @@
     [nzTotal]="total"
     [(nzPageIndex)]="pageIndex"
     [(nzPageSize)]="pageSize"
-    (nzPageIndexChange)="searchData()"
-    (nzPageSizeChange)="searchData(true)">
-    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    (nzCurrentPageDataChange)="currentPageDataChange($event)"
+    (nzPageIndexChange)="updateData()"
+    (nzPageSizeChange)="updateData()">
+    <thead>
       <tr>
-        <th nzSortKey="username">用户名</th>
-        <th nzSortKey="username">手机号</th>
-        <th nzSortKey="username">注册时间</th>
-        <th nzSortKey="phoneNumber">操作</th>
+        <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+        <th>用户名</th>
+        <th>手机号</th>
+        <th>注册时间</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of ajaxTable.data">
-        <td>肖浩</td>
-        <td>18726673904</td>
-        <td>2018-09-10</td>
-        <td><button nz-button nzType="primary" (click)="showModal()">短信通知</button></td>
+        <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td>{{data.nickname}}</td>
+        <td>{{data.phone}}</td>
+        <td>{{data.create_time}}</td>
       </tr>
     </tbody>
   </nz-table>

@@ -1,19 +1,22 @@
+
 <nz-breadcrumb *ngIf="isHideNav" style="padding:15px 0; margin-bottom: 20px">
-    <nz-breadcrumb-item>广告投放</nz-breadcrumb-item>
-    <nz-breadcrumb-item>
-      添加广告栏
-    </nz-breadcrumb-item>
-  </nz-breadcrumb>
+  <nz-breadcrumb-item>广告投放</nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    添加广告栏
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<form nz-form nzLayout="horizontal" [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item  nzFlex>
     <nz-form-label nzSpan="3" nzRequired>广告配图</nz-form-label>
     <nz-form-control nzSpan="12">
-      <app-illustration></app-illustration>
+      <app-illustration [uploadImg]="validateForm.get('cover_img').value"></app-illustration>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item  nzFlex>
     <nz-form-label nzSpan="3" nzRequired>广告名称</nz-form-label>
     <nz-form-control nzSpan="12">
-      <input nz-input formControlName="taoCanName" placeholder="请输入广告名称">
+      <input nz-input formControlName="title" placeholder="请输入广告名称">
+      <nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors">请输入广告名称</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <div nz-row>
@@ -22,6 +25,5 @@
       <app-quill></app-quill>
     </div>
   </div>
-  
-  <button nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
-  
+  <button [nzLoading]="loading"  nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
+</form>

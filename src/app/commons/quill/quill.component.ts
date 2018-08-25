@@ -1,36 +1,42 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
-import Quill, { DeltaStatic, Sources } from "quill";
-
+import Quill, { DeltaStatic, Sources } from 'quill';
+import { QiniuUploadService } from '../../qiniu-upload.service';
+import { from, Observable } from 'rxjs';
+import { map, concatMap, tap } from 'rxjs/operators';
 @Component({
   selector: 'app-quill',
   templateUrl: './quill.component.html',
   styleUrls: ['./quill.component.css']
 })
 export class QuillComponent implements OnInit, AfterContentInit {
-  public editor: Quill
-  public get editorInnerHTML () {
-    return this.imageb64toUrl();
-  }
+  public editor: Quill;
 
-  private imageb64toUrl ():string {
-    const imgs:NodeList = document.querySelectorAll('.ql-editor img')
-    for (let index = 0; index < imgs.length; index++) {
-      const img = imgs[index] as HTMLImageElement;
-      img.src = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530464545486&di=8cd2ddddd8522cebbbfb5d6205601d99&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F12%2F29%2F66%2F40G58PIC9bI.jpg'
-    }
-    return this.editor.container.firstChild.innerHTML;
-  }
+  constructor (private qiniuSerivce: QiniuUploadService) { }
 
-  constructor() { }
+  public imageb64toUrl (next): void {
+    const imgs: NodeList = document.querySelectorAll('.ql-editor img');
+    from(imgs).pipe(
+      concatMap((img: HTMLImageElement) => {
+        return this.qiniuSerivce.upload([img.src])
+          .pipe(
+            tap(url => {
+              img.src = url;
+            })
+          );
+      })
+    )
+    .subscribe({
+      complete: () => next(this.editor.container.firstChild.innerHTML)
+    });
+  }
 
   ngOnInit() {
   }
 
   ngAfterContentInit () {
-    console.log(document.getElementById('quill'))
     this.editor = new Quill('#editor', {
       modules: { toolbar: '#toolbar' },
       theme: 'snow'
-    })
+    });
   }
 }

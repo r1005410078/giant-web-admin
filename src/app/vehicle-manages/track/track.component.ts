@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { tap, switchMap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Track } from '../interface';
 
 @Component({
   selector: 'app-track',
@@ -8,11 +11,22 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class TrackComponent implements OnInit {
   private id:string;
-  constructor(public activatedRoute: ActivatedRoute) { }
+  private data: Array<Track>
+  constructor(public activatedRoute: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
-      this.id = param.get('id')
+    this.activatedRoute.paramMap.pipe(
+      tap((param: ParamMap) => {
+        this.id = param.get('id')
+      }),
+      switchMap(() => {
+        return this.http.post('/api/system/bike/track', {
+          id: this.id
+        })
+      })
+    )
+    .subscribe((ret: {ok: boolean, data: Array<Track>}) => {
+      this.data = ret.data
     })
   }
 

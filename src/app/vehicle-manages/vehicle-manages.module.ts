@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CommonsModule } from '../commons/commons.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { TrackComponent } from './track/track.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const vehicleRoutes:Routes = [
   {path: 'add', component: AddComponent},
   {path: 'list', component: ListComponent},
@@ -18,6 +19,8 @@ const vehicleRoutes:Routes = [
     CommonModule,
     CommonsModule,
     NgZorroAntdModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(vehicleRoutes)
   ],
   declarations: [AddComponent, ListComponent, DetailComponent, TrackComponent]

@@ -4,30 +4,36 @@
     添加驿站
   </nz-breadcrumb-item>
 </nz-breadcrumb>
-<nz-form-item  nzFlex>
-  <nz-form-label nzSpan="3" nzRequired>驿站配图</nz-form-label>
-  <nz-form-control nzSpan="12">
-    <app-illustration></app-illustration>
-  </nz-form-control>
-</nz-form-item>
-<nz-form-item  nzFlex>
-  <nz-form-label nzSpan="3" nzRequired>驿站名称</nz-form-label>
-  <nz-form-control nzSpan="12">
-    <input nz-input formControlName="taoCanName" placeholder="请输入套餐名字">
-  </nz-form-control>
-</nz-form-item>
-<div nz-row>
-  <div nz-col nzSpan="3" style="text-align: right">驿站介绍：</div>
-  <div nz-col nzSpan="20">
-    <app-quill></app-quill>
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3" nzRequired>驿站配图</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <app-illustration [uploadImg]="formGroup.get('cover_img').value"></app-illustration>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3" nzRequired>驿站名称</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <input nz-input [value]="formGroup.get('name').value" formControlName="name" placeholder="请输入驿站名称">
+      <nz-form-explain *ngIf="formGroup.get('name').dirty && formGroup.get('name').errors">请输入驿站名称！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <div nz-row>
+    <div nz-col nzSpan="3" style="text-align: right">驿站介绍：</div>
+    <div nz-col nzSpan="20">
+      <app-quill>
+        {{formGroup.get('content').value}}
+      </app-quill>
+    </div>
   </div>
-</div>
-<div nz-row style="margin-top: 20px">
-  <div nz-col nzSpan="3" style="text-align: right">
-    地图：
+  <div nz-row style="margin-top: 20px">
+    <div nz-col nzSpan="3" style="text-align: right">
+      地图：
+    </div>
+    <div nz-col nzSpan="20" style="text-decoration: underline; color: #03A9F4; cursor: pointer;" (click)="onEideBMap()">
+      {{address?.address || '选择地址'}}
+    </div>
   </div>
-  <div nz-col nzSpan="20" style="text-decoration: underline; color: #03A9F4; cursor: pointer;" (click)="onEideBMap()">
-    宁波驿站
-  </div>
-</div>
-<button nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
+  <button [nzLoading]="loading" nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
+</form>
+

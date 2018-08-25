@@ -1,11 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BmapService {
-  value = "12132"
-  toggleState = new Subject()
+  routeAddress = {moreResultsUrl: ''};
+  toggleStateRouteMap = new Subject<any>();
+  address = {
+    lng: null,
+    lat: null,
+    address: null
+  };
+  toggleState = new Subject<{address: string, lat: string, lng: string}>();
   constructor() { }
+  clear () {
+    this.address = {
+      lng: null,
+      lat: null,
+      address: null
+    };
+  }
 }

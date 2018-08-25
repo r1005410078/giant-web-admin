@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { uptokenApi } from './api';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, distinct, concatMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 
 @Injectable({
@@ -21,16 +21,17 @@ export class QiniuUploadService {
             })
           )
         }),
-        switchMap((data: {base64: string, token: string}) => {
+        concatMap((data: {base64: string, token: string}) => {
           return this.http.post('http://upload.qiniup.com/putb64/-1', data.base64, {
             headers: {
               'Content-Type': 'application/octet-stream',
               "Authorization": `UpToken ${data.token}`
             }
           })
+          .pipe(
+            map((ret: {hash: string, key: string}) => 'http://pb84tovoy.bkt.clouddn.com/' + ret.key)
+          )
         })
       )
-
-
   }
 }

@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { WillPaymentComponent } from './will-payment/will-payment.component';
 import { CompletedComponent } from './completed/completed.component';
+import { FormsModule, ReactiveFormsModule } from '../../../node_modules/@angular/forms';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { WillRentComponent } from './will-rent/will-rent.component';
 
 const orederRouters: Routes  = [
   {
@@ -13,9 +16,11 @@ const orederRouters: Routes  = [
   }, {
     path: 'app-will-payment', component: WillPaymentComponent
   }, {
+    path: 'app-will-rent', component: WillRentComponent
+  }, {
     path: 'app-completed', component: CompletedComponent
   }
-]
+];
 
 @NgModule({
   exports: [
@@ -24,8 +29,11 @@ const orederRouters: Routes  = [
   imports: [
     CommonModule,
     RouterModule.forChild(orederRouters),
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxQRCodeModule
   ],
-  declarations: [WillCompletedComponent, HeaderComponent, WillPaymentComponent, CompletedComponent]
+  declarations: [WillCompletedComponent, HeaderComponent, WillPaymentComponent, CompletedComponent, WillRentComponent]
 })
 export class OrdersModule { }

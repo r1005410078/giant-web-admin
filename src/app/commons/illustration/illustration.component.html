@@ -3,10 +3,11 @@
     nzName="avatar"
     nzListType="picture-card"
     [nzShowUploadList]="false"
+    [nzBeforeUpload]="beforeUpload"
     (nzChange)="handleChange($event)">
-    <ng-container *ngIf="!avatarUrl">
+    <ng-container *ngIf="!uploadImg">
       <i class="anticon anticon-plus"></i>
       <div class="ant-upload-text">上传</div>
     </ng-container>
-    <img style="height: 100%;" *ngIf="avatarUrl" [src]="avatarUrl" class="avatar">
+    <img style="height: 100%;" *ngIf="uploadImg" [src]="uploadImg" class="avatar">
   </nz-upload>

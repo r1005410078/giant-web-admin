@@ -1,0 +1,22 @@
+<div class="baidu-map-bg" [@transformState]="transformState" (click)="toggleState()"></div>
+<div class="baidu-map" [@transformState]="transformState">
+    <div class="header">
+      添加位置信息
+      <button style="font-size: 14px" nz-button nzType="default" nzShape="circle" (click)="toggleState()" >完成</button>
+    </div>
+    <div class="bmap-context">
+      <div class="seach-save">
+        <div class="seach">
+          <nz-input-group nzSuffixIcon="anticon anticon-search">
+            <input id='autocompletes-start' [value]="bmapService.value" type="text" nz-ty nz-size="large" nz-input placeholder="输入起点地址名称" #autocompleteStart>
+          </nz-input-group>
+        </div>
+        <div class="seach">
+          <nz-input-group nzSuffixIcon="anticon anticon-search">
+            <input id='autocompletes-end' [value]="bmapService.value" type="text" nz-ty nz-size="large" nz-input placeholder="输入终点地址名称" #autocompleteEnd>
+          </nz-input-group>
+        </div>
+      </div>
+      <div [ngClass]="className" [id]="id" #routerMap></div>
+    </div>
+</div>

@@ -7,35 +7,48 @@
 </nz-breadcrumb>
 <div style="padding:20px 120px;">
   <nz-input-group nzSearch nzSize="large" [nzSuffix]="suffixButton">
-    <input type="text" nz-input placeholder="请输入车辆编号">
+    <input type="text" nz-input placeholder="请输入车辆编号" [(ngModel)]='value' >
   </nz-input-group>
   <ng-template #suffixButton>
-    <button nz-button nzType="primary" nzSize="large" nzSearch>搜索</button>
+    <button nz-button nzType="primary" nzSize="large" (click)="onClick()" nzSearch>搜索</button>
   </ng-template>
 </div>
 <nz-table
   #ajaxTable
   nzShowSizeChanger
   [nzFrontPagination]="false"
-  [nzData]="data"
+  [nzData]="seachData || data"
   [nzLoading]="loading"
   [nzTotal]="total"
   [(nzPageIndex)]="pageIndex"
   [(nzPageSize)]="pageSize"
-  (nzPageIndexChange)="searchData()"
-  (nzPageSizeChange)="searchData(true)">
+  (nzPageIndexChange)="getData()"
+  (nzPageSizeChange)="getData()">
   <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
-      <th nzSortKey="username">车辆编号</th>
-      <th nzSortKey="phoneNumber">押金</th>
-      <th nzSortKey="startTime">操作</th>
+      <th>车辆编号</th>
+      <th>类型</th>
+      <th>创建时间</th>
+      <th>操作</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of ajaxTable.data">
-      <td>11</td>
-      <td>1000元</td>
-      <td><a routerLink="/vehicle-manages/list/12">编辑</a> | <a routerLink="/vehicle-manages/track/12">查看出租轨迹</a></td>
+      <td>{{data.bike_no}}</td>
+      <td>{{data.bike_type}}</td>
+      <td>{{data.create_time}}</td>
+      <td>
+        <a [routerLink]="'/giant/vehicle-manages/list/'+data.id">编辑</a>
+        | <a [routerLink]="'/giant/vehicle-manages/track/'+data.id">查看出租轨迹</a>
+        |
+        <a nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(data)" nzPlacement="bottomLeft" style="color: red" >
+          删除
+        </a>
+      </td>
     </tr>
   </tbody>
 </nz-table>
+<a href="/api/system/bike/batchQrcode" download="下载全部二维码">
+  <button style="margin-top: 30px; float: right;" nz-button nzType="primary" [nzSize]="size"><i class="anticon anticon-download"></i>下载全部二维码</button>
+</a>
+

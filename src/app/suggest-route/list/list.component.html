@@ -11,21 +11,25 @@
 [nzRenderItem]="item"
 [nzPagination]="pagination">
   <ng-template #item let-item>
-      <nz-list-item [nzContent]="item.content" [nzActions]="[starAction,likeAction,msgAction]" [nzExtra]="extra">
-          <ng-template #starAction><i class="anticon anticon-delete" style="margin-right: 8px;"></i> 删除</ng-template>
-          <ng-template #likeAction><a routerLink="/suggest-route/list/1213"><i class="anticon anticon-form" style="margin-right: 8px;"></i> 编辑</a></ng-template>
+      <nz-list-item [nzContent]="" [nzActions]="[starAction,likeAction,msgAction]" [nzExtra]="extra">
+          <ng-template #starAction>
+              <span nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(item)" nzPlacement="bottomLeft" style="color: red" >
+                <i class="anticon anticon-delete" style="margin-right: 8px"></i>
+                删除
+              </span>
+          </ng-template>
+          <ng-template #likeAction><a [routerLink]="'/giant/suggest-route/list/'+item.id"><i class="anticon anticon-form" style="margin-right: 8px;"></i> 编辑</a></ng-template>
           <nz-list-item-meta
-              [nzAvatar]="item.avatar"
-              [nzTitle]="nzTitle"
-              [nzDescription]="item.description">
-              <ng-template #nzTitle>{{item.title}}</ng-template>
+            [nzAvatar]="item.cover_img"
+            [nzTitle]="nzTitle">
+            <ng-template #nzTitle>{{item.title}} <a class="look-map"  target="view_window" [href]="item.route[0]?.address">查看地图</a></ng-template>
           </nz-list-item-meta>
           <ng-template #extra>
-              <img height="150" alt="logo" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=665730562,532877059&fm=200&gp=0.jpg">
+            <img height="150" alt="logo" [src]="item.cover_img">
           </ng-template>
       </nz-list-item>
   </ng-template>
-  <ng-template #pagination>
+  <!-- <ng-template #pagination>
       <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
-  </ng-template>
+  </ng-template> -->
 </nz-list>

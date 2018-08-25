@@ -13,6 +13,7 @@ import { MenuComponent } from './commons/menu/menu.component';
 import { CommonsModule } from './commons/commons.module';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { QiniuUploadService } from './qiniu-upload.service';
+import { BmapService } from './bmap.service';
 
 const routers: Routes = [
   {
@@ -25,7 +26,7 @@ const routers: Routes = [
     path: 'login', loadChildren: './login/login.module#LoginModule',
     canActivate: [UserinfoService]
   }
-]
+];
 
 registerLocaleData(zh);
 
@@ -44,6 +45,7 @@ registerLocaleData(zh);
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+    BmapService,
     QiniuUploadService,
     NzNotificationService,
     UserinfoService,

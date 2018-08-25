@@ -9,13 +9,13 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 export class DetailComponent implements OnInit {
 
   constructor(public activatedRoute: ActivatedRoute) { }
-  private id:string;
+  private id: string;
   ngOnInit() {
   }
 
   ngAfterContentInit () {
     this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
-      this.id = param.get('id')
-    })
+      this.id = param.get('id');
+    });
   }
 }

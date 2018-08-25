@@ -20,3 +20,15 @@
   margin-top: 70px;
   padding: 0 20px;
 }
+
+.pay-code-img {
+  text-align: center;
+}
+
+.pay-code-img img {
+  width: 250px;
+}
+
+.ant-layout {
+  background: #ffffff;
+}

@@ -10,20 +10,25 @@
 [nzRenderItem]="item"
 [nzPagination]="pagination">
   <ng-template #item let-item>
-      <nz-list-item [nzContent]="item.content" [nzActions]="[starAction,likeAction,msgAction]" [nzExtra]="extra">
-          <ng-template #starAction><i class="anticon anticon-delete" style="margin-right: 8px;"></i> 删除</ng-template>
-          <ng-template #likeAction><a routerLink="/matters/list/1213"><i class="anticon anticon-form" style="margin-right: 8px;"></i> 编辑</a></ng-template>
+      <nz-list-item [nzActions]="[starAction,likeAction,msgAction]" [nzExtra]="extra">
+          <ng-template #starAction>
+            <span nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(item)" nzPlacement="bottomLeft" style="color: red" >
+              <i class="anticon anticon-delete" style="margin-right: 8px"></i>
+              删除
+            </span>
+          </ng-template>
+          <ng-template #likeAction><a [routerLink]="'/giant/matters/list/'+item.id"><i class="anticon anticon-form" style="margin-right: 8px;"></i> 编辑</a></ng-template>
           <nz-list-item-meta
               [nzAvatar]="item.avatar"
               [nzTitle]="nzTitle">
               <ng-template #nzTitle>{{item.title}}</ng-template>
           </nz-list-item-meta>
           <ng-template #extra>
-              <img width="150" alt="logo" src="http://img1.imgtn.bdimg.com/it/u=233004436,3095538597&fm=27&gp=0.jpg">
+              <img width="150" alt="logo" [src]="item.cover_img">
           </ng-template>
       </nz-list-item>
   </ng-template>
-  <ng-template #pagination>
+  <!-- <ng-template #pagination>
       <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
-  </ng-template>
+  </ng-template> -->
 </nz-list>

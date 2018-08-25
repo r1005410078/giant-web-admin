@@ -2,11 +2,21 @@
   <router-outlet name="aux"></router-outlet>
   <nz-layout [ngStyle]="{'margin-left': isCollapsed ? '64px' : '182px'}">
     <nz-header style="z-index: 111; background: #fff;height:64px; position: fixed; right: 0px" [ngStyle]="{'left': isCollapsed ? '64px' : '182px'}">
-      <nz-avatar class="tuxiang" [nzText]="'老王'" nzSize="large" [ngStyle]="{'background-color': '#7265e6'}"></nz-avatar>
-      <button (click)="onLogout()" nz-button>登出</button>
+      <ul nz-menu [nzMode]="'horizontal'">
+        <li nz-submenu style="float: right">
+          <span title style="font-size: 18px"><i class="anticon anticon-user"></i>清风扬</span>
+          <ul nz-menu-group>
+            <li nz-menu-item [nzSelected]="false" (click)="onLogout()">
+              <span><i class="anticon anticon-poweroff"></i>退出登陆</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </nz-header>
     <nz-content class='content'>
       <router-outlet></router-outlet>
     </nz-content>
   </nz-layout>
 </nz-layout>
+<app-bmap></app-bmap>
+<app-route-bmap></app-route-bmap>

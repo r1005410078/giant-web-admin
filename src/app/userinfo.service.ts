@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { CanLoad, Router, Route, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
-import * as Cookies from 'js-cookie'
+import * as Cookies from 'js-cookie';
 
 export class Userinfo {
   constructor(
@@ -21,22 +21,22 @@ export class Userinfo {
 @Injectable({
   providedIn: 'root'
 })
-export class UserinfoService implements CanLoad, CanActivate{
-  private _info:Userinfo = null;
+export class UserinfoService implements CanLoad, CanActivate {
+  private _info: Userinfo = null;
   /**
    * 获取用户信息
    */
-  public get info ():Userinfo {
+  public get info (): Userinfo {
     if (!this._info && this.cookie.get('token')) {
-      this.getUserInfo()
+      this.getUserInfo();
     }
-    return this._info
+    return this._info;
   }
   /**
    * 读取cookie
    */
   public get cookie (): Cookies.CookiesStatic {
-    return Cookies
+    return Cookies;
   }
   constructor(
     private http: HttpClient,
@@ -59,21 +59,21 @@ export class UserinfoService implements CanLoad, CanActivate{
               u.phone,
               u.real_name,
               u.update_time,
-            )
+            );
           },
           error: (err: any) => {
-            this.notification.error("服务的错误", "获取用户信息失败！！")
+            this.notification.error('服务的错误', '获取用户信息失败！！');
           }
-        })
+        });
     }
   }
 
   canLoad(route?: Route): boolean {
     if (route.path === '') {
-      return true
+      return true;
     }
     if (this.cookie.get('token')) {
-      return true
+      return true;
     }
     this.router.navigate(['/login']);
     return false;
@@ -82,13 +82,13 @@ export class UserinfoService implements CanLoad, CanActivate{
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.cookie.get('token')) {
       this.router.navigate(['/giant']);
-      return false
+      return false;
     }
-    return true
+    return true;
   }
 
   logout () {
-    this.cookie.remove("token")
-    this.router.navigateByUrl("/login")
+    this.cookie.remove('token');
+    this.router.navigateByUrl('/login');
   }
 }

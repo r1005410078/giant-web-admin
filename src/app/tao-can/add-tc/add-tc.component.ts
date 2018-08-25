@@ -8,6 +8,10 @@ import {
 import { QuillComponent } from '../../commons/quill/quill.component';
 import { ComboService } from '../combo.service';
 import { NzNotificationService } from 'ng-zorro-antd';
+import { IllustrationComponent } from '../../commons/illustration/illustration.component';
+import { of, Observable, iif } from 'rxjs';
+import { switchMap, map, tap } from 'rxjs/operators';
+import { SaveRequestParams } from '../model';
 
 @Component({
   selector: 'app-add-tc',
@@ -20,48 +24,42 @@ export class AddTcComponent implements OnInit {
   private interval: FormArray;
 
   @Input()
-  private id = null
+  private id = null;
 
   @Input()
-  private isHideNav = true
+  private isHideNav = true;
 
   @ViewChild(QuillComponent)
   private quillComponent: QuillComponent;
 
-  private formDefaultValues = {
-    "name": null,
-    "interval": [
-      {
-        "start_time": null,
-        "end_time": null,
-        "money": null
-      },
-    ],
-    "bike_count": null,
-    "status": null,
-    "cover_img": null,
-    "content": null,
-    "create_time": null,
-    "update_time": null
-  }
+  @ViewChild(IllustrationComponent)
+  private illustration: IllustrationComponent;
 
-  constructor(private fb: FormBuilder, private comboService: ComboService, private notification: NzNotificationService) { }
+  private loading = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private comboService: ComboService,
+    private notification: NzNotificationService) { }
 
   ngOnInit() {
-    const dft = this.formDefaultValues
-    this.interval = this.fb.array(
-      dft.interval.map(({start_time, money}) => {
-        return this.fb.group({
-          time: [ start_time, [ Validators.required ] ],
-          money: [ money, [ Validators.required ] ],
-        })
-      })
-    )
+
+    const interval = {
+      start_time: [ null, [ Validators.required ] ],
+      money: [ null, [ Validators.required ] ]
+    };
+
+    this.interval = this.fb.array([
+      this.fb.group(interval),
+      this.fb.group(interval),
+      this.fb.group(interval)
+    ]);
 
     this.validateForm = this.fb.group({
-      name: [ dft.name, [ Validators.required ] ],
-      bike_count: [ dft.bike_count, [ Validators.required ] ],
-      status: [ dft.status, [Validators.required]],
+      cover_img: [ null, [ ] ],
+      content: [ null, [ ] ],
+      name: [ null, [ Validators.required ] ],
+      bike_count: [ null, [ Validators.required ] ],
       interval: this.interval
     });
 
@@ -69,51 +67,92 @@ export class AddTcComponent implements OnInit {
       this.comboService.getDetail({id: this.id})
         .subscribe({
           next: (ret: any) => {
-            this.formDefaultValues = ret.data
-            this.quillComponent.editor.pasteHTML(this.formDefaultValues.content)
+            this.validateForm.patchValue(ret.data);
+            this.notification.error('套餐', '套餐保存成功！');
           },
           error: err => {
-            this.notification.error("服务的错误", "获取套餐详情失败 =>" + JSON.stringify(err))
+            this.notification.error('服务的错误', '获取套餐详情失败 =>' + JSON.stringify(err));
           }
-        })
+        });
     }
-
   }
 
   submitForm(): void {
+    // tslint:disable-next-line:forin
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     for (const formGroup of this.interval.controls) {
-      const controls = (formGroup as FormGroup).controls
+      const controls = (formGroup as FormGroup).controls;
+      // tslint:disable-next-line:forin
       for (const i in controls) {
         controls[ i ].markAsDirty();
         controls[ i ].updateValueAndValidity();
       }
     }
-
-    if (this.validateForm.valid) {
-      const f = this.validateForm.value
-      const parmas = {
-        bike_count: f.bike_count,
-        content: this.quillComponent.editorInnerHTML,
-        cover_img: "",
-        id: "",
-        interval: f.interval,
-        name: f.name,
-        status: f.status
-      }
-      this.comboService.saveOrUpdate(parmas)
-        .subscribe({
-          next: (data: any) => {
-            console.log(data)
-          },
-          error: err => {
-            this.notification.error("服务的错误", "添加套餐失败！！")
+    iif(() => this.validateForm.valid, of(this.validateForm.value)).pipe(
+      // 初始化参数
+      map(f => ({
+        ...f,
+        interval: f.interval.map((interval, i) => {
+          interval = {start_time: Number(interval.start_time), money: Number(interval.money)};
+          if (f.interval[i + 1]) {
+            return {
+              ...interval,
+              end_time: Number(f.interval[i + 1].start_time)
+            };
           }
+
+          if (!interval.end_time) {
+            interval.end_time = 999999;
+          }
+          return interval;
         })
-    }
+      })),
+      // 更新的时候， 需要id
+      tap((parmas: any) => {
+        if (this.id) {
+          parmas.id = this.id;
+        }
+      }),
+      tap((parmas: any) => {
+        parmas.bike_count = Number(parmas.bike_count);
+      }),
+      // 上传图像
+      switchMap((parmas: any) => {
+        return Observable.create(obser => {
+          this.loading = true;
+          this.illustration.upload(url => {
+            parmas.cover_img = url;
+            obser.next(parmas);
+          });
+        });
+      }),
+      // 富文本编辑器
+      switchMap((parmas: any) => { // 富文本编辑器
+        return Observable.create(obser => {
+          this.quillComponent.imageb64toUrl(content => {
+            parmas.content = content;
+            obser.next(parmas);
+          });
+        });
+      }),
+      // 保存数据
+      switchMap((parmas: SaveRequestParams) => {
+        return this.comboService.saveOrUpdate(parmas);
+      })
+    )
+    .subscribe({
+      next: (data: any) => {
+        this.notification.success('套餐', '添加套餐成功！');
+        this.loading = false;
+      },
+      error: err => {
+        this.loading = false;
+        this.notification.error('服务的错误', '添加套餐失败！！');
+      }
+    });
   }
 
   // 触发事件 html标记语言， text文本

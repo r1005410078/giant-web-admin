@@ -1,5 +1,5 @@
 
-<app-header title="待付押金"></app-header>
+<app-header title="待付押金" (onSearch)="onSearch($event)" (updateData)="getOrderListApi()"></app-header>
 
 <nz-table
   #ajaxTable
@@ -10,26 +10,65 @@
   [nzTotal]="total"
   [(nzPageIndex)]="pageIndex"
   [(nzPageSize)]="pageSize"
-  (nzPageIndexChange)="searchData()"
-  (nzPageSizeChange)="searchData(true)">
-  <thead (nzSortChange)="sort($event)" nzSingleSort>
+  (nzPageIndexChange)="onPageIndexChange()"
+  (nzPageSizeChange)="onPageIndexChange()">
+  <thead>
     <tr>
-      <th nzSortKey="username">用户名</th>
-      <th nzSortKey="phoneNumber">手机号</th>
-      <th nzShowFilter nzSortKey="station" [nzFilters]="station" (nzFilterChange)="updateFilter($event)"><span>租车驿站</span></th>
-      <th nzSortKey="depositPaymentMethod"><span>押金付款方式</span></th>
-      <th nzSortKey="depositAmount"><span>押金金额</span></th>
-      <th nzSortKey="depositAmount"><span>操作</span></th>
+      <th>用户名</th>
+      <th>手机号</th>
+      <th><span>租车驿站</span></th>
+      <th><span>押金付款方式</span></th>
+      <th><span>押金金额</span></th>
+      <th><span>操作</span></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of ajaxTable.data">
-      <td>11</td>
-      <td>22</td>
-      <td>33</td>
-      <td>11</td>
-      <td>22</td>
-      <td>扫码支付 | 现金已支付</td>
+      <td>{{data.real_name}}</td>
+      <td>{{data.phone}}</td>
+      <td>{{data.return_station_name}}</td>
+      <td>{{data.deposit_type}}</td>
+      <td>{{data.deposit_money}}</td>
+      <td>
+        <span *ngIf="data.deposit_type === '支付宝'" class='button' (click)="onCodePay(data)">扫码支付</span>
+        <span *ngIf="data.deposit_type === '微信'" class='button' (click)="onCodePay(data)">修改押金</span>
+        <span *ngIf="data.deposit_type === '现金' && !settlementLoading" class="button" (click)="onCodePay(data)" >现金结算</span>
+        <span *ngIf="data.deposit_type === '现金' && settlementLoading" class="button">现金结算中...</span>
+      </td>
     </tr>
   </tbody>
 </nz-table>
+<nz-modal [nzVisible]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+  <ng-template #modalTitle>
+    支付押金
+  </ng-template>
+  <ng-template #modalContent>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email">押金金额</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input value="{{payInfo?.deposit_money}}" name="deposit_money" type="number" #depositMoney>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+    <button nz-button *ngIf="payInfo?.deposit_type === '支付宝'" nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">生成支付二维码</button>
+    <button nz-button *ngIf="payInfo?.deposit_type === '微信'" nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">确定修改</button>
+    <button nz-button *ngIf="payInfo?.deposit_type === '现金'" nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">生成订单</button>
+  </ng-template>
+</nz-modal>
+<nz-modal [nzVisible]="codeUrl" [nzTitle]="codeTitle" [nzContent]="codeContent" [nzFooter]="codeFooter" (nzOnCancel)="handlePayCodeCOk()">
+  <ng-template #codeTitle>
+      支付二维码
+  </ng-template>
+  <ng-template #codeContent>
+    <ngx-qrcode
+      [qrc-value]="codeUrl"
+      qrc-class="pay-code-img"
+    >
+    </ngx-qrcode>
+  </ng-template>
+  <ng-template #codeFooter>
+    <button nz-button nzType="primary" (click)="handlePayCodeCOk()" >确定</button>
+  </ng-template>
+  </nz-modal>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QiniuUploadService } from '../../qiniu-upload.service';
+import { order_list_api, order_exportOrder_api } from '../../api';
+import { HttpClient } from '../../../../node_modules/@angular/common/http';
 
 
 @Component({
@@ -9,14 +11,54 @@ import { QiniuUploadService } from '../../qiniu-upload.service';
 })
 export class CompletedComponent implements OnInit {
 
-  constructor(private qiniu: QiniuUploadService) { }
+  dataSet = [1];
+  total = 0;
+  pageIndex = 1;
+  pageSize = 10;
+  loading = false;
+
+  constructor(
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
-    // console.log(11111, this.qiniu)
-    // this.qiniu.upload(['ddd,111', 'aaa, 2222'])
-    //   .subscribe(value => {
-    //     console.log(value)
-    //   })
+    this.getOrderListApi();
   }
-
+  onExcel () {
+    this.http.post(order_exportOrder_api, {
+      deposit_status: 1,
+      page_size: this.pageSize,
+      page: this.pageIndex,
+      rent_status: 1
+    })
+    .subscribe((res: any) => {
+      window.open(res.data.file_url);
+    });
+  }
+  onSearch (phone) {
+    const p = {};
+    if (phone) {
+      this.pageIndex = 1;
+      p['phone'] = phone;
+    }
+    this.getOrderListApi(p);
+  }
+  onPageIndexChange () {
+    this.getOrderListApi();
+  }
+  getOrderListApi (params?) {
+    this.loading = true;
+    return this.http.post(order_list_api, {
+      deposit_status: 2,
+      page_size: this.pageSize,
+      page: this.pageIndex,
+      rent_status: 1,
+      ...params
+    })
+    .subscribe((res: any) => {
+      this.loading = false;
+      this.dataSet = res.data.data;
+      this.total = res.data.total;
+    });
+  }
 }

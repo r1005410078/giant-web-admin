@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WillCompletedService } from '../services/will-completed.service';
+import { order_list_api, order_settlement_api } from '../../api';
+import { HttpClient } from '../../../../node_modules/@angular/common/http';
+import { NzNotificationService } from '../../../../node_modules/ng-zorro-antd';
+import { tap } from '../../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-will-completed',
@@ -8,46 +12,62 @@ import { WillCompletedService } from '../services/will-completed.service';
   providers: [ WillCompletedService ]
 })
 export class WillCompletedComponent implements OnInit {
+  dataSet = [1];
+  total = 0;
   pageIndex = 1;
   pageSize = 10;
-  total = 1;
-  dataSet = [1];
-  loading = true;
-  sortValue = null;
-  sortKey = null;
-  filterGender = [
-    { text: 'male', value: 'male' },
-    { text: 'female', value: 'female' }
-  ];
-  searchGenderList: string[] = [];
+  loading = false;
+  isVisible = false;
+  settlementLoading = false;
+  constructor(
+    private http: HttpClient,
+    private notification: NzNotificationService
+  ) { }
 
-  sort(sort: { key: string, value: string }): void {
-    this.sortKey = sort.key;
-    this.sortValue = sort.value;
-    this.searchData();
+  ngOnInit() {
+    this.getOrderListApi();
   }
-
-  constructor(private randomUserService: WillCompletedService) {
-  }
-
-  searchData(reset: boolean = false): void {
-    if (reset) {
+  onSearch (phone) {
+    const p = {};
+    if (phone) {
       this.pageIndex = 1;
+      p['phone'] = phone;
     }
-    this.loading = true;
-    this.randomUserService.getUsers(this.pageIndex, this.pageSize, this.sortKey, this.sortValue, this.searchGenderList).subscribe((data: any) => {
-      this.loading = false;
-      this.total = 200;
-      this.dataSet = data.results;
+    this.getOrderListApi(p);
+  }
+  onSettlement (payInfo) {
+    this.settlementLoading = true;
+    this.http.post(order_settlement_api, {
+      order_no: payInfo.deposit_order_sn
+    })
+    .pipe(
+      tap(() => {
+        this.loading = true;
+        this.getOrderListApi();
+      })
+    )
+    .subscribe((res: any) => {
+      this.loading = true;
+      this.settlementLoading = false;
+      this.notification.success('结算', '结算成功');
     });
   }
-
-  updateFilter(value: string[]): void {
-    this.searchGenderList = value;
-    this.searchData(true);
+  onPageIndexChange () {
+    this.getOrderListApi();
   }
-
-  ngOnInit(): void {
-    this.searchData();
+  getOrderListApi (params?) {
+    this.loading = true;
+    return this.http.post(order_list_api, {
+      deposit_status: 1,
+      page_size: this.pageSize,
+      page: this.pageIndex,
+      rent_status: 1,
+      ...params
+    })
+    .subscribe((res: any) => {
+      this.loading = false;
+      this.dataSet = res.data.data;
+      this.total = res.data.total;
+    });
   }
 }

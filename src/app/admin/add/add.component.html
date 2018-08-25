@@ -1,0 +1,46 @@
+<nz-breadcrumb *ngIf="isHideNav" style="padding:15px 0">
+  <nz-breadcrumb-item>管理员</nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    添加/更新 管理员
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<form style="margin-top: 30px" [formGroup]="validateForm" nz-form (ngSubmit)="submitForm()" nzLayout="horizontal">
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3" nzRequired>手机号码</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <input nz-input [value]="validateForm.get('phone').value" formControlName="phone" placeholder="请输入手机号码">
+      <nz-form-explain *ngIf="validateForm.get('phone').dirty && validateForm.get('phone').errors">请输入手机号码</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3" nzRequired>用户名</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <input nz-input [value]="validateForm.get('username').value" formControlName="username" placeholder="请输入用户名">
+      <nz-form-explain *ngIf="validateForm.get('username').dirty && validateForm.get('username').errors">请输入用户名</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3" nzRequired>密码</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <input nz-input [value]="validateForm.get('password').value" formControlName="password" placeholder="请输入密码">
+      <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">请输入密码</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3" nzRequired>权限</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <nz-select style="width: 100%" [ngModel]="validateForm.get('rolelist').value" formControlName="rolelist" nzAllowClear nzPlaceHolder="请输入权限">
+        <nz-option [nzValue]="1" nzLabel="最高权限"></nz-option>
+        <nz-option [nzValue]="2" nzLabel="店长"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="validateForm.get('rolelist').dirty && validateForm.get('rolelist').errors">请输入权限</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <button  [nzLoading]="loading" nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
+</form>
+
+
+
+

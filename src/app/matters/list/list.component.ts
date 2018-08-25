@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NzNotificationService } from '../../../../node_modules/ng-zorro-antd';
+import { article_list_api, article_update_api } from '../../api';
+import { HttpClient } from '../../../../node_modules/@angular/common/http';
+import { switchMap } from '../../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -6,16 +10,46 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  data = new Array(5).fill({}).map((i, index) => {
-    return {
-      title: `骑车注意事项 ${index}`,
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      content: '骑自行车外出比起走路,不安全的因素增加了,需要注意的安全事项如下: 1.要经常检修自行车,保持车况完好。车闸、车铃是否灵敏、正常,尤其重要。 2.骑保持车况完好。车闸、车铃是否灵敏、正常,尤其重要'
-    };
-  });
-  constructor() { }
+  data = [];
+  constructor(
+    private http: HttpClient,
+    private notification: NzNotificationService
+  ) { }
 
   ngOnInit() {
+    this.http.post(article_list_api, {
+      'page': 1,
+      'page_size': 99,
+      'type': 2
+    })
+    .subscribe({
+      next: (ret: any) => {
+        this.data = ret.data.data;
+      },
+      error: err => {
+        this.notification.error('服务的错误', '获取路线失败！');
+      }
+    });
   }
 
+  onDelete (item) {
+    item.status = 0;
+    this.http.post(article_update_api, item)
+      .pipe(
+        switchMap((res: any) => {
+          if (res.ok) {
+            return this.http.post(article_list_api, {
+              'page': 1,
+              'page_size': 99,
+              'type': 2
+            });
+          }
+        })
+      )
+      .subscribe((result: any) => {
+        if (result.ok) {
+          this.data = result.data.data;
+        }
+      });
+  }
 }

@@ -1,19 +1,27 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 import { HttpRequest, HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
+import { QiniuUploadService } from '../../qiniu-upload.service';
+import { Subject, Observable, of, pipe } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-illustration',
   templateUrl: './illustration.component.html',
   styleUrls: ['./illustration.component.css']
 })
-export class IllustrationComponent {
+export class IllustrationComponent implements OnInit {
 
-  public loading = false;
   @Input()
-  private avatarUrl: string = "https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=622769075,4000555572&fm=58";
+  private uploadImg: string = null;
+  public loading = false;
+  public uploadSubject = new Subject<string>();
 
-  constructor(private msg: NzMessageService, private http: HttpClient) {}
+  constructor(private msg: NzMessageService, private http: HttpClient, private qiniuService: QiniuUploadService) {}
+
+  ngOnInit () {
+    this.uploadSubject.lift;
+  }
 
   private getBase64(img: File, callback: (img: {}) => void): void {
     const reader = new FileReader();
@@ -21,18 +29,43 @@ export class IllustrationComponent {
     reader.readAsDataURL(img);
   }
 
-  handleChange(info: { file: UploadFile }): void {
-    if (info.file.status === 'uploading') {
-      this.loading = true;
-      return;
-    }
-    if (info.file.status === 'done') {
-      this.getBase64(info.file.originFileObj, (img: string) => {
-        this.loading = false;
-        console.log(1111, img)
-        this.avatarUrl = img;
-      });
-    }
+  beforeUpload = (file, fileList) => {
+
+    this.uploadImg = null;
+    return true;
   }
 
+  handleChange(info: { file: UploadFile }): void {
+    this.getBase64(info.file.originFileObj, (img: string) => {
+      this.loading = false;
+      this.uploadImg = img;
+      this.uploadSubject.next(this.uploadImg);
+    });
+    // if (info.file.status === 'uploading') {
+    //   this.loading = true;
+    //   return;
+    // }
+    // if (info.file.status === 'done') {
+
+    // }
+  }
+
+  upload (next) {
+    Observable.create(obser => {
+      if (this.uploadImg) {
+        obser.next(this.uploadImg);
+      } else {
+        this.uploadSubject.subscribe(b64 => obser.next(b64));
+      }
+    })
+    .pipe(
+      switchMap((b64: string) => {
+        if (b64.indexOf('data:') > -1) {
+          return this.qiniuService.upload([b64]);
+        }
+        return [b64];
+      })
+    )
+    .subscribe(next);
+  }
 }
