@@ -9,7 +9,7 @@ import { map, concatMap, tap } from 'rxjs/operators';
   styleUrls: ['./quill.component.css']
 })
 export class QuillComponent implements OnInit, AfterContentInit {
-  public editor: Quill;
+  public editor: any;
 
   constructor (private qiniuSerivce: QiniuUploadService) { }
 
