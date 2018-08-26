@@ -26,8 +26,8 @@ export class WillRentComponent implements OnInit {
 
   @ViewChild('depositMoney') depositMoney: ElementRef;
   constructor(
-    private http: HttpClient,
-    private notification: NzNotificationService
+    public http: HttpClient,
+    public notification: NzNotificationService
   ) { }
 
   ngOnInit() {
@@ -39,7 +39,6 @@ export class WillRentComponent implements OnInit {
   onCodePay (payInfo) {
     this.payInfo = payInfo;
     this.isVisible = true;
-    console.log(111, payInfo);
     of(payInfo)
     .pipe(
       tap(() => {
@@ -77,7 +76,6 @@ export class WillRentComponent implements OnInit {
       })
     )
     .subscribe((res: any) => {
-      console.log(11111);
       // this.isVisible = this.isConfirmLoading = false;
     });
   }

@@ -14,11 +14,11 @@ export class AddComponent implements OnInit {
   @Input() id = null;
   @Input() isHideNav = true;
 
-  private loading = false;
-  private vehicleGroup: FormGroup;
+  public loading = false;
+  public vehicleGroup: FormGroup;
 
   constructor(
-    private router: ActivatedRoute, private fb: FormBuilder, private http: HttpClient,  private notification: NzNotificationService) { }
+    public router: ActivatedRoute, public fb: FormBuilder, public http: HttpClient,  public notification: NzNotificationService) { }
 
   ngOnInit() {
     this.vehicleGroup = this.fb.group({

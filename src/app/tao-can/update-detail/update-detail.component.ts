@@ -14,15 +14,14 @@ class Crisis {
 })
 export class UpdateDetailComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(public activatedRoute: ActivatedRoute) { }
 
-  private id;
+  public id;
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(queryParams => {
-      console.log(queryParams)
-      this.id = queryParams.id
-    })
+      this.id = queryParams.id;
+    });
   }
 
 }

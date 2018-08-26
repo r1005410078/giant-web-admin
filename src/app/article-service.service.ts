@@ -7,7 +7,7 @@ import { article_list_api, article_detail_api, article_update_api } from './api'
 })
 export class ArticleServiceService {
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   getArticleList({page = 1, page_size = 99}) {
     return this.http.post(article_list_api, {page, page_size});

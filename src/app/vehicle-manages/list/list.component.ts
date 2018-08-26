@@ -14,7 +14,7 @@ export class ListComponent implements OnInit {
   value = '';
   data: Array<Bike> = [];
   seachData: Array<Bike> = null;
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   onClick () {
     this.seachData = this.data.filter(d => d.bike_no.indexOf(this.value) > -1);

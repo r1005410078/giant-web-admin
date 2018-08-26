@@ -8,11 +8,12 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterContentInit {
-  constructor (private router: Router, private userinfo: UserinfoService) {}
+  constructor (public router: Router, public userinfo: UserinfoService) {}
+  public isCollapsed = false;
   onLogout () {
-    this.userinfo.logout()
+    this.userinfo.logout();
   }
   ngAfterContentInit () {
-    document.getElementById('loading').remove()
+    document.getElementById('loading').remove();
   }
 }

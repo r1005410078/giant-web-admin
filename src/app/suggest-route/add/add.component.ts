@@ -17,14 +17,14 @@ import { article_update_api, article_detail_api } from '../../api';
 export class AddComponent implements OnInit, OnDestroy {
   @Input() isHideNav = true;
   @Input() id = null;
-  private loading = false;
-  private formGroup: FormGroup;
+  public loading = false;
+  public formGroup: FormGroup;
 
   constructor(
-    private bmapService: BmapService,
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private notification: NzNotificationService
+    public bmapService: BmapService,
+    public fb: FormBuilder,
+    public http: HttpClient,
+    public notification: NzNotificationService
   ) {
 
   }
@@ -34,13 +34,14 @@ export class AddComponent implements OnInit, OnDestroy {
       lng: null,
       lat: null,
       address: this.bmapService.routeAddress.moreResultsUrl
+      || (this.formGroup && this.formGroup.get('route').value[0] ? this.formGroup.get('route').value[0].address : '')
     };
   }
 
   @ViewChild(QuillComponent)
-  private quillComponent: QuillComponent;
+  public quillComponent: QuillComponent;
   @ViewChild(IllustrationComponent)
-  private illustration: IllustrationComponent;
+  public illustration: IllustrationComponent;
 
   ngOnInit() {
     this.formGroup = this.fb.group({
@@ -80,7 +81,6 @@ export class AddComponent implements OnInit, OnDestroy {
           if (this.id) {
             parmas.id = this.id;
           }
-          console.log(parmas);
         }),
         // 上传图像
         switchMap((parmas: any) => {

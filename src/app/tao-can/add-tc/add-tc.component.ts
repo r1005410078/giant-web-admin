@@ -20,27 +20,27 @@ import { SaveRequestParams } from '../model';
   providers: [FormBuilder]
 })
 export class AddTcComponent implements OnInit {
-  private validateForm: FormGroup;
-  private interval: FormArray;
+  public validateForm: FormGroup;
+  public interval: FormArray;
 
   @Input()
-  private id = null;
+  public id = null;
 
   @Input()
-  private isHideNav = true;
+  public isHideNav = true;
 
   @ViewChild(QuillComponent)
-  private quillComponent: QuillComponent;
+  public quillComponent: QuillComponent;
 
   @ViewChild(IllustrationComponent)
-  private illustration: IllustrationComponent;
+  public illustration: IllustrationComponent;
 
-  private loading = false;
+  public loading = false;
 
   constructor(
-    private fb: FormBuilder,
-    private comboService: ComboService,
-    private notification: NzNotificationService) { }
+    public fb: FormBuilder,
+    public comboService: ComboService,
+    public notification: NzNotificationService) { }
 
   ngOnInit() {
 

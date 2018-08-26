@@ -8,22 +8,25 @@ import { switchMap } from '../../../../node_modules/rxjs/operators';
   styleUrls: ['./red-packet-list.component.css']
 })
 export class RedPacketListComponent implements OnInit {
+  loading = false;
   data = [];
   total = 0;
   pageIndex = 1;
   pageSize = 10;
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   ngOnInit() {
     this.loadData();
   }
 
   loadData () {
+    this.loading = true;
     this.http.post('/api/system/redpacket/list', {
       page: this.pageIndex,
       page_size: this.pageSize
     })
     .subscribe((ret: any) => {
+      this.loading = false;
       this.total = ret.data.total;
       this.data = ret.data.data;
     });

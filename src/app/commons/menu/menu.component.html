@@ -8,13 +8,13 @@
       <span title><i class="anticon anticon-switcher"></i><span class="nav-text">订单管理</span></span>
       <ul>
         <li nz-menu-item [nzSelected]="selectedMap.sub1_item1" (click)="onSelected('sub1_item1')">
-          <a routerLink="/giant/oreders/app-will-payment">待付押金<nz-badge [nzCount]="pendingDepositCount" [nzStyle]="style1"></nz-badge></a>
+          <a routerLink="/giant/oreders/app-will-payment">待付押金<nz-badge [nzCount]="pendingDepositCount" ></nz-badge></a>
         </li>
         <li nz-menu-item [nzSelected]="selectedMap.sub1_item2" (click)="onSelected('sub1_item2')">
-          <a routerLink="/giant/oreders/app-will-rent">待付租金<nz-badge [nzCount]="pendingRentCount" [nzStyle]="style1"></nz-badge></a>
+          <a routerLink="/giant/oreders/app-will-rent">待付租金<nz-badge [nzCount]="pendingRentCount" ></nz-badge></a>
           </li>
         <li nz-menu-item [nzSelected]="selectedMap.sub1_item3" (click)="onSelected('sub1_item3')">
-          <a routerLink="/giant/oreders/app-will-completed">待完成<nz-badge [nzCount]="pendingCompletionCount" [nzStyle]="style1"></nz-badge></a>
+          <a routerLink="/giant/oreders/app-will-completed">待完成<nz-badge [nzCount]="pendingCompletionCount" ></nz-badge></a>
         </li>
         <li nz-menu-item [nzSelected]="selectedMap.sub1_item4" (click)="onSelected('sub1_item4')">
           <a routerLink="/giant/oreders/app-completed">已完成</a>

@@ -9,7 +9,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 export class RedPacketDetailComponent implements OnInit {
 
   constructor(public activatedRoute: ActivatedRoute) { }
-  private id:string;
+  public id:string;
   ngOnInit() {
   }
 

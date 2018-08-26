@@ -34,16 +34,19 @@ export class BmapComponent implements OnInit, AfterContentInit, OnDestroy {
   @Output() addMarker: EventEmitter<{}>;
   @ViewChild('map') mapElementRef: ElementRef;
   @ViewChild('autocomplete') autocompleteElementRef: ElementRef;
-  private bMap; // 百度地图
-  private autocomplete;
-  private untoggleState: Subscription;
-  constructor(private bmapService: BmapService) {
+  public bMap; // 百度地图
+  public autocomplete;
+  public untoggleState: Subscription;
+  constructor(public bmapService: BmapService) {
 
   }
 
   ngOnInit() {
     this.untoggleState = this.bmapService.toggleState.subscribe((data: any) => {
       this.bmapService.address = data;
+      if (this.bmapService.address.address) {
+        this.setPlace(this.bmapService.address.address);
+      }
       this.toggleState();
     });
   }
@@ -89,7 +92,15 @@ export class BmapComponent implements OnInit, AfterContentInit, OnDestroy {
   onconfirm = e => {
     const _value = e.item.value;
     const myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-    this.bmapService.address.address = myValue;
+    const myGeo = new BMap.Geocoder();
+    myGeo.getPoint(myValue, point => {
+      if (point) {
+        this.bmapService.address = {
+          ...point,
+          address: myValue
+        };
+      }
+    }, this.city);
     this.setPlace(myValue);
   }
   /**

@@ -7,22 +7,25 @@ import { HttpClient } from '../../../../node_modules/@angular/common/http';
   styleUrls: ['./rolelist.component.css']
 })
 export class RolelistComponent implements OnInit {
+  loading = false;
   data: any = [];
   total = 0;
   pageIndex = 1;
   pageSize = 10;
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   ngOnInit() {
    this.getData();
   }
   getData () {
+    this.loading = true;
     this.http.post('/api/system/admin/list', {
       'page': this.pageIndex,
       'page_size': this.pageSize
     })
     .subscribe((ret: any) => {
+      this.loading = false;
       this.total = ret.data.total;
       this.data = ret.data.data;
     });

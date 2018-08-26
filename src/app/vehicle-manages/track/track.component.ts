@@ -10,9 +10,9 @@ import { Track } from '../interface';
   styleUrls: ['./track.component.css']
 })
 export class TrackComponent implements OnInit {
-  private id:string;
-  private data: Array<Track>
-  constructor(public activatedRoute: ActivatedRoute, private http: HttpClient) { }
+  public id:string;
+  public data: Array<Track>
+  constructor(public activatedRoute: ActivatedRoute, public http: HttpClient) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.pipe(

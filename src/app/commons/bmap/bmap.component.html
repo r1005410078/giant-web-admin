@@ -2,13 +2,13 @@
 <div class="baidu-map" [@transformState]="transformState">
     <div class="header">
         添加位置信息
-        <button nz-button nzType="default" nzShape="circle" (click)="toggleState()" >完成</button>
+        <button style="font-size: 14px" nz-button nzType="danger" nzShape="circle" (click)="toggleState()" >完成</button>
     </div>
     <div class="bmap-context">
         <div class="seach-save">
             <div class="seach">
                 <nz-input-group nzSuffixIcon="anticon anticon-search">
-                  <input id='autocomplete' [value]="bmapService.value" type="text" nz-ty nz-size="large" nz-input placeholder="输入地址名称" #autocomplete>
+                  <input id='autocomplete' [value]="bmapService?.address?.address" type="text" nz-ty nz-size="large" nz-input placeholder="输入地址名称" #autocomplete>
                 </nz-input-group>
             </div>
         </div>

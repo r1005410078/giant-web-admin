@@ -19,15 +19,15 @@ export class AddComponent implements OnInit {
   @Input() isHideNav = true;
 
   @ViewChild(QuillComponent)
-  private quillComponent: QuillComponent;
+  public quillComponent: QuillComponent;
 
   @ViewChild(IllustrationComponent)
-  private illustration: IllustrationComponent;
+  public illustration: IllustrationComponent;
 
 
-  private loading = false;
-  private validateForm: FormGroup;
-  constructor(private http: HttpClient, private fb: FormBuilder, private notification: NzNotificationService) { }
+  public loading = false;
+  public validateForm: FormGroup;
+  constructor(public http: HttpClient, public fb: FormBuilder, public notification: NzNotificationService) { }
 
   ngOnInit() {
 

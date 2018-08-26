@@ -13,7 +13,7 @@ import { NzNotificationService } from 'ng-zorro-antd';
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private router: Router, private userinfo: UserinfoService, private notification: NzNotificationService) { }
+  constructor(public router: Router, public userinfo: UserinfoService, public notification: NzNotificationService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req.clone()).pipe(

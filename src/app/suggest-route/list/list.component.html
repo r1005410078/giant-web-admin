@@ -9,7 +9,7 @@
 [nzDataSource]="data"
 [nzItemLayout]="'vertical'"
 [nzRenderItem]="item"
-[nzPagination]="pagination">
+>
   <ng-template #item let-item>
       <nz-list-item [nzContent]="" [nzActions]="[starAction,likeAction,msgAction]" [nzExtra]="extra">
           <ng-template #starAction>

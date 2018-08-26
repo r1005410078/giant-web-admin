@@ -9,7 +9,7 @@ import { ActivatedRoute, ParamMap } from '../../../../node_modules/@angular/rout
 export class DetailComponent implements OnInit {
 
   constructor(public activatedRoute: ActivatedRoute) { }
-  private id:string;
+  public id:string;
   ngOnInit() {
   }
 

@@ -89,6 +89,7 @@ export class UserinfoService implements CanLoad, CanActivate {
 
   logout () {
     this.cookie.remove('token');
-    this.router.navigateByUrl('/login');
+    // this.router.navigateByUrl('/login');
+    location.reload();
   }
 }

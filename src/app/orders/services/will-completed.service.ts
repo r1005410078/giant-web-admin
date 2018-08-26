@@ -22,7 +22,7 @@ export class WillCompletedService {
     });
   }
 
-  constructor(private http: HttpClient) {
+  constructor(public http: HttpClient) {
 
   }
 }

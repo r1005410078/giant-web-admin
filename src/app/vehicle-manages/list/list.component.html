@@ -18,13 +18,12 @@
   nzShowSizeChanger
   [nzFrontPagination]="false"
   [nzData]="seachData || data"
-  [nzLoading]="loading"
   [nzTotal]="total"
   [(nzPageIndex)]="pageIndex"
   [(nzPageSize)]="pageSize"
   (nzPageIndexChange)="getData()"
   (nzPageSizeChange)="getData()">
-  <thead (nzSortChange)="sort($event)" nzSingleSort>
+  <thead>
     <tr>
       <th>车辆编号</th>
       <th>类型</th>
@@ -49,6 +48,6 @@
   </tbody>
 </nz-table>
 <a href="/api/system/bike/batchQrcode" download="下载全部二维码">
-  <button style="margin-top: 30px; float: right;" nz-button nzType="primary" [nzSize]="size"><i class="anticon anticon-download"></i>下载全部二维码</button>
+  <button style="margin-top: 30px; float: right;" nz-button nzType="primary"><i class="anticon anticon-download"></i>下载全部二维码</button>
 </a>
 

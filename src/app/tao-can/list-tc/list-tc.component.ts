@@ -9,8 +9,8 @@ import { HttpClient } from '../../../../node_modules/@angular/common/http';
   styleUrls: ['./list-tc.component.css']
 })
 export class ListTcComponent implements OnInit {
-  private loading = true; // bug
-  private data = [];
+  public loading = true; // bug
+  public data = [];
 
   isVisible = false;
   total = 0;
@@ -19,10 +19,10 @@ export class ListTcComponent implements OnInit {
   imgSrc = '';
 
   constructor(
-    private http: HttpClient,
-    private comboService: ComboService,
-    private msg: NzMessageService,
-    private notification: NzNotificationService) { }
+    public http: HttpClient,
+    public comboService: ComboService,
+    public msg: NzMessageService,
+    public notification: NzNotificationService) { }
 
   showModal(imgSrc): void {
     this.imgSrc = imgSrc;
@@ -30,17 +30,14 @@ export class ListTcComponent implements OnInit {
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 
   ngOnInit() {
-    console.log(1111);
     this.getData();
   }
 

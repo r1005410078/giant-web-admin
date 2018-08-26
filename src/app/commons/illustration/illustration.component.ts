@@ -13,17 +13,17 @@ import { switchMap, tap } from 'rxjs/operators';
 export class IllustrationComponent implements OnInit {
 
   @Input()
-  private uploadImg: string = null;
+  public uploadImg: string = null;
   public loading = false;
   public uploadSubject = new Subject<string>();
 
-  constructor(private msg: NzMessageService, private http: HttpClient, private qiniuService: QiniuUploadService) {}
+  constructor(public msg: NzMessageService, public http: HttpClient, public qiniuService: QiniuUploadService) {}
 
   ngOnInit () {
     this.uploadSubject.lift;
   }
 
-  private getBase64(img: File, callback: (img: {}) => void): void {
+  public getBase64(img: File, callback: (img: {}) => void): void {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);

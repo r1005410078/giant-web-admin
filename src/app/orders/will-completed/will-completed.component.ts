@@ -20,8 +20,8 @@ export class WillCompletedComponent implements OnInit {
   isVisible = false;
   settlementLoading = false;
   constructor(
-    private http: HttpClient,
-    private notification: NzNotificationService
+    public http: HttpClient,
+    public notification: NzNotificationService
   ) { }
 
   ngOnInit() {

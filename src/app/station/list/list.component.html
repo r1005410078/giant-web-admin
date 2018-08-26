@@ -5,10 +5,10 @@
   </nz-breadcrumb-item>
 </nz-breadcrumb>
 <nz-list
-[nzDataSource]="data"
-[nzItemLayout]="'vertical'"
-[nzRenderItem]="item"
-[nzPagination]="pagination">
+  [nzDataSource]="data"
+  [nzItemLayout]="'vertical'"
+  [nzRenderItem]="item"
+>
   <ng-template #item let-item>
       <nz-list-item [nzActions]="[starAction,likeAction,msgAction]" [nzExtra]="extra">
           <ng-template #starAction>

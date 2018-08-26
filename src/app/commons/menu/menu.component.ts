@@ -12,18 +12,18 @@ import { order_count_api } from '../../api';
 export class MenuComponent implements OnInit, OnDestroy {
 
   title = 'app';
-  isCollapsed = false;
+  public isCollapsed = false;
 
   pendingDepositCount = 0;
   pendingCompletionCount = 0;
   pendingRentCount = 0;
 
-  private orderCount: Subscription;
+  public orderCount: Subscription;
 
   // tslint:disable-next-line:member-ordering
-  private openMap = {};
-  private selectedMap = {};
-  constructor (private http: HttpClient) {
+  public openMap: any = {};
+  public selectedMap: any = {};
+  constructor (public http: HttpClient) {
     if (!localStorage.getItem('openMap')) {
       localStorage.setItem('openMap', JSON.stringify({
         sub1: true,
@@ -81,7 +81,6 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   onSelected(value: string): void {
-    console.log(this.selectedMap);
     for (const key in this.selectedMap) {
       if (key === value) {
         this.selectedMap[ key ] = true;

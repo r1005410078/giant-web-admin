@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private handleError () {
+  public handleError () {
     return (error: any): Observable<any> => {
       this.notification.error('服务的错误', '登陆失败!');
       return of(null);
@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(
-    private http: HttpClient,
-    private router: Router, private fb: FormBuilder, private userinfo: UserinfoService, private notification: NzNotificationService) {
+    public http: HttpClient,
+    public router: Router, public fb: FormBuilder, public userinfo: UserinfoService, public notification: NzNotificationService) {
   }
 
   ngOnInit(): void {

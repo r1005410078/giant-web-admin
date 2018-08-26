@@ -18,7 +18,7 @@ export class CompletedComponent implements OnInit {
   loading = false;
 
   constructor(
-    private http: HttpClient
+    public http: HttpClient
   ) { }
 
   ngOnInit() {

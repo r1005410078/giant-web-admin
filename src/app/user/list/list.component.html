@@ -4,13 +4,12 @@
       用户列表
     </nz-breadcrumb-item>
   </nz-breadcrumb>
-  <button [disabled]="!displayDataChecked.length" nz-button nzType="primary" (click)="sendsXX(data)">发送短信</button>
+  <button [disabled]="!displayDataChecked.length" nz-button nzType="primary" (click)="sendsXX()">发送短信</button>
   <nz-table
     #ajaxTable
     nzShowSizeChanger
     [nzFrontPagination]="false"
     [nzData]="data"
-    [nzLoading]="loading"
     [nzTotal]="total"
     [(nzPageIndex)]="pageIndex"
     [(nzPageSize)]="pageSize"

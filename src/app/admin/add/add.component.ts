@@ -13,10 +13,10 @@ import { tap, switchMap } from 'rxjs/operators';
 export class AddComponent implements OnInit {
   @Input() isHideNav = false;
   @Input() id = null;
-  private loading = false;
-  private validateForm: FormGroup;
+  public loading = false;
+  public validateForm: FormGroup;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private notification: NzNotificationService) { }
+  constructor(public http: HttpClient, public fb: FormBuilder, public notification: NzNotificationService) { }
 
   ngOnInit() {
     this.validateForm = this.fb.group({

@@ -16,19 +16,19 @@ import { map, tap, switchMap } from '../../../../node_modules/rxjs/operators';
 export class AddComponent implements OnInit {
   @Input() isHideNav = true;
   @Input() id = null;
-  private loading = false;
-  private formGroup: FormGroup;
+  public loading = false;
+  public formGroup: FormGroup;
 
   @ViewChild(QuillComponent)
-  private quillComponent: QuillComponent;
+  public quillComponent: QuillComponent;
   @ViewChild(IllustrationComponent)
-  private illustration: IllustrationComponent;
+  public illustration: IllustrationComponent;
 
 
   constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private notification: NzNotificationService
+    public fb: FormBuilder,
+    public http: HttpClient,
+    public notification: NzNotificationService
   ) { }
 
   ngOnInit() {
@@ -69,7 +69,6 @@ export class AddComponent implements OnInit {
           if (this.id) {
             parmas.id = this.id;
           }
-          console.log(parmas);
         }),
         // 上传图像
         switchMap((parmas: any) => {
@@ -97,7 +96,6 @@ export class AddComponent implements OnInit {
       )
       .subscribe({
         next: (data: any) => {
-          console.log(data);
           this.loading = false;
           this.notification.success('成功', '添加成功');
         },

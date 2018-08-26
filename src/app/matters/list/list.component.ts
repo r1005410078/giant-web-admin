@@ -12,8 +12,8 @@ import { switchMap } from '../../../../node_modules/rxjs/operators';
 export class ListComponent implements OnInit {
   data = [];
   constructor(
-    private http: HttpClient,
-    private notification: NzNotificationService
+    public http: HttpClient,
+    public notification: NzNotificationService
   ) { }
 
   ngOnInit() {

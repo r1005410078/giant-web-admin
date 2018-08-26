@@ -11,7 +11,7 @@ import { map, concatMap, tap } from 'rxjs/operators';
 export class QuillComponent implements OnInit, AfterContentInit {
   public editor: any;
 
-  constructor (private qiniuSerivce: QiniuUploadService) { }
+  constructor (public qiniuSerivce: QiniuUploadService) { }
 
   public imageb64toUrl (next): void {
     const imgs: NodeList = document.querySelectorAll('.ql-editor img');

@@ -16,7 +16,7 @@
   [(nzPageSize)]="pageSize"
   (nzPageIndexChange)="getData()"
   (nzPageSizeChange)="getData()">
-  <thead (nzSortChange)="sort($event)" nzSingleSort>
+  <thead nzSingleSort>
     <tr>
       <th nzSortKey="username">手机号</th>
       <th nzSortKey="username">名字</th>

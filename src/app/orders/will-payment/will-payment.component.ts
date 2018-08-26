@@ -25,8 +25,8 @@ export class WillPaymentComponent implements OnInit {
 
   @ViewChild('depositMoney') depositMoney: ElementRef;
   constructor(
-    private http: HttpClient,
-    private notification: NzNotificationService
+    public http: HttpClient,
+    public notification: NzNotificationService
   ) { }
 
   ngOnInit() {
@@ -77,7 +77,6 @@ export class WillPaymentComponent implements OnInit {
       })
     )
     .subscribe((res: any) => {
-      console.log(11111);
       // this.isVisible = this.isConfirmLoading = false;
     });
   }

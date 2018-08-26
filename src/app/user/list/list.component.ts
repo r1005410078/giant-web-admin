@@ -8,10 +8,10 @@ import { NzNotificationService } from '../../../../node_modules/ng-zorro-antd';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  private data = [];
-  private total = 0;
-  private pageIndex = 1;
-  private pageSize = 10;
+  public data = [];
+  public total = 0;
+  public pageIndex = 1;
+  public pageSize = 10;
   isVisible = false;
   allChecked = false;
   indeterminate = false;
@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
     return this.displayData.filter(data => data.checked).map(d => d.id);
   }
 
-  constructor(private http: HttpClient, private notification: NzNotificationService) {}
+  constructor(public http: HttpClient, public notification: NzNotificationService) {}
 
   ngOnInit () {
     this.updateData();

@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ComboService {
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   public saveOrUpdate (params: SaveRequestParams) {
     return this.http.post('/api/system/combo/saveOrUpdate', params);

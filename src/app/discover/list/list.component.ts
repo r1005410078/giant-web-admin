@@ -12,7 +12,7 @@ import { switchMap } from '../../../../node_modules/rxjs/operators';
 export class ListComponent implements OnInit {
 
   data: Array<Article> = [];
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   ngOnInit() {
     this.http.post(article_list_api, {

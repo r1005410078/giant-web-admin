@@ -7,8 +7,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  private id;
-  constructor(private activatedRoute: ActivatedRoute) { }
+  public id;
+  constructor(public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe( (param: ParamMap) => {

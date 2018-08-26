@@ -20,18 +20,18 @@ export class AddComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input() isHideNav = true;
 
   @ViewChild(QuillComponent)
-  private quillComponent: QuillComponent;
+  public quillComponent: QuillComponent;
   @ViewChild(IllustrationComponent)
-  private illustration: IllustrationComponent;
+  public illustration: IllustrationComponent;
 
-  private loading = false;
-  private formGroup: FormGroup;
+  public loading = false;
+  public formGroup: FormGroup;
 
   constructor(
-    private http: HttpClient,
-    private bmapService: BmapService,
-    private fb: FormBuilder,
-    private notification: NzNotificationService
+    public http: HttpClient,
+    public bmapService: BmapService,
+    public fb: FormBuilder,
+    public notification: NzNotificationService
   ) {
 
   }
@@ -61,7 +61,6 @@ export class AddComponent implements OnInit, AfterContentInit, OnDestroy {
           if (this.id) {
             parmas.id = this.id;
           }
-          console.log(parmas);
         }),
         // 上传图像
         switchMap((parmas: any) => {

@@ -35,12 +35,12 @@ export class RouteBmapComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('routerMap') mapElementRef: ElementRef;
   @ViewChild('autocompleteStart') autocompleteStartElementRef: ElementRef;
   @ViewChild('autocompleteEnd') autocompleteEndElementRef: ElementRef;
-  private bMap; // 百度地图
-  private autocomplete;
-  private transit = null;
-  private ponits = {start: null, end: null};
-  private untoggleState: Subscription;
-  constructor(private bmapService: BmapService) {
+  public bMap; // 百度地图
+  public autocomplete;
+  public transit = null;
+  public ponits = {start: null, end: null};
+  public untoggleState: Subscription;
+  constructor(public bmapService: BmapService) {
 
   }
 
@@ -88,7 +88,6 @@ export class RouteBmapComponent implements OnInit, AfterContentInit, OnDestroy {
 
   setPolylinesSetCallback = routes => {
     this.bmapService.routeAddress = this.transit.getResults();
-    console.log(this.bmapService.routeAddress);
   }
 
   /**
