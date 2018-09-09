@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NZ_I18N, zh_CN, NgZorroAntdModule } from 'ng-zorro-antd';
 import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';

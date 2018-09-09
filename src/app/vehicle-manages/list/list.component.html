@@ -26,7 +26,10 @@
   <thead>
     <tr>
       <th>车辆编号</th>
-      <th>类型</th>
+      <th>车辆类型</th>
+      <th>车辆押金</th>
+      <th>车辆型号</th>
+      <th>车架号</th>
       <th>创建时间</th>
       <th>操作</th>
     </tr>
@@ -35,6 +38,9 @@
     <tr *ngFor="let data of ajaxTable.data">
       <td>{{data.bike_no}}</td>
       <td>{{data.bike_type}}</td>
+      <td>{{data.bike_money}}</td>
+      <td>{{data.type_no}}</td>
+      <td>{{data.bike_frame_no}}</td>
       <td>{{data.create_time}}</td>
       <td>
         <a [routerLink]="'/giant/vehicle-manages/list/'+data.id">编辑</a>
@@ -47,7 +53,7 @@
     </tr>
   </tbody>
 </nz-table>
-<a href="/api/system/bike/batchQrcode" download="下载全部二维码">
+<a [hidden]="!downloadUrl" [href]="downloadUrl" download="下载全部二维码">
   <button style="margin-top: 30px; float: right;" nz-button nzType="primary"><i class="anticon anticon-download"></i>下载全部二维码</button>
 </a>
 

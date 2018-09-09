@@ -4,7 +4,7 @@
     <nz-header style="z-index: 111; background: #fff;height:64px; position: fixed; right: 0px" [ngStyle]="{'left': isCollapsed ? '64px' : '182px'}">
       <ul nz-menu [nzMode]="'horizontal'">
         <li nz-submenu style="float: right">
-          <span title style="font-size: 18px"><i class="anticon anticon-user"></i>清风扬</span>
+          <span title style="font-size: 18px"><i class="anticon anticon-user"></i>{{user.username}}</span>
           <ul nz-menu-group>
             <li nz-menu-item [nzSelected]="false" (click)="onLogout()">
               <span><i class="anticon anticon-poweroff"></i>退出登陆</span>

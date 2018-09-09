@@ -1,9 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '../../../../node_modules/@angular/common/http';
-import { order_list_api, order_updateDepositMoney_api, order_createAlipayQrcode_api, order_settlement_api, order_paySuccess_api } from '../../api';
+import { order_list_api,
+  order_updateDepositMoney_api,
+  order_createAlipayQrcode_api,
+  order_settlement_api,
+  order_paySuccess_api } from '../../api';
 import { Observable, pipe, of } from '../../../../node_modules/rxjs';
 import { switchMap, tap } from '../../../../node_modules/rxjs/operators';
 import { NzNotificationService } from '../../../../node_modules/ng-zorro-antd';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-will-rent',
@@ -22,13 +27,31 @@ export class WillRentComponent implements OnInit {
   payInfo;
   isConfirmLoading = false;
 
+  stationList = this.orderService.stationList;
+
   codeUrl = null;
 
   @ViewChild('depositMoney') depositMoney: ElementRef;
   constructor(
     public http: HttpClient,
+    public orderService: OrderService,
     public notification: NzNotificationService
   ) { }
+
+  filter(rent_station_id: string): void {
+    this.getOrderListApi({rent_station_id});
+  }
+
+  onCreateOrder(data) {
+    console.log(data);
+    this.http.post('/api/system/order/confirm', {
+      order_no: data.deposit_order_sn
+    })
+    .subscribe((ret: any) => {
+      this.notification.success('订单', '订单确认成功，告知用户支付租金');
+      this.getOrderListApi();
+    });
+  }
 
   ngOnInit() {
     this.getOrderListApi();

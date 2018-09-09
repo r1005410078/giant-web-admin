@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QiniuUploadService } from '../../qiniu-upload.service';
 import { order_list_api, order_exportOrder_api } from '../../api';
 import { HttpClient } from '../../../../node_modules/@angular/common/http';
+import { OrderService } from '../services/order.service';
 
 
 @Component({
@@ -16,10 +17,20 @@ export class CompletedComponent implements OnInit {
   pageIndex = 1;
   pageSize = 10;
   loading = false;
-
+  stationList = this.orderService.stationList;
   constructor(
-    public http: HttpClient
+    public http: HttpClient,
+    public orderService: OrderService
   ) { }
+
+  filter(rent_station_id: string): void {
+    this.getOrderListApi({rent_station_id});
+  }
+
+  returnFilter(return_station_id: string): void {
+    this.getOrderListApi({return_station_id});
+  }
+
 
   ngOnInit() {
     this.getOrderListApi();

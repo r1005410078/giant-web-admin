@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { NzNotificationService } from '../../../../node_modules/ng-zorro-antd';
+import { NzNotificationService, UploadFile } from '../../../../node_modules/ng-zorro-antd';
 
 @Component({
   selector: 'app-add',
@@ -25,9 +25,10 @@ export class AddComponent implements OnInit {
       id: [null, []],
       bike_no: [null, [Validators.required]],
       bike_money: [null, [Validators.required]],
-      bike_type: [null, []]
+      bike_type: [null, [Validators.required]],
+      type_no: [null, [Validators.required]],
+      bike_frame_no: [null, [Validators.required]]
     });
-
     if (this.id) {
       this.http.post('/api/system/bike/detail', {id: this.id})
         .subscribe((ret: {data: Object}) => {
@@ -49,6 +50,21 @@ export class AddComponent implements OnInit {
           this.loading = false;
           this.notification.success('车辆', '车辆保存成功！');
         });
+    }
+  }
+
+  beforeUpload = (file: UploadFile): boolean => {
+    const names = file.name.split('.');
+    if (names[names.length - 1] === 'xls') {
+      return true;
+    }
+    this.notification.warning('上传错误！', '格式错误,  请上传excel');
+    return false;
+  }
+
+  handleChange(info: any): void {
+    if (info.type === 'success') {
+      this.notification.success('导入车辆', '车辆导入成功');
     }
   }
 }

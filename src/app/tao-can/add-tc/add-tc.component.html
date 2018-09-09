@@ -22,7 +22,7 @@
   <nz-form-item  nzFlex>
     <nz-form-label nzSpan="3" nzRequired>车辆数量</nz-form-label>
     <nz-form-control nzSpan="12">
-      <input [value]="validateForm.get('bike_count').value" nz-input formControlName="bike_count" placeholder="车辆数量">
+      <input type="number" [value]="validateForm.get('bike_count').value" nz-input formControlName="bike_count" placeholder="车辆数量">
       <nz-form-explain *ngIf="validateForm.get('bike_count').dirty && validateForm.get('bike_count').errors">请输入套餐名字！</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
@@ -32,7 +32,7 @@
         <nz-form-label nzSpan="3" nzRequired>租金区间{{i === 0 ? '一' : i === 1 ? '二' : '三'}}</nz-form-label>
         <nz-form-control nzSpan="12">
           <nz-input-group nzAddOnAfter="分钟">
-            <input nz-input [value]="item.get('start_time').value" formControlName="start_time" placeholder="请输入时间">
+            <input type="number" nz-input [value]="item.get('start_time').value" formControlName="start_time" placeholder="请输入时间">
           </nz-input-group>
           <nz-form-explain *ngIf="item.get(['start_time']).dirty && item.get(['start_time']).errors">请输入租金时间！</nz-form-explain>
         </nz-form-control>
@@ -41,7 +41,7 @@
         <nz-form-label nzSpan="3" nzRequired>租金</nz-form-label>
         <nz-form-control nzSpan="12">
           <nz-input-group nzAddOnAfter="￥">
-            <input nz-input [value]="item.get('money').value" formControlName="money" placeholder="请输入区间一租金">
+            <input type="number" nz-input [value]="item.get('money').value" formControlName="money" placeholder="请输入区间一租金">
           </nz-input-group>
           <nz-form-explain *ngIf="item.get(['money']).dirty && item.get(['money']).errors">请输入租金金额！</nz-form-explain>
         </nz-form-control>

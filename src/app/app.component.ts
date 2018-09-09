@@ -10,6 +10,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AppComponent implements AfterContentInit {
   constructor (public router: Router, public userinfo: UserinfoService) {}
   public isCollapsed = false;
+  get user () {
+    try {
+      return JSON.parse(localStorage.userinfo);
+    } catch (error) {
+      return {};
+    }
+  }
   onLogout () {
     this.userinfo.logout();
   }

@@ -4,6 +4,7 @@ import { order_list_api, order_settlement_api } from '../../api';
 import { HttpClient } from '../../../../node_modules/@angular/common/http';
 import { NzNotificationService } from '../../../../node_modules/ng-zorro-antd';
 import { tap } from '../../../../node_modules/rxjs/operators';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-will-completed',
@@ -19,10 +20,20 @@ export class WillCompletedComponent implements OnInit {
   loading = false;
   isVisible = false;
   settlementLoading = false;
+  stationList = this.orderService.stationList;
   constructor(
     public http: HttpClient,
+    public orderService: OrderService,
     public notification: NzNotificationService
   ) { }
+
+  filter(rent_station_id: string): void {
+    this.getOrderListApi({rent_station_id});
+  }
+
+  returnFilter(return_station_id: string): void {
+    this.getOrderListApi({return_station_id});
+  }
 
   ngOnInit() {
     this.getOrderListApi();

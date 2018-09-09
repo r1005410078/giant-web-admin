@@ -9,6 +9,7 @@ import { CompletedComponent } from './completed/completed.component';
 import { FormsModule, ReactiveFormsModule } from '../../../node_modules/@angular/forms';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { WillRentComponent } from './will-rent/will-rent.component';
+import { OrderService } from './services/order.service';
 
 const orederRouters: Routes  = [
   {
@@ -25,6 +26,9 @@ const orederRouters: Routes  = [
 @NgModule({
   exports: [
     RouterModule
+  ],
+  providers: [
+    OrderService
   ],
   imports: [
     CommonModule,

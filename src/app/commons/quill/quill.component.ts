@@ -14,8 +14,15 @@ export class QuillComponent implements OnInit, AfterContentInit {
   constructor (public qiniuSerivce: QiniuUploadService) { }
 
   public imageb64toUrl (next): void {
-    const imgs: NodeList = document.querySelectorAll('.ql-editor img');
-    from(imgs).pipe(
+    const imgs: any = document.querySelectorAll('.ql-editor img');
+    const imageb64s = [];
+    for (const img of imgs) {
+      if (img.src.indexOf('http') === -1) {
+        imageb64s.push(img);
+      }
+    }
+
+    from(imageb64s).pipe(
       concatMap((img: HTMLImageElement) => {
         return this.qiniuSerivce.upload([img.src])
           .pipe(

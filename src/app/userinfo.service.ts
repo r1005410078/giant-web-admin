@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { CanLoad, Router, Route, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import { CanLoad, Router, Route, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
 import * as Cookies from 'js-cookie';
 
 export class Userinfo {
@@ -89,7 +89,7 @@ export class UserinfoService implements CanLoad, CanActivate {
 
   logout () {
     this.cookie.remove('token');
-    // this.router.navigateByUrl('/login');
-    location.reload();
+    this.router.navigateByUrl('/login');
+    // location.reload();
   }
 }

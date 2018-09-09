@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '../../../../node_modules/@angular/common/http';
-import { order_list_api, order_updateDepositMoney_api, order_createAlipayQrcode_api, order_settlement_api, order_paySuccess_api } from '../../api';
+import { order_list_api,
+  order_updateDepositMoney_api, order_createAlipayQrcode_api, order_settlement_api, order_paySuccess_api } from '../../api';
 import { Observable, pipe } from '../../../../node_modules/rxjs';
-import { switchMap, tap } from '../../../../node_modules/rxjs/operators';
+import { switchMap, tap, map } from '../../../../node_modules/rxjs/operators';
 import { NzNotificationService } from '../../../../node_modules/ng-zorro-antd';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-will-payment',
@@ -23,11 +25,18 @@ export class WillPaymentComponent implements OnInit {
 
   codeUrl = null;
 
+  stationList = this.orderService.stationList;
+
   @ViewChild('depositMoney') depositMoney: ElementRef;
   constructor(
     public http: HttpClient,
+    public orderService: OrderService,
     public notification: NzNotificationService
   ) { }
+
+  filter(rent_station_id: string): void {
+    this.getOrderListApi({rent_station_id});
+  }
 
   ngOnInit() {
     this.getOrderListApi();

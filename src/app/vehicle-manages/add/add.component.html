@@ -23,7 +23,7 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item  nzFlex>
-    <nz-form-label nzSpan="3">类型</nz-form-label>
+    <nz-form-label nzSpan="3">车辆类型</nz-form-label>
     <nz-form-control nzSpan="12">
       <nz-input-group>
         <input nz-input formControlName="bike_type" placeholder="请输入车的类型">
@@ -31,10 +31,35 @@
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3">车辆型号</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <nz-input-group>
+        <input nz-input formControlName="type_no" placeholder="请输入车辆型号">
+        <nz-form-explain *ngIf="vehicleGroup.get('type_no').dirty && vehicleGroup.get('type_no').errors"></nz-form-explain>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3">车架号</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <nz-input-group>
+        <input nz-input formControlName="bike_frame_no" placeholder="请输入车架号">
+        <nz-form-explain *ngIf="vehicleGroup.get('bike_frame_no').dirty && vehicleGroup.get('bike_frame_no').errors"></nz-form-explain>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
   <button [nzLoading]="loading" nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
 </form>
-
-
-
-
+<a href="http://pb84tovoy.bkt.clouddn.com/bike.xlsx" download="下载模板">
+  <button style="margin-right: 15px" nz-button nzType="primary"><i class="anticon anticon-download"></i>下载模板</button>
+</a>
+<nz-upload
+  [nzBeforeUpload]="beforeUpload"
+  (nzChange)="handleChange($event)"
+  nzAction="/api/system/bike/upload">
+  <button nz-button  style="margin-top: 60px">
+    <i class="anticon anticon-upload"></i><span>Excel录入</span>
+  </button>
+</nz-upload>
 

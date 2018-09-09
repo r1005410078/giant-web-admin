@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
         if (value.ok) {
           this.notification.success('登陆', '登陆成功!');
           this.userinfo.cookie.set('token', value.data.token);
+          localStorage.setItem('userinfo', JSON.stringify(value.data));
           this.router.navigateByUrl('/giant');
         }
       });

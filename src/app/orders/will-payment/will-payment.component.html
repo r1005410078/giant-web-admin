@@ -16,9 +16,10 @@
     <tr>
       <th>用户名</th>
       <th>手机号</th>
-      <th><span>租车驿站</span></th>
+      <th nzSortKey="rent_station_name" [nzFilterMultiple]="false" nzShowFilter [nzFilters]="stationList | async" (nzFilterChange)="filter($event)"><span>租车驿站</span></th>
       <th><span>押金付款方式</span></th>
       <th><span>押金金额</span></th>
+      <th><span>租车次数</span></th>
       <th><span>操作</span></th>
     </tr>
   </thead>
@@ -26,9 +27,10 @@
     <tr *ngFor="let data of ajaxTable.data">
       <td>{{data.real_name}}</td>
       <td>{{data.phone}}</td>
-      <td>{{data.return_station_name}}</td>
+      <td>{{data.rent_station_name}}</td>
       <td>{{data.deposit_type}}</td>
       <td>{{data.deposit_money}}</td>
+      <td>{{data.user_num}}</td>
       <td>
         <span *ngIf="data.deposit_type === '支付宝'" class='button' (click)="onCodePay(data)">扫码支付</span>
         <span *ngIf="data.deposit_type === '微信'" class='button' (click)="onCodePay(data)">修改押金</span>

@@ -18,13 +18,16 @@
       <th>手机号</th>
       <th>开始时间</th>
       <th><span>骑行时间</span></th>
-      <th><span>租车驿站</span></th>
-      <th><span>还车驿站</span></th>
+      <th nzSortKey="rent_station_name" [nzFilterMultiple]="false" nzShowFilter [nzFilters]="stationList | async" (nzFilterChange)="filter($event)"><span>租车驿站</span></th>
+      <th nzSortKey="return_station_name" [nzFilterMultiple]="false" nzShowFilter [nzFilters]="stationList | async" (nzFilterChange)="returnFilter($event)"><span>还车驿站</span></th>
       <th><span>车辆编号</span></th>
       <th><span>押金付款方式</span></th>
       <th><span>押金金额</span></th>
       <th><span>租金付款方式</span></th>
       <th><span>租金金额</span></th>
+      <th><span>租车次数</span></th>
+      <th><span>车辆评价</span></th>
+      <th><span>满意度</span></th>
     </tr>
   </thead>
   <tbody>
@@ -34,12 +37,15 @@
       <td>{{data.rent_start_time}}</td>
       <td>{{data.rent_time}}</td>
       <td>{{data.rent_station_name}}</td>
-      <td>还车驿站</td>
+      <td>{{data.return_station_name}}</td>
       <td>{{data.bike_num_list}}</td>
       <td>{{data.deposit_type}}</td>
       <td>{{data.deposit_money}}</td>
       <td>{{data.rent_type}}</td>
       <td>{{data.rent_money}}</td>
+      <td>{{data.user_num}}</td>
+      <th>{{data.comment}}</th>
+      <th>{{['特别满意', '比较满意', '不满意'][data.score] || '未评价'}}</th>
     </tr>
   </tbody>
 </nz-table>

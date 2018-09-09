@@ -14,6 +14,7 @@ export class ListComponent implements OnInit {
   value = '';
   data: Array<Bike> = [];
   seachData: Array<Bike> = null;
+  downloadUrl = '';
   constructor(public http: HttpClient) { }
 
   onClick () {
@@ -22,6 +23,10 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+    this.http.post('/api/system/bike/batchQrcode', {})
+    .subscribe((ret: any) => {
+      this.downloadUrl = ret.data.file_url;
+    });
   }
 
   getData () {
