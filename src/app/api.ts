@@ -14,6 +14,7 @@ export const article_detail_api = '/api/system/article/detail';
 export const article_update_api = '/api/system/article/saveOrUpdate';
 
 // 订单
+export const delete_order = '/api/system/order/del'; // 删除订单
 export const order_count_api = '/api/system/order/count'; // 订单条数
 export const order_createAlipayQrcode_api = '/api/system/order/createAlipayQrcode'; // 创建支付宝二维码
 export const order_exportOrder_api = '/api/system/order/exportOrder'; // 导出订单列表

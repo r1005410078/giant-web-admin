@@ -45,8 +45,8 @@ export class AddTcComponent implements OnInit {
   ngOnInit() {
 
     const interval = {
-      start_time: [ null, [ Validators.required ] ],
-      money: [ null, [ Validators.required ] ]
+      start_time: [ null, [ Validators.required, Validators.min(1) ] ],
+      money: [ null, [ Validators.required, Validators.min(1) ] ]
     };
 
     this.interval = this.fb.array([
@@ -59,7 +59,7 @@ export class AddTcComponent implements OnInit {
       cover_img: [ null, [ ] ],
       content: [ null, [ ] ],
       name: [ null, [ Validators.required ] ],
-      bike_count: [ null, [ Validators.required ] ],
+      bike_count: [ null, [ Validators.required, Validators.min(1) ] ],
       interval: this.interval
     });
 
@@ -78,6 +78,7 @@ export class AddTcComponent implements OnInit {
   }
 
   submitForm(): void {
+    console.log(this.validateForm.get('bike_count').errors);
     // tslint:disable-next-line:forin
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[ i ].markAsDirty();

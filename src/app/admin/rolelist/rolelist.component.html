@@ -32,11 +32,12 @@
         <span>{{item?.description}}</span>
       </td>
       <td>
-        <a routerLink="/giant/admin-rolelist/{{data.id}}">编辑</a>
-        |
-        <a nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(data)" nzPlacement="bottomLeft" style="color: red" >
-          删除
-        </a>
+        <span routerLink="/giant/admin-rolelist/{{data.id}}">
+          <button nzType="primary" nz-button>编辑</button>
+        </span>
+        <span nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(data)" nzPlacement="bottomLeft" style="color: red" >
+          <button nzType="danger" nz-button>删除</button>
+        </span>
       </td>
     </tr>
   </tbody>

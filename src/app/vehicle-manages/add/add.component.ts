@@ -46,9 +46,13 @@ export class AddComponent implements OnInit {
     if (this.vehicleGroup.valid) {
       this.loading = true;
       this.http.post('/api/system/bike/saveOrUpdate', this.vehicleGroup.value)
-        .subscribe(data => {
+        .subscribe((ret: any) => {
           this.loading = false;
-          this.notification.success('车辆', '车辆保存成功！');
+          if (ret.data && ret.data.length > 0) {
+            this.notification.warning('车辆', '保存成功！,  导入了重复的车辆： 编号：' + ret.data, {nzDuration: 5000, nzPauseOnHover: true});
+          } else {
+            this.notification.success('车辆', '车辆保存成功！');
+          }
         });
     }
   }
@@ -64,7 +68,12 @@ export class AddComponent implements OnInit {
 
   handleChange(info: any): void {
     if (info.type === 'success') {
-      this.notification.success('导入车辆', '车辆导入成功');
+      console.log(info);
+      if (info.file.response.data && info.file.response.data.length > 0) {
+        this.notification.warning('车辆', '导入车辆,  导入了重复的车辆： 编号：' + info.file.response.data, {nzDuration: 5000, nzPauseOnHover: true});
+      } else {
+        this.notification.success('导入车辆', '车辆导入成功');
+      }
     }
   }
 }

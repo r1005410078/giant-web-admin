@@ -5,38 +5,31 @@
     </nz-breadcrumb-item>
   </nz-breadcrumb>
 
-  <form style="margin-top: 30px" [formGroup]="validateForm" nz-form (ngSubmit)="submitForm()" nzLayout="horizontal">
-    <nz-form-item  nzFlex>
-      <nz-form-label nzSpan="3" nzRequired>祝福语</nz-form-label>
+  <form style="margin-top: 30px"  nz-form (ngSubmit)="submitForm()" nzLayout="horizontal">
+    <nz-form-item [formGroup]="validateForm"  nzFlex>
+      <nz-form-label nzSpan="3" nzRequired>活动标题</nz-form-label>
       <nz-form-control nzSpan="12">
-        <input nz-input [value]="validateForm.get('title').value" formControlName="title" placeholder="请输入祝福语">
-        <nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors">请输入祝福语</nz-form-explain>
+        <input nz-input [value]="validateForm.get('title').value" formControlName="title" placeholder="请输入活动标题">
+        <nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors">请输入活动标题</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
-    <nz-form-item  nzFlex>
+    <nz-form-item [formGroup]="validateForm"  nzFlex>
       <nz-form-label nzSpan="3" nzRequired>活动说明</nz-form-label>
       <nz-form-control nzSpan="12">
         <input nz-input [value]="validateForm.get('content').value" formControlName="content" placeholder="请输入活动说明">
         <nz-form-explain *ngIf="validateForm.get('content').dirty && validateForm.get('content').errors">请输入活动说明</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
-
-    <nz-form-item  nzFlex>
-      <nz-form-label nzSpan="3" nzRequired>活动开始时间</nz-form-label>
-      <nz-form-control nzSpan="12">
-        <input nz-input [value]="validateForm.get('start_time').value" formControlName="start_time" placeholder="请输入时间">
-        <nz-form-explain *ngIf="validateForm.get('start_time').dirty && validateForm.get('start_time').errors">请输入活动开始时间</nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item  nzFlex>
+    <nz-form-item nzFlex>
       <nz-form-label nzSpan="3" nzRequired>活动结束时间</nz-form-label>
       <nz-form-control nzSpan="12">
-        <input nz-input [value]="validateForm.get('end_time').value" formControlName="end_time" placeholder="请输入时间">
-        <nz-form-explain *ngIf="validateForm.get('end_time').dirty && validateForm.get('end_time').errors">请输入活动结束时间</nz-form-explain>
+        <nz-range-picker name="dateRange" [(ngModel)]="validateForm.get('dateRange').value" nzShowTime></nz-range-picker>
+        <nz-form-explain *ngIf="validateForm.get('dateRange').dirty && validateForm.get('dateRange').errors">
+           <span style="color: red">请输入红包概率</span>
+        </nz-form-explain>
       </nz-form-control>
     </nz-form-item>
-
-    <nz-form-item  nzFlex>
+    <nz-form-item [formGroup]="validateForm" nzFlex>
       <nz-form-label nzSpan="3" nzRequired>红包概率</nz-form-label>
       <nz-form-control nzSpan="12">
         <input nz-input [value]="validateForm.get('probability').value" formControlName="probability" placeholder="请输入红包概率">
@@ -44,7 +37,7 @@
       </nz-form-control>
     </nz-form-item>
 
-    <nz-form-item  nzFlex>
+    <nz-form-item [formGroup]="validateForm"  nzFlex>
       <nz-form-label nzSpan="3" nzRequired>红包最大金额</nz-form-label>
       <nz-form-control nzSpan="12">
         <nz-input-group nzAddOnAfter="￥">
@@ -53,7 +46,7 @@
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
-    <nz-form-item  nzFlex>
+    <nz-form-item [formGroup]="validateForm" nzFlex>
       <nz-form-label nzSpan="3" nzRequired>红包最小金额</nz-form-label>
       <nz-form-control nzSpan="12">
         <nz-input-group nzAddOnAfter="￥">

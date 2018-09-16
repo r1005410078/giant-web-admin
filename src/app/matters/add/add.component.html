@@ -8,7 +8,7 @@
   <nz-form-item  nzFlex>
     <nz-form-label nzSpan="4" nzRequired>路线配图</nz-form-label>
     <nz-form-control nzSpan="12">
-      <app-illustration [uploadImg]="formGroup.get('cover_img').value"></app-illustration>
+      <app-illustration uploadImgMessage="建议(330*130)像素" [uploadImg]="formGroup.get('cover_img').value"></app-illustration>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item  nzFlex>

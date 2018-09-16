@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '../../../../node_modules/@angular/common/http';
 import { order_list_api,
-  order_updateDepositMoney_api, order_createAlipayQrcode_api, order_settlement_api, order_paySuccess_api } from '../../api';
+  order_updateDepositMoney_api, order_createAlipayQrcode_api, order_settlement_api, order_paySuccess_api, delete_order } from '../../api';
 import { Observable, pipe } from '../../../../node_modules/rxjs';
 import { switchMap, tap, map } from '../../../../node_modules/rxjs/operators';
 import { NzNotificationService } from '../../../../node_modules/ng-zorro-antd';
@@ -41,10 +41,27 @@ export class WillPaymentComponent implements OnInit {
   ngOnInit() {
     this.getOrderListApi();
   }
+
+  onDeleteOrder (data) {
+    this.http.post(delete_order, {
+      order_no: data.deposit_order_sn
+    })
+    .subscribe((ret: any) => {
+      if (ret.ok) {
+        this.notification.success('订单', '订单删除成功');
+        this.getOrderListApi();
+      }
+    });
+  }
+
   handleCancel () {
     this.isVisible = false;
   }
   handleOk (value) {
+    if (!(this.depositMoney.nativeElement.value > 0)) {
+      this.notification.error('押金', '押金金额必须大于 0');
+      return;
+    }
     this.http.post(order_updateDepositMoney_api, {
       money: this.depositMoney.nativeElement.value,
       order_sn: this.payInfo.deposit_order_sn

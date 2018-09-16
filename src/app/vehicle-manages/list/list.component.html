@@ -43,11 +43,12 @@
       <td>{{data.bike_frame_no}}</td>
       <td>{{data.create_time}}</td>
       <td>
-        <a [routerLink]="'/giant/vehicle-manages/list/'+data.id">编辑</a>
-        | <a [routerLink]="'/giant/vehicle-manages/track/'+data.id">查看出租轨迹</a>
-        |
+        <a [routerLink]="'/giant/vehicle-manages/list/'+data.id">
+          <button nzType="primary" nz-button>编辑</button>
+        </a>
+        <a [routerLink]="'/giant/vehicle-manages/track/'+data.id"><button nzType="primary" nz-button>查看出租轨迹</button></a>
         <a nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(data)" nzPlacement="bottomLeft" style="color: red" >
-          删除
+          <button nzType="danger" nz-button>删除</button>
         </a>
       </td>
     </tr>

@@ -36,10 +36,12 @@
       <td>{{data.rent_money}}</td>
       <td>{{data.user_num}}</td>
       <td>
-        <span class='button' (click)="onCreateOrder(data)">确认订单</span>
-        <span *ngIf="data.rent_type === '支付宝'" class='button' (click)="onCodePay(data)">扫码支付</span>
-        <span *ngIf="data.rent_type === '微信'" class='button' (click)="onCodePay(data)"></span>
-        <span *ngIf="data.rent_type === '现金'" class="button" (click)="onCodePay(data)" >现金结算</span>
+        <span *ngIf="data.rent_type === '微信'" nz-popconfirm nzTitle="是否确定确认还车?" (nzOnConfirm)="onCreateOrder(data)" nzPlacement="bottomLeft" style="color: red" >
+          <button nzType="primary" nz-button class='button'>确认还车</button>
+        </span>
+        <button nzType="primary" nz-button *ngIf="data.rent_type === '支付宝'" class='button' (click)="onCodePay(data)">扫码支付</button>
+        <!-- <button nzType="primary" nz-button *ngIf="data.rent_type === '微信'" class='button' (click)="onCodePay(data)"></button> -->
+        <button nzType="primary" nz-button *ngIf="data.rent_type === '现金'" class="button" (click)="onCodePay(data)" >现金结算</button>
       </td>
     </tr>
   </tbody>

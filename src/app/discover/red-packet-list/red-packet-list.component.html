@@ -38,9 +38,9 @@
         <td>{{data.max_money}}</td>
         <td>{{data.min_money}}</td>
         <td>
-          <a routerLink="/giant/discover/red-packet-list/{{data.id}}">编辑</a>
+          <a routerLink="/giant/discover/red-packet-list/{{data.id}}"><button nzType="primary" nz-button>编辑</button></a>
           <span nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(data)" nzPlacement="bottomLeft" style="color: red" >
-            <a style="margin-left: 5px; color: red">删除</a>
+            <button nzType="danger" nz-button>删除</button>
           </span>
         </td>
       </tr>

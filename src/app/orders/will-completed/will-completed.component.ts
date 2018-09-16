@@ -60,7 +60,7 @@ export class WillCompletedComponent implements OnInit {
     .subscribe((res: any) => {
       this.loading = true;
       this.settlementLoading = false;
-      this.notification.success('结算', '结算成功');
+      this.notification.success('押金', '押金退还成功');
     });
   }
   onPageIndexChange () {

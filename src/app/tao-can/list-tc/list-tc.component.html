@@ -18,17 +18,17 @@
   (nzPageSizeChange)="getData()">
   <thead>
     <tr>
-      <th nzSortKey="username">配图</th>
-      <th nzSortKey="username">套餐名字</th>
-      <th nzSortKey="interval">租金区间</th>
-      <th nzSortKey="username">车辆数量</th>
-      <th nzSortKey="username">启用状态</th>
-      <th nzSortKey="depositAmount">操作</th>
+      <th>配图</th>
+      <th>套餐名字</th>
+      <th>租金区间</th>
+      <th>车辆数量</th>
+      <th>启用状态</th>
+      <th>操作</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of ajaxTable.data">
-      <td><span class='peitu-span' (click)="showModal(data.cover_img)">{{data.cover_img}}</span></td>
+      <td><span class='peitu-span' (click)="showModal(data.cover_img)"><i class="anticon anticon-paper-clip ng-star-inserted"></i>配图</span></td>
       <td>{{data.name}}</td>
       <td>
         <p *ngFor="let inter of data.interval">
@@ -38,8 +38,12 @@
       <td>{{data.bike_count}}</td>
       <td>{{data.status}}</td>
       <td>
-        <a routerLink="/giant/tao-can/list-tc/{{data.id}}">编辑</a>
-        <a nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(data)" nzPlacement="bottomLeft" style="margin-left: 5px; color: red">删除</a>
+        <a routerLink="/giant/tao-can/list-tc/{{data.id}}">
+          <button nzType="primary" nz-button>编辑</button>
+        </a>
+        <a nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(data)" nzPlacement="bottomLeft" style="margin-left: 5px; color: red">
+          <button nzType="danger" nz-button>删除</button>
+        </a>
       </td>
     </tr>
   </tbody>

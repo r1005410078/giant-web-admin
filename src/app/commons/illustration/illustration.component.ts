@@ -11,7 +11,8 @@ import { switchMap, tap } from 'rxjs/operators';
   styleUrls: ['./illustration.component.css']
 })
 export class IllustrationComponent implements OnInit {
-
+  @Input()
+  public uploadImgMessage = '建议(133*133)像素';
   @Input()
   public uploadImg: string = null;
   public loading = false;

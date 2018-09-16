@@ -43,7 +43,13 @@
       <td>{{data.deposit_money}}</td>
       <td>{{data.rent_money}}</td>
       <td>{{data.user_num}}</td>
-      <td><span (click)="onSettlement(data)" class="settlement">结算并退押金</span></td>
+      <td></td>
+      <td></td>
+      <td>
+        <span nz-popconfirm nzTitle="是否确定退还押金?" (nzOnConfirm)="onSettlement(data)" nzPlacement="bottomLeft" style="color: red" >
+          <button nzType="primary" nz-button class='settlement'>退还押金</button>
+        </span>
+      </td>
     </tr>
   </tbody>
 </nz-table>

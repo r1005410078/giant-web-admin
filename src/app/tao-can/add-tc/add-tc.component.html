@@ -23,7 +23,10 @@
     <nz-form-label nzSpan="3" nzRequired>车辆数量</nz-form-label>
     <nz-form-control nzSpan="12">
       <input type="number" [value]="validateForm.get('bike_count').value" nz-input formControlName="bike_count" placeholder="车辆数量">
-      <nz-form-explain *ngIf="validateForm.get('bike_count').dirty && validateForm.get('bike_count').errors">请输入套餐名字！</nz-form-explain>
+      <nz-form-explain *ngIf="validateForm.get('bike_count').dirty && validateForm.get('bike_count').errors">
+        <span *ngIf="validateForm.get('bike_count').errors.min">车辆数量要大于零</span>
+        <span *ngIf="validateForm.get('bike_count').errors.required">请输入车辆数量！</span>
+      </nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <div formArrayName="interval" >
@@ -34,7 +37,10 @@
           <nz-input-group nzAddOnAfter="分钟">
             <input type="number" nz-input [value]="item.get('start_time').value" formControlName="start_time" placeholder="请输入时间">
           </nz-input-group>
-          <nz-form-explain *ngIf="item.get(['start_time']).dirty && item.get(['start_time']).errors">请输入租金时间！</nz-form-explain>
+          <nz-form-explain *ngIf="item.get(['start_time']).dirty && item.get(['start_time']).errors">
+            <span *ngIf="item.get(['start_time']).errors.min">租金时间要大于零</span>
+            <span *ngIf="item.get(['start_time']).errors.required">请输入租金时间！</span>
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item  nzFlex>
@@ -43,7 +49,10 @@
           <nz-input-group nzAddOnAfter="￥">
             <input type="number" nz-input [value]="item.get('money').value" formControlName="money" placeholder="请输入区间一租金">
           </nz-input-group>
-          <nz-form-explain *ngIf="item.get(['money']).dirty && item.get(['money']).errors">请输入租金金额！</nz-form-explain>
+          <nz-form-explain *ngIf="item.get(['money']).dirty && item.get(['money']).errors">
+            <span *ngIf="item.get(['money']).errors.min">租金金额要大于零</span>
+            <span *ngIf="item.get(['money']).errors.required">请输入租金金额！</span>
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
     </div>

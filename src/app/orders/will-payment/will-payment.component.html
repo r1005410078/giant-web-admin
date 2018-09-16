@@ -32,10 +32,13 @@
       <td>{{data.deposit_money}}</td>
       <td>{{data.user_num}}</td>
       <td>
-        <span *ngIf="data.deposit_type === '支付宝'" class='button' (click)="onCodePay(data)">扫码支付</span>
-        <span *ngIf="data.deposit_type === '微信'" class='button' (click)="onCodePay(data)">修改押金</span>
-        <span *ngIf="data.deposit_type === '现金' && !settlementLoading" class="button" (click)="onCodePay(data)" >现金结算</span>
-        <span *ngIf="data.deposit_type === '现金' && settlementLoading" class="button">现金结算中...</span>
+        <button nzType="primary" nz-button *ngIf="data.deposit_type === '支付宝'" class='button' (click)="onCodePay(data)">扫码支付</button>
+        <button nzType="primary" nz-button *ngIf="data.deposit_type === '微信'" class='button' (click)="onCodePay(data)">修改押金</button>
+        <span nz-popconfirm nzTitle="是否确定删除订单?" (nzOnConfirm)="onDeleteOrder(data)" nzPlacement="bottomLeft" style="color: red" >
+           <button nzType="primary" nzType="danger" nz-button class='button'>删除订单</button>
+        </span>
+        <button nzType="primary" nz-button *ngIf="data.deposit_type === '现金' && !settlementLoading" class="button" (click)="onCodePay(data)" >现金结算</button>
+        <button nzType="primary" nz-button *ngIf="data.deposit_type === '现金' && settlementLoading" class="button">现金结算中...</button>
       </td>
     </tr>
   </tbody>

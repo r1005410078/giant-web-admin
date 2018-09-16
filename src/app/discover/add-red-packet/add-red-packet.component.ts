@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { iif, of } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
+import { tap, switchMap, map } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd';
 
 @Component({
@@ -15,6 +15,7 @@ export class AddRedPacketComponent implements OnInit {
   @Input() id = null;
   public loading = false;
   public validateForm: FormGroup;
+  public dateRange = [];
 
   constructor(public http: HttpClient, public fb: FormBuilder, public notification: NzNotificationService) { }
 
@@ -23,8 +24,9 @@ export class AddRedPacketComponent implements OnInit {
       cover_img: [ '11', [ Validators.required ] ],
       title: [ null, [ Validators.required ] ],
       content: [ null, [ Validators.required ] ],
-      start_time: [ null, [ Validators.required ] ],
-      end_time: [ null, [ Validators.required ] ],
+      dateRange: [ null, [ Validators.required ] ],
+      // start_time: [ null, [ Validators.required ] ],
+      // end_time: [ null, [ Validators.required ] ],
       probability: [ null, [ Validators.required ] ],
       max_money: [ null, [ Validators.required ] ],
       min_money: [ null, [ Validators.required ] ],
@@ -45,17 +47,25 @@ export class AddRedPacketComponent implements OnInit {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
-    this.loading = true;
+
     iif(() => this.validateForm.valid, of(this.validateForm.value)).pipe(
       // 更新的时候， 需要id
       tap((parmas: any) => {
+        this.loading = true;
         if (this.id) {
           parmas.id = this.id;
         }
       }),
       // 保存数据
       switchMap((parmas: any) => {
-        return this.http.post('/api/system/redpacket/saveOrUpdate', parmas);
+        const newP = {...parmas};
+        delete newP.dateRange;
+        const [start_time, end_time] = parmas.dateRange;
+        return this.http.post('/api/system/redpacket/saveOrUpdate', {
+          ...newP,
+          start_time: Date.parse(start_time),
+          end_time: Date.parse(end_time)
+        });
       })
     )
     .subscribe(() => {
