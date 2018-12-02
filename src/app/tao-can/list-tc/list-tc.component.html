@@ -32,7 +32,9 @@
       <td>{{data.name}}</td>
       <td>
         <p *ngFor="let inter of data.interval">
-          <span class="price">￥{{inter.money}}</span> 收费区间：{{inter.start_time}} 至 {{inter.end_time < 9999 ? inter.end_time : '∞' }}
+          <span [hidden]="!(inter.start_time && inter.money && inter.end_time)">
+            <span class="price">￥{{inter.money}}</span> 收费区间：{{inter.start_time}} 分钟 至 {{inter.end_time < 9999 ? inter.end_time + '分钟' : '∞' }}
+          </span>
         </p>
       </td>
       <td>{{data.bike_count}}</td>

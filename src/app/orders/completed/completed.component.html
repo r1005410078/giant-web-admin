@@ -26,8 +26,12 @@
       <th><span>租金付款方式</span></th>
       <th><span>租金金额</span></th>
       <th><span>租车次数</span></th>
+      <th><span>租车时间</span></th>
+      <th><span>租车套餐</span></th>
       <th><span>车辆评价</span></th>
-      <th><span>满意度</span></th>
+      <th><span>小二服务</span></th>
+      <th><span>车辆品质</span></th>
+      <th><span>骑行环境</span></th>
     </tr>
   </thead>
   <tbody>
@@ -44,13 +48,17 @@
       <td>{{data.rent_type}}</td>
       <td>{{data.rent_money}}</td>
       <td>{{data.user_num}}</td>
-      <th>{{data.comment}}</th>
-      <th>{{['特别满意', '比较满意', '不满意'][data.score] || '未评价'}}</th>
+      <td>{{data.rent_time}}</td>
+      <td>{{data.combo_names}}</td>
+      <td>{{data.comment}}</td>
+      <td>{{data.score1 || 0}}</td>
+      <td>{{data.score2 || 0}}</td>
+      <td>{{data.score3 || 0}}</td>
     </tr>
   </tbody>
 </nz-table>
 
-<button style="margin-top: 30px; float: right;" nz-button nzType="primary"  (click)="onExcel()">
+<button style="margin: 30px; float: right;" nz-button nzType="primary"  (click)="onExcel()">
   <i class="anticon anticon-download"></i>
   下载Excel订单
 </button>

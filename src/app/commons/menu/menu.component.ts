@@ -23,6 +23,11 @@ export class MenuComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:member-ordering
   public openMap: any = {};
   public selectedMap: any = {};
+
+  public get role_id () {
+    return localStorage.getItem('role_id');
+  }
+
   constructor (public http: HttpClient) {
     if (!localStorage.getItem('openMap')) {
       localStorage.setItem('openMap', JSON.stringify({

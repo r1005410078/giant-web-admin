@@ -26,10 +26,10 @@ export class AddRedPacketComponent implements OnInit {
       content: [ null, [ Validators.required ] ],
       dateRange: [ null, [ Validators.required ] ],
       // start_time: [ null, [ Validators.required ] ],
-      // end_time: [ null, [ Validators.required ] ],
-      probability: [ null, [ Validators.required ] ],
-      max_money: [ null, [ Validators.required ] ],
-      min_money: [ null, [ Validators.required ] ],
+      // end_time: [ null, [ Validators.required ] ], , Validators.max(1)
+      probability: [ null, [ Validators.required, Validators.min(0) ] ],
+      max_money: [ null, [ Validators.required, Validators.min(0) ] ],
+      min_money: [ null, [ Validators.required, Validators.min(0) ] ],
       total_money: [ 10, [ Validators.required ] ],
       status: [ 1 ],
     });

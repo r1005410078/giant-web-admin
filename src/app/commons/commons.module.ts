@@ -6,6 +6,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { IllustrationComponent } from './illustration/illustration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouteBmapComponent } from './routeBmap/bmap.component';
+import { WebviewComponent } from './webview/webview.component';
 
 
 @NgModule({
@@ -16,6 +17,6 @@ import { RouteBmapComponent } from './routeBmap/bmap.component';
     ReactiveFormsModule
   ],
   exports: [QuillComponent, BmapComponent, IllustrationComponent, RouteBmapComponent],
-  declarations: [QuillComponent, BmapComponent, IllustrationComponent, RouteBmapComponent]
+  declarations: [QuillComponent, BmapComponent, IllustrationComponent, RouteBmapComponent, WebviewComponent]
 })
 export class CommonsModule { }

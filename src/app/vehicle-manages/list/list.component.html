@@ -54,7 +54,7 @@
     </tr>
   </tbody>
 </nz-table>
-<a [hidden]="!downloadUrl" [href]="downloadUrl" download="下载全部二维码">
+<a (click)="download()" download="下载全部二维码">
   <button style="margin-top: 30px; float: right;" nz-button nzType="primary"><i class="anticon anticon-download"></i>下载全部二维码</button>
 </a>
 

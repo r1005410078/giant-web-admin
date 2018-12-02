@@ -59,7 +59,7 @@ export class AddComponent implements OnInit {
 
   beforeUpload = (file: UploadFile): boolean => {
     const names = file.name.split('.');
-    if (names[names.length - 1] === 'xls') {
+    if (names[names.length - 1] === 'xlsx') {
       return true;
     }
     this.notification.warning('上传错误！', '格式错误,  请上传excel');

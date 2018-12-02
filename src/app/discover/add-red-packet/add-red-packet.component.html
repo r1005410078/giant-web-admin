@@ -25,15 +25,21 @@
       <nz-form-control nzSpan="12">
         <nz-range-picker name="dateRange" [(ngModel)]="validateForm.get('dateRange').value" nzShowTime></nz-range-picker>
         <nz-form-explain *ngIf="validateForm.get('dateRange').dirty && validateForm.get('dateRange').errors">
-           <span style="color: red">请输入红包概率</span>
+           <span style="color: red">请输入活动时间</span>
         </nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item [formGroup]="validateForm" nzFlex>
       <nz-form-label nzSpan="3" nzRequired>红包概率</nz-form-label>
       <nz-form-control nzSpan="12">
-        <input nz-input [value]="validateForm.get('probability').value" formControlName="probability" placeholder="请输入红包概率">
-        <nz-form-explain *ngIf="validateForm.get('probability').dirty && validateForm.get('probability').errors">请输入红包概率</nz-form-explain>
+        <nz-input-group nzAddOnAfter="%">
+          <input type="number" nz-input [value]="validateForm.get('probability').value" formControlName="probability" placeholder="请输入红包概率">
+          <nz-form-explain *ngIf="validateForm.get('probability').dirty && validateForm.get('probability').errors">
+            <!-- <span *ngIf="validateForm.get(['probability']).errors.min">红包概率要大于零</span>
+            <span *ngIf="validateForm.get(['probability']).errors.max">红包概率要小于 1</span> -->
+            <span *ngIf="validateForm.get(['probability']).errors.required">请输入红包概率</span>
+          </nz-form-explain>
+        </nz-input-group>
       </nz-form-control>
     </nz-form-item>
 
@@ -41,8 +47,11 @@
       <nz-form-label nzSpan="3" nzRequired>红包最大金额</nz-form-label>
       <nz-form-control nzSpan="12">
         <nz-input-group nzAddOnAfter="￥">
-          <input nz-input [value]="validateForm.get('max_money').value" formControlName="max_money" placeholder="请输入红包最大金额">
-          <nz-form-explain *ngIf="validateForm.get('max_money').dirty && validateForm.get('max_money').errors">请输入红包概率</nz-form-explain>
+          <input type="number" nz-input [value]="validateForm.get('max_money').value" formControlName="max_money" placeholder="请输入红包最大金额">
+          <nz-form-explain *ngIf="validateForm.get('max_money').dirty && validateForm.get('max_money').errors">
+            <span *ngIf="validateForm.get(['max_money']).errors.min">红包最大金额要大于零</span>
+            <span *ngIf="validateForm.get(['max_money']).errors.required">请输入红包最大金额</span>
+          </nz-form-explain>
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
@@ -50,8 +59,11 @@
       <nz-form-label nzSpan="3" nzRequired>红包最小金额</nz-form-label>
       <nz-form-control nzSpan="12">
         <nz-input-group nzAddOnAfter="￥">
-          <input nz-input [value]="validateForm.get('min_money').value" formControlName="min_money" placeholder="请输入红包最小金额">
-          <nz-form-explain *ngIf="validateForm.get('min_money').dirty && validateForm.get('min_money').errors">请输入红包最小金额</nz-form-explain>
+          <input type="number" nz-input [value]="validateForm.get('min_money').value" formControlName="min_money" placeholder="请输入红包最小金额">
+          <nz-form-explain *ngIf="validateForm.get('min_money').dirty && validateForm.get('min_money').errors">
+            <span *ngIf="validateForm.get(['min_money']).errors.min">红包最小金额要大于零</span>
+            <span *ngIf="validateForm.get(['min_money']).errors.required">请输入红包最小金额</span>
+          </nz-form-explain>
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>

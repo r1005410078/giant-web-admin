@@ -14,23 +14,25 @@ export class ListComponent implements OnInit {
   value = '';
   data: Array<Bike> = [];
   seachData: Array<Bike> = null;
-  downloadUrl = '';
   constructor(public http: HttpClient) { }
 
   onClick () {
-    this.seachData = this.data.filter(d => d.bike_no.indexOf(this.value) > -1);
+    this.pageIndex = 1;
+    this.getData({bike_no_list: this.value});
   }
 
   ngOnInit() {
     this.getData();
-    this.http.post('/api/system/bike/batchQrcode', {})
-    .subscribe((ret: any) => {
-      this.downloadUrl = ret.data.file_url;
-    });
   }
 
-  getData () {
+  download () {
+    this.http.post('/api/system/bike/batchQrcode', {})
+    .subscribe((ret: any) => window.open(ret.data.file_url));
+  }
+
+  getData (bike_no_list?) {
     this.http.post('/api/system/bike/list', {
+      ...bike_no_list,
       page: this.pageIndex,
       page_size: this.pageSize
     })
@@ -49,5 +51,4 @@ export class ListComponent implements OnInit {
         }
       });
   }
-
 }

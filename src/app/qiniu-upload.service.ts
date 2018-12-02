@@ -29,7 +29,7 @@ export class QiniuUploadService {
             }
           })
           .pipe(
-            map((ret: {hash: string, key: string}) => 'http://pb84tovoy.bkt.clouddn.com/' + ret.key)
+            map((ret: {hash: string, key: string}) => 'http://file.cyclestation.cn/' + ret.key)
           );
         })
       );

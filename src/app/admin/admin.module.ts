@@ -8,6 +8,7 @@ import { RolelistComponent } from './rolelist/rolelist.component';
 import { AddComponent } from './add/add.component';
 import { FormsModule, ReactiveFormsModule } from '../../../node_modules/@angular/forms';
 import { DetailComponent } from './detail/detail.component';
+import { WebviewComponent } from '../commons/webview/webview.component';
 
 const routers: Routes = [
   {path: 'oreders', loadChildren: '../orders/orders.module#OrdersModule'},
@@ -21,6 +22,9 @@ const routers: Routes = [
   {path: 'admin-rolelist', component: RolelistComponent},
   {path: 'admin-add', component: AddComponent},
   {path: 'admin-rolelist/:id', component: DetailComponent},
+  {
+    path: 'webview', component: WebviewComponent
+  },
   {
     path: '',
     redirectTo: '/giant/oreders/app-will-payment(aux:menu)',

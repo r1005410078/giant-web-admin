@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     if (this.validateForm.valid) {
       this.http.post(loginApi, this.validateForm.value)
       .pipe(catchError(this.handleError()))
-      .subscribe((value: {ok: boolean, data?: {token: string}, error_msg?: string}) => {
+      .subscribe((value: {ok: boolean, data?: {token: string, role_id: string}, error_msg?: string}) => {
         if (value.error_msg) {
           this.notification.error('登陆错误', value.error_msg);
         }
@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
           this.notification.success('登陆', '登陆成功!');
           this.userinfo.cookie.set('token', value.data.token);
           localStorage.setItem('userinfo', JSON.stringify(value.data));
+          localStorage.setItem('role_id', JSON.stringify(value.data.role_id));
           this.router.navigateByUrl('/giant');
         }
       });

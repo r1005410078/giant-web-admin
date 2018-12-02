@@ -17,11 +17,14 @@
       <th>用户名</th>
       <th>手机号</th>
       <th nzSortKey="rent_station_name" [nzFilterMultiple]="false" nzShowFilter [nzFilters]="stationList | async" (nzFilterChange)="filter($event)"><span>租车驿站</span></th>
+      <th nzSortKey="return_station_name" [nzFilterMultiple]="false" nzShowFilter [nzFilters]="stationList | async" (nzFilterChange)="returnFilter($event)"><span>还车驿站</span></th>
       <th><span>押金付款方式</span></th>
       <th><span>押金金额</span></th>
       <th><span>租金付款方式</span></th>
       <th><span>租金金额</span></th>
       <th><span>租车次数</span></th>
+      <th><span>租车时间</span></th>
+      <th><span>租车套餐</span></th>
       <th><span>操作</span></th>
     </tr>
   </thead>
@@ -30,11 +33,14 @@
       <td>{{data.real_name}}</td>
       <td>{{data.phone}}</td>
       <td>{{data.rent_station_name}}</td>
+      <td>{{data.return_station_name}}</td>
       <td>{{data.deposit_type}}</td>
       <td>{{data.deposit_money}}</td>
       <td>{{data.rent_type}}</td>
       <td>{{data.rent_money}}</td>
       <td>{{data.user_num}}</td>
+      <td>{{data.rent_time}}</td>
+      <td>{{data.combo_names}}</td>
       <td>
         <span *ngIf="data.rent_type === '微信'" nz-popconfirm nzTitle="是否确定确认还车?" (nzOnConfirm)="onCreateOrder(data)" nzPlacement="bottomLeft" style="color: red" >
           <button nzType="primary" nz-button class='button'>确认还车</button>

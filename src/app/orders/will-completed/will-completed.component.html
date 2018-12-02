@@ -25,8 +25,8 @@
       <th><span>押金金额</span></th>
       <th><span>租金金额</span></th>
       <th><span>租车次数</span></th>
-      <th><span>车辆评价</span></th>
-      <th><span>满意度</span></th>
+      <th><span>租车时间</span></th>
+      <th><span>租车套餐</span></th>
       <th><span>操作</span></th>
     </tr>
   </thead>
@@ -43,8 +43,8 @@
       <td>{{data.deposit_money}}</td>
       <td>{{data.rent_money}}</td>
       <td>{{data.user_num}}</td>
-      <td></td>
-      <td></td>
+      <td>{{data.rent_time}}</td>
+      <td>{{data.combo_names}}</td>
       <td>
         <span nz-popconfirm nzTitle="是否确定退还押金?" (nzOnConfirm)="onSettlement(data)" nzPlacement="bottomLeft" style="color: red" >
           <button nzType="primary" nz-button class='settlement'>退还押金</button>

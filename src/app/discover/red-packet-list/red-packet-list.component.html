@@ -32,8 +32,8 @@
       <tr *ngFor="let data of ajaxTable.data">
         <td>{{data.title}}</td>
         <td>{{data.content}}</td>
-        <td>{{data.start_time}}</td>
-        <td>{{data.end_time}}</td>
+        <td>20{{data.start_time | date:"yy-MM-dd h:mm:ss" }}</td>
+        <td>20{{data.end_time  | date:"yy-MM-dd h:mm:ss" }}</td>
         <td>{{data.total_money}}</td>
         <td>{{data.max_money}}</td>
         <td>{{data.min_money}}</td>

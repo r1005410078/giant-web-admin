@@ -45,21 +45,32 @@ export class AddTcComponent implements OnInit {
   ngOnInit() {
 
     const interval = {
-      start_time: [ null, [ Validators.required, Validators.min(1) ] ],
-      money: [ null, [ Validators.required, Validators.min(1) ] ]
+      start_time: [ null, [ Validators.required, Validators.min(0) ] ],
+      money: [ null, [ Validators.required, Validators.min(0) ] ]
     };
 
     this.interval = this.fb.array([
       this.fb.group(interval),
       this.fb.group(interval),
-      this.fb.group(interval)
+      this.fb.group({
+        start_time: [ null, [ Validators.min(0) ] ],
+        money: [ null, [ Validators.min(0) ] ]
+      }),
+      this.fb.group({
+        start_time: [ null, [ Validators.min(0) ] ],
+        money: [ null, [ Validators.min(0) ] ]
+      }),
+      this.fb.group({
+        start_time: [ null, [ Validators.min(0) ] ],
+        money: [ null, [ Validators.min(0) ] ]
+      })
     ]);
 
     this.validateForm = this.fb.group({
       cover_img: [ null, [ ] ],
       content: [ null, [ ] ],
       name: [ null, [ Validators.required ] ],
-      bike_count: [ null, [ Validators.required, Validators.min(1) ] ],
+      bike_count: [ null, [ Validators.required, Validators.min(0) ] ],
       interval: this.interval
     });
 
@@ -68,7 +79,7 @@ export class AddTcComponent implements OnInit {
         .subscribe({
           next: (ret: any) => {
             this.validateForm.patchValue(ret.data);
-            this.notification.error('套餐', '套餐保存成功！');
+            this.quillComponent.editor.pasteHTML(ret.data.content);
           },
           error: err => {
             this.notification.error('服务的错误', '获取套餐详情失败 =>' + JSON.stringify(err));
@@ -78,7 +89,6 @@ export class AddTcComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log(this.validateForm.get('bike_count').errors);
     // tslint:disable-next-line:forin
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[ i ].markAsDirty();
@@ -96,10 +106,13 @@ export class AddTcComponent implements OnInit {
       // 初始化参数
       map(f => ({
         ...f,
-        interval: f.interval.map((interval, i) => {
+        interval: f.interval
+        .filter(interval => interval.start_time)
+        .map((interval, i) => {
+
           interval = {start_time: Number(interval.start_time), money: Number(interval.money)};
           if (f.interval[i + 1]) {
-            return {
+            interval = {
               ...interval,
               end_time: Number(f.interval[i + 1].start_time)
             };
@@ -113,6 +126,7 @@ export class AddTcComponent implements OnInit {
       })),
       // 更新的时候， 需要id
       tap((parmas: any) => {
+        console.log(parmas.interval);
         if (this.id) {
           parmas.id = this.id;
         }

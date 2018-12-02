@@ -1,4 +1,4 @@
-<nz-sider [nzWidth]='182' nzCollapsible [(nzCollapsed)]="isCollapsed" style="overflow: auto; height: 100vh; position: fixed; left: 0">
+<nz-sider [nzWidth]='182' [(nzCollapsed)]="isCollapsed" style="overflow: auto; height: 100vh; position: fixed; left: 0">
   <div class="logo">
     <img src="../assets/zxc.png" alt="">
     <h1>东钱湖单车驿站</h1>
@@ -21,63 +21,65 @@
         </li>
       </ul>
     </li>
-    <li nz-submenu [(nzOpen)]="openMap.sub2" (nzOpenChange)="openHandler('sub2')">
-      <span title><i class="anticon anticon-switcher"></i><span class="nav-text">套餐管理</span></span>
-      <ul>
-        <li nz-menu-item [nzSelected]="selectedMap.sub2_item1" (click)="onSelected('sub2_item1')" routerLink="/giant/tao-can/add-tc">新增套餐</li>
-        <li nz-menu-item [nzSelected]="selectedMap.sub2_item2" (click)="onSelected('sub2_item2')" routerLink="/giant/tao-can/list-tc">套餐列表</li>
-      </ul>
-    </li>
-    <li nz-submenu [(nzOpen)]="openMap.sub3" (nzOpenChange)="openHandler('sub3')">
-      <span title><i class="anticon anticon-switcher"></i><span class="nav-text">驿站管理</span></span>
-      <ul>
-        <li nz-menu-item [nzSelected]="selectedMap.sub3_item1" (click)="onSelected('sub3_item1')" routerLink="/giant/station/add">添加驿站</li>
-        <li nz-menu-item [nzSelected]="selectedMap.sub3_item2" (click)="onSelected('sub3_item2')" routerLink="/giant/station/list">驿站列表</li>
-      </ul>
-    </li>
-    <li nz-submenu [(nzOpen)]="openMap.sub4" (nzOpenChange)="openHandler('sub4')">
-      <span title><i class="anticon anticon-switcher"></i><span class="nav-text">推荐路线</span></span>
-      <ul>
-        <li nz-menu-item [nzSelected]="selectedMap.sub4_item1" (click)="onSelected('sub4_item1')" routerLink="/giant/suggest-route/add">添加路线</li>
-        <li nz-menu-item [nzSelected]="selectedMap.sub4_item2" (click)="onSelected('sub4_item2')" routerLink="/giant/suggest-route/list">路线列表</li>
-      </ul>
-    </li>
-    <li nz-submenu [(nzOpen)]="openMap.sub5" (nzOpenChange)="openHandler('sub5')">
-      <span title><i class="anticon anticon-switcher"></i><span class="nav-text">骑车注意事项</span></span>
-      <ul>
-        <li nz-menu-item [nzSelected]="selectedMap.sub5_item1" (click)="onSelected('sub5_item1')" routerLink="/giant/matters/add">添加注意事项</li>
-        <li nz-menu-item [nzSelected]="selectedMap.sub5_item2" (click)="onSelected('sub5_item2')" routerLink="/giant/matters/list">注意事项列表</li>
-      </ul>
-    </li>
-    <li nz-submenu [(nzOpen)]="openMap.sub6" (nzOpenChange)="openHandler('sub6')">
-      <span title><i class="anticon anticon-switcher"></i><span class="nav-text">发现</span></span>
-      <ul>
-        <li nz-menu-item [nzSelected]="selectedMap.sub6_item1" (click)="onSelected('sub6_item1')" routerLink="/giant/discover/add">投放广告</li>
-        <li nz-menu-item [nzSelected]="selectedMap.sub6_item2" (click)="onSelected('sub6_item2')" routerLink="/giant/discover/list">广告列表</li>
-        <li nz-menu-item [nzSelected]="selectedMap.sub6_item3" (click)="onSelected('sub6_item3')" routerLink="/giant/discover/add-red-packet">添加红包</li>
-        <li nz-menu-item [nzSelected]="selectedMap.sub6_item4" (click)="onSelected('sub6_item4')" routerLink="/giant/discover/red-packet-list">红包列表</li>
-      </ul>
-    </li>
-    <li nz-submenu [(nzOpen)]="openMap.sub7" (nzOpenChange)="openHandler('sub7')">
-      <span title><i class="anticon anticon-switcher"></i><span class="nav-text">车辆管理</span></span>
-      <ul>
-        <li nz-menu-item [nzSelected]="selectedMap.sub7_item1" (click)="onSelected('sub7_item1')" routerLink="/giant/vehicle-manages/add">车辆录入</li>
-        <li nz-menu-item [nzSelected]="selectedMap.sub7_item2" (click)="onSelected('sub7_item2')" routerLink="/giant/vehicle-manages/list">车辆追踪</li>
-      </ul>
-    </li>
-    <li nz-submenu [(nzOpen)]="openMap.sub8" (nzOpenChange)="openHandler('sub8')">
-      <span title><i class="anticon anticon-switcher"></i><span class="nav-text">用户信息</span></span>
-      <ul>
-        <li nz-menu-item [nzSelected]="selectedMap.sub8_item1" (click)="onSelected('sub8_item1')" routerLink="/giant/user/list">用户列表</li>
-      </ul>
-    </li>
-    <li nz-submenu [(nzOpen)]="openMap.sub9" (nzOpenChange)="openHandler('sub9')">
-      <span title><i class="anticon anticon-switcher"></i><span class="nav-text">管理员</span></span>
-      <ul>
-        <li nz-menu-item [nzSelected]="selectedMap.sub9_item1" (click)="onSelected('sub9_item1')" routerLink="/giant/admin-add">添加管理员</li>
-        <li nz-menu-item [nzSelected]="selectedMap.sub9_item2" (click)="onSelected('sub9_item2')" routerLink="/giant/admin-rolelist">管理员列表</li>
-      </ul>
-    </li>
+    <div [hidden]="!(role_id === '1')">
+      <li nz-submenu [(nzOpen)]="openMap.sub2" (nzOpenChange)="openHandler('sub2')">
+        <span title><i class="anticon anticon-switcher"></i><span class="nav-text">套餐管理</span></span>
+        <ul>
+          <li nz-menu-item [nzSelected]="selectedMap.sub2_item1" (click)="onSelected('sub2_item1')" routerLink="/giant/tao-can/add-tc">新增套餐</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub2_item2" (click)="onSelected('sub2_item2')" routerLink="/giant/tao-can/list-tc">套餐列表</li>
+        </ul>
+      </li>
+      <li nz-submenu [(nzOpen)]="openMap.sub3" (nzOpenChange)="openHandler('sub3')">
+        <span title><i class="anticon anticon-switcher"></i><span class="nav-text">驿站管理</span></span>
+        <ul>
+          <li nz-menu-item [nzSelected]="selectedMap.sub3_item1" (click)="onSelected('sub3_item1')" routerLink="/giant/station/add">添加驿站</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub3_item2" (click)="onSelected('sub3_item2')" routerLink="/giant/station/list">驿站列表</li>
+        </ul>
+      </li>
+      <li nz-submenu [(nzOpen)]="openMap.sub4" (nzOpenChange)="openHandler('sub4')">
+        <span title><i class="anticon anticon-switcher"></i><span class="nav-text">推荐路线</span></span>
+        <ul>
+          <li nz-menu-item [nzSelected]="selectedMap.sub4_item1" (click)="onSelected('sub4_item1')" routerLink="/giant/suggest-route/add">添加路线</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub4_item2" (click)="onSelected('sub4_item2')" routerLink="/giant/suggest-route/list">路线列表</li>
+        </ul>
+      </li>
+      <li nz-submenu [(nzOpen)]="openMap.sub5" (nzOpenChange)="openHandler('sub5')">
+        <span title><i class="anticon anticon-switcher"></i><span class="nav-text">骑车注意事项</span></span>
+        <ul>
+          <li nz-menu-item [nzSelected]="selectedMap.sub5_item1" (click)="onSelected('sub5_item1')" routerLink="/giant/matters/add">添加注意事项</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub5_item2" (click)="onSelected('sub5_item2')" routerLink="/giant/matters/list">注意事项列表</li>
+        </ul>
+      </li>
+      <li nz-submenu [(nzOpen)]="openMap.sub6" (nzOpenChange)="openHandler('sub6')">
+        <span title><i class="anticon anticon-switcher"></i><span class="nav-text">发现</span></span>
+        <ul>
+          <li nz-menu-item [nzSelected]="selectedMap.sub6_item1" (click)="onSelected('sub6_item1')" routerLink="/giant/discover/add">投放广告</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub6_item2" (click)="onSelected('sub6_item2')" routerLink="/giant/discover/list">广告列表</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub6_item3" (click)="onSelected('sub6_item3')" routerLink="/giant/discover/add-red-packet">添加红包</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub6_item4" (click)="onSelected('sub6_item4')" routerLink="/giant/discover/red-packet-list">红包列表</li>
+        </ul>
+      </li>
+      <li nz-submenu [(nzOpen)]="openMap.sub7" (nzOpenChange)="openHandler('sub7')">
+        <span title><i class="anticon anticon-switcher"></i><span class="nav-text">车辆管理</span></span>
+        <ul>
+          <li nz-menu-item [nzSelected]="selectedMap.sub7_item1" (click)="onSelected('sub7_item1')" routerLink="/giant/vehicle-manages/add">车辆录入</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub7_item2" (click)="onSelected('sub7_item2')" routerLink="/giant/vehicle-manages/list">车辆追踪</li>
+        </ul>
+      </li>
+      <li nz-submenu [(nzOpen)]="openMap.sub8" (nzOpenChange)="openHandler('sub8')">
+        <span title><i class="anticon anticon-switcher"></i><span class="nav-text">用户信息</span></span>
+        <ul>
+          <li nz-menu-item [nzSelected]="selectedMap.sub8_item1" (click)="onSelected('sub8_item1')" routerLink="/giant/user/list">用户列表</li>
+        </ul>
+      </li>
+      <li nz-submenu [(nzOpen)]="openMap.sub9" (nzOpenChange)="openHandler('sub9')">
+        <span title><i class="anticon anticon-switcher"></i><span class="nav-text">管理员</span></span>
+        <ul>
+          <li nz-menu-item [nzSelected]="selectedMap.sub9_item1" (click)="onSelected('sub9_item1')" routerLink="/giant/admin-add">添加管理员</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub9_item2" (click)="onSelected('sub9_item2')" routerLink="/giant/admin-rolelist">管理员列表</li>
+        </ul>
+      </li>
+    </div>
   </ul>
 </nz-sider>
 <!-- <app-bmap>宁波</app-bmap> -->

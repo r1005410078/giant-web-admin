@@ -26,6 +26,18 @@
     </span>
   </span>
 </div>
-<div id="editor" style="height: 500px;">
+<div [ngStyle]="{height: value.h + 'px', width: value.w + 'px'}">
+  <nz-select style="width: 214px; margin: 15px auto;" [(ngModel)]="value" name="value" nzPlaceHolder="选择手机尺寸">
+    <nz-option
+      *ngFor="let item of list"
+      [nzLabel]="item.label"
+      [nzValue]="item.value"
+    >
+    </nz-option>
+  </nz-select>
 
+  <div id="editor" >
+
+  </div>
 </div>
+

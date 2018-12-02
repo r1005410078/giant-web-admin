@@ -32,7 +32,7 @@
   <div formArrayName="interval" >
     <div *ngFor="let item of interval.controls; let i=index" [formGroupName]="i" >
       <nz-form-item nzFlex>
-        <nz-form-label nzSpan="3" nzRequired>租金区间{{i === 0 ? '一' : i === 1 ? '二' : '三'}}</nz-form-label>
+        <nz-form-label nzSpan="3" [nzRequired]="i > 1 ? false : true">租金区间( {{i+1}} )</nz-form-label>
         <nz-form-control nzSpan="12">
           <nz-input-group nzAddOnAfter="分钟">
             <input type="number" nz-input [value]="item.get('start_time').value" formControlName="start_time" placeholder="请输入时间">
@@ -44,7 +44,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item  nzFlex>
-        <nz-form-label nzSpan="3" nzRequired>租金</nz-form-label>
+        <nz-form-label nzSpan="3" [nzRequired]="i > 1 ? false : true">租金</nz-form-label>
         <nz-form-control nzSpan="12">
           <nz-input-group nzAddOnAfter="￥">
             <input type="number" nz-input [value]="item.get('money').value" formControlName="money" placeholder="请输入区间一租金">

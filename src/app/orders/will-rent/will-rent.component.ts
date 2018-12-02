@@ -42,8 +42,11 @@ export class WillRentComponent implements OnInit {
     this.getOrderListApi({rent_station_id});
   }
 
+  returnFilter(return_station_id: string): void {
+    this.getOrderListApi({return_station_id});
+  }
+
   onCreateOrder(data) {
-    console.log(data);
     this.http.post('/api/system/order/confirm', {
       order_no: data.deposit_order_sn
     })

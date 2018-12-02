@@ -37,7 +37,7 @@ export class CompletedComponent implements OnInit {
   }
   onExcel () {
     this.http.post(order_exportOrder_api, {
-      deposit_status: 1,
+      deposit_status: 2,
       page_size: this.pageSize,
       page: this.pageIndex,
       rent_status: 1
