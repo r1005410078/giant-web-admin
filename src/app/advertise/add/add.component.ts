@@ -1,57 +1,42 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
-import { BmapService } from '../../bmap.service';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '../../../../node_modules/@angular/forms';
+import { HttpClient } from '../../../../node_modules/@angular/common/http';
 import { NzNotificationService } from '../../../../node_modules/ng-zorro-antd';
-import { iif, of, Observable } from '../../../../node_modules/rxjs';
-import { map, tap, switchMap } from '../../../../node_modules/rxjs/operators';
 import { QuillComponent } from '../../commons/quill/quill.component';
 import { IllustrationComponent } from '../../commons/illustration/illustration.component';
-import { HttpClient } from '../../../../node_modules/@angular/common/http';
-import { article_update_api, article_detail_api } from '../../api';
+import { article_detail_api, article_update_api } from '../../api';
+import { iif, of, Observable } from '../../../../node_modules/rxjs';
+import { map, tap, switchMap } from '../../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css']
 })
-export class AddComponent implements OnInit, OnDestroy {
+export class AddComponent implements OnInit {
   @Input() isHideNav = true;
   @Input() id = null;
   public loading = false;
   public formGroup: FormGroup;
-
-  constructor(
-    public bmapService: BmapService,
-    public fb: FormBuilder,
-    public http: HttpClient,
-    public notification: NzNotificationService
-  ) {
-
-  }
-
-  get address () {
-    return {
-      lng: null,
-      lat: null,
-      address: this.bmapService.routeAddress.moreResultsUrl
-      || (this.formGroup && this.formGroup.get('route').value[0] ? this.formGroup.get('route').value[0].address : '')
-    };
-  }
 
   @ViewChild(QuillComponent)
   public quillComponent: QuillComponent;
   @ViewChild(IllustrationComponent)
   public illustration: IllustrationComponent;
 
+
+  constructor(
+    public fb: FormBuilder,
+    public http: HttpClient,
+    public notification: NzNotificationService
+  ) { }
+
   ngOnInit() {
     this.formGroup = this.fb.group({
-      title: [null, [Validators.required]],
       content: [null],
+      title: ['轮播图'],
       cover_img: [null],
-      sub_title: [null],
-      map_name: [null],
-      route: [this.address],
-      type: [1]
+      type: [4]
     });
     if (this.id) {
       this.http.post(article_detail_api, {
@@ -76,7 +61,7 @@ export class AddComponent implements OnInit, OnDestroy {
       .pipe(
         map(f => ({
           ...f,
-          route: [this.address],
+          route: [],
         })),
         // 更新的时候， 需要id
         tap((parmas: any) => {
@@ -110,24 +95,13 @@ export class AddComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (data: any) => {
-          this.notification.success('推荐路线', '添加路线成功！！');
           this.loading = false;
+          this.notification.success('成功', '添加成功');
         },
         error: err => {
           this.loading = false;
-          this.notification.error('服务的错误', '添加路线失败！！');
+          this.notification.error('服务的错误', '添加轮播图失败！！');
         }
       });
   }
-
-  onEideBMap () {
-    this.bmapService.toggleStateRouteMap.next(this.address);
-  }
-
-  ngOnDestroy(): void {
-    // Called once, before the instance is destroyed.
-    // Add 'implements OnDestroy' to the class.
-    this.bmapService.clear();
-  }
-
 }

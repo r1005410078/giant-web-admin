@@ -1,0 +1,4 @@
+:host ::ng-deep .advertise-add .avatar-uploader > .ant-upload {
+    width: 375px;
+    height: 160px;
+}

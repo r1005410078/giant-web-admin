@@ -19,6 +19,7 @@ const routers: Routes = [
   {path: 'discover', loadChildren: '../discover/discover.module#DiscoverModule'},
   {path: 'vehicle-manages', loadChildren: '../vehicle-manages/vehicle-manages.module#VehicleManagesModule'},
   {path: 'user', loadChildren: '../user/user.module#UserModule'},
+  {path: 'advertise', loadChildren: '../advertise/advertise.module#AdvertiseModule'},
   {path: 'admin-rolelist', component: RolelistComponent},
   {path: 'admin-add', component: AddComponent},
   {path: 'admin-rolelist/:id', component: DetailComponent},

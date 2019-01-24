@@ -1,7 +1,7 @@
 <nz-breadcrumb style="padding:15px 0">
-  <nz-breadcrumb-item>骑车注意事项</nz-breadcrumb-item>
+  <nz-breadcrumb-item>轮播图广告</nz-breadcrumb-item>
   <nz-breadcrumb-item>
-    注意事项列表
+    轮播图广告列表
   </nz-breadcrumb-item>
 </nz-breadcrumb>
 <nz-list
@@ -19,14 +19,15 @@
           </ng-template>
           <ng-template #likeAction><a [routerLink]="'/giant/matters/list/'+item.id"><i class="anticon anticon-form" style="margin-right: 8px;"></i> 编辑</a></ng-template>
           <nz-list-item-meta
-              [nzAvatar]="item.avatar"
-              [nzTitle]="nzTitle">
-              <ng-template #nzTitle>
-                <span> {{item.title}} <nz-tag nzColor="magenta" (click)="onZhiDing(item)">置顶</nz-tag></span>
-              </ng-template>
+            [nzAvatar]="item.avatar"
+            [nzTitle]="nzTitle">
+            <ng-template #nzTitle>
+              <span> 小程序首页广告轮播图 </span>
+              <!-- <a class="look-map"  target="view_window" [href]="item.route[0]?.address">查看地图</a> -->
+            </ng-template>
           </nz-list-item-meta>
           <ng-template #extra>
-              <img width="150" alt="logo" [src]="item.cover_img">
+            <img width="375" height="160" alt="logo" [src]="item.cover_img">
           </ng-template>
       </nz-list-item>
   </ng-template>

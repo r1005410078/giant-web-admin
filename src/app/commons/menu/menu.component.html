@@ -66,17 +66,19 @@
           <li nz-menu-item [nzSelected]="selectedMap.sub7_item2" (click)="onSelected('sub7_item2')" routerLink="/giant/vehicle-manages/list">车辆追踪</li>
         </ul>
       </li>
-      <li nz-submenu [(nzOpen)]="openMap.sub8" (nzOpenChange)="openHandler('sub8')">
-        <span title><i class="anticon anticon-switcher"></i><span class="nav-text">用户信息</span></span>
-        <ul>
-          <li nz-menu-item [nzSelected]="selectedMap.sub8_item1" (click)="onSelected('sub8_item1')" routerLink="/giant/user/list">用户列表</li>
-        </ul>
-      </li>
       <li nz-submenu [(nzOpen)]="openMap.sub9" (nzOpenChange)="openHandler('sub9')">
         <span title><i class="anticon anticon-switcher"></i><span class="nav-text">管理员</span></span>
         <ul>
           <li nz-menu-item [nzSelected]="selectedMap.sub9_item1" (click)="onSelected('sub9_item1')" routerLink="/giant/admin-add">添加管理员</li>
           <li nz-menu-item [nzSelected]="selectedMap.sub9_item2" (click)="onSelected('sub9_item2')" routerLink="/giant/admin-rolelist">管理员列表</li>
+        </ul>
+      </li>
+      <li nz-submenu [(nzOpen)]="openMap.sub10" (nzOpenChange)="openHandler('sub10')">
+        <span title><i class="anticon anticon-switcher"></i><span class="nav-text">广告编辑</span></span>
+        <ul>
+          <li nz-menu-item [nzSelected]="selectedMap.sub10_item1" (click)="onSelected('sub10_item1')" routerLink="/giant/advertise/home-image">小程序启动页</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub10_item2" (click)="onSelected('sub10_item2')" routerLink="/giant/advertise/rotation-chart-add">添加轮播广告</li>
+          <li nz-menu-item [nzSelected]="selectedMap.sub10_item3" (click)="onSelected('sub10_item3')" routerLink="/giant/advertise/rotation-chart-list">轮播广告列表</li>
         </ul>
       </li>
     </div>

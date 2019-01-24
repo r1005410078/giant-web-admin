@@ -1,0 +1,18 @@
+<nz-breadcrumb style="padding:15px 0">
+  <nz-breadcrumb-item>小程序启动页</nz-breadcrumb-item>
+  <nz-breadcrumb-item routerLink="/giant/matters/list">
+    设置启动页面图片
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<nz-select style="width: 214px; margin: 15px auto;" [(ngModel)]="value" name="value" nzPlaceHolder="选择手机尺寸">
+  <nz-option
+    *ngFor="let item of list"
+    [nzLabel]="item.label"
+    [nzValue]="item.value"
+  >
+  </nz-option>
+</nz-select>
+<button style="margin: 20px" nzType="primary" (click)="onSave()" nz-button>更新小程序启动图片</button>
+<div class='home-image' [ngStyle]="{height: value.h + 'px', width: value.w + 'px'}">
+  <app-illustration height="100%" width="100%" uploadImgMessage="" [uploadImg]="imgsrc"></app-illustration>
+</div>

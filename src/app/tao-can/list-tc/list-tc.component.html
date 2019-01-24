@@ -43,6 +43,9 @@
         <a routerLink="/giant/tao-can/list-tc/{{data.id}}">
           <button nzType="primary" nz-button>编辑</button>
         </a>
+        <a style="margin-left: 5px">
+          <button nzType="primary" nz-button (click)="onZhiDing(data)">置顶</button>
+        </a>
         <a nz-popconfirm nzTitle="是否确定删除?" (nzOnConfirm)="onDelete(data)" nzPlacement="bottomLeft" style="margin-left: 5px; color: red">
           <button nzType="danger" nz-button>删除</button>
         </a>

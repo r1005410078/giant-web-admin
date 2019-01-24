@@ -28,7 +28,7 @@ declare const BMap;
   ]
 })
 export class BmapComponent implements OnInit, AfterContentInit, OnDestroy {
-  @Input() city = '宁波市';
+  @Input() city = '杭州市';
   @Input() id = 'bmap';
   @Input() className = 'bmap';
   @Output() addMarker: EventEmitter<{}>;

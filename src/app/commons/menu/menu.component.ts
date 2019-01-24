@@ -39,6 +39,8 @@ export class MenuComponent implements OnInit, OnDestroy {
         sub6: false,
         sub7: false,
         sub8: false,
+        sub9: false,
+        sub10: false,
       }));
     }
     if (!localStorage.getItem('selectedMap')) {
@@ -63,7 +65,10 @@ export class MenuComponent implements OnInit, OnDestroy {
         sub7_item2: false,
         sub8_item1: false,
         sub9_item1: false,
-        sub9_item2: false
+        sub9_item2: false,
+        sub10_item1: false,
+        sub10_item2: false,
+        sub10_item3: false
       }));
     }
     this.selectedMap = JSON.parse(localStorage.getItem('selectedMap'));

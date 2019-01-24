@@ -30,10 +30,13 @@
     <div nz-col nzSpan="3" style="text-align: right">
       地图：
     </div>
-    <div nz-col nzSpan="20" style="text-decoration: underline; color: #03A9F4; cursor: pointer;" (click)="onEideBMap()">
+    <div nz-col nzSpan="20" style="text-decoration: underline; color: #03A9F4; cursor: pointer;" (click)="showModal()">
       {{address?.address || '选择地址'}}
     </div>
   </div>
   <button [nzLoading]="loading" nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
 </form>
+<nz-modal nzWrapClassName="vertical-center-modal" [nzWidth]="1200" [(nzVisible)]="isVisible" [nzTitle]="'地址: ' + (!address.address ? '鼠标点击地图选择地点' : address.address)" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <app-qqmap (onMapChange)="onMapChange($event)" ></app-qqmap>
+</nz-modal>
 

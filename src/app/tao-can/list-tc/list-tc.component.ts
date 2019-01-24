@@ -41,6 +41,13 @@ export class ListTcComponent implements OnInit {
     this.getData();
   }
 
+  onZhiDing (item) {
+    this.http.post('/api/system/combo/saveOrUpdate', {...item, order_weight: 1})
+      .subscribe(() => {
+        this.ngOnInit();
+      })
+  }
+
   getData(page = this.pageIndex, page_size = this.pageSize): void {
     this.comboService.getList({page, page_size}).subscribe({
       next: (res: any) => {

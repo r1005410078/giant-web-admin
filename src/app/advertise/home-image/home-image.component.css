@@ -1,0 +1,4 @@
+ :host ::ng-deep .home-image .avatar-uploader > .ant-upload {
+    width: 100%;
+    height: 100%;
+}

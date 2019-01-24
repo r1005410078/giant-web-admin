@@ -26,6 +26,12 @@ export class AddComponent implements OnInit, AfterContentInit, OnDestroy {
 
   public loading = false;
   public formGroup: FormGroup;
+  public isVisible = false;
+  public address = {
+    lng: null,
+    lat: null,
+    address: null
+  };
 
   constructor(
     public http: HttpClient,
@@ -36,12 +42,33 @@ export class AddComponent implements OnInit, AfterContentInit, OnDestroy {
 
   }
 
-  get address () {
-    return this.bmapService.address.address ? this.bmapService.address : this.formGroup.get('address').value;
+  // get address () {
+  //   return this.bmapService.address.address ? this.bmapService.address : this.formGroup.get('address').value;
+  // }
+
+  // onEideBMap() {
+  //   this.bmapService.toggleState.next(this.address);
+  // }
+
+  showModal () {
+    this.isVisible = true;
   }
 
-  onEideBMap() {
-    this.bmapService.toggleState.next(this.address);
+  handleOk(): void {
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  onMapChange(result: any) {
+    const detail = result.detail
+    this.address = {
+      lng: detail.location.lng,
+      lat: detail.location.lat,
+      address: detail.address
+    }
   }
 
   submitForm () {

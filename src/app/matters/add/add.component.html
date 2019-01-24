@@ -6,19 +6,19 @@
 </nz-breadcrumb>
 <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
   <nz-form-item  nzFlex>
-    <nz-form-label nzSpan="4" nzRequired>路线配图</nz-form-label>
+    <nz-form-label nzSpan="5" nzRequired>路线配图</nz-form-label>
     <nz-form-control nzSpan="12">
       <app-illustration uploadImgMessage="建议(330*130)像素" [uploadImg]="formGroup.get('cover_img').value"></app-illustration>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item  nzFlex>
-    <nz-form-label nzSpan="4" nzRequired>骑车注意事项名称</nz-form-label>
+    <nz-form-label nzSpan="5" nzRequired>骑车注意事项名称</nz-form-label>
     <nz-form-control nzSpan="12">
       <input nz-input [value]="formGroup.get('title').value" formControlName="title" placeholder="请输入骑车注意事项名称">
     </nz-form-control>
   </nz-form-item>
   <div nz-row>
-    <div nz-col nzSpan="4" style="text-align: right">骑车注意事项介绍：</div>
+    <div nz-col nzSpan="5" style="text-align: right">骑车注意事项介绍：</div>
     <div nz-col nzSpan="18">
       <app-quill>
         {{formGroup.get('content').value}}

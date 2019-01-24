@@ -17,14 +17,17 @@
               删除
             </span>
           </ng-template>
-          <ng-template #likeAction><a [routerLink]="'/giant/station/list/' + item.id">
-            <i class="anticon anticon-form" style="margin-right: 8px;"></i> 编辑</a>
+          <ng-template #likeAction>
+            <a [routerLink]="'/giant/station/list/' + item.id">
+              <i class="anticon anticon-form" style="margin-right: 8px;"></i> 
+              编辑
+            </a>
           </ng-template>
           <nz-list-item-meta
               [nzDescription]="item.address.address"
               [nzTitle]="nzTitle">
               <ng-template #nzTitle >
-                <a [routerLink]="[ '/path']">{{item.name}}</a>
+                <span><a style="margin-right: 15px" [routerLink]="[ '/path']">{{item.name}}</a> <nz-tag (click)="onZhiDing(item)" nzColor="magenta">置顶</nz-tag></span>
               </ng-template>
           </nz-list-item-meta>
           <ng-template #extra>

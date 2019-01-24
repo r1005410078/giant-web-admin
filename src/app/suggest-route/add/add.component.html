@@ -18,6 +18,18 @@
       <input [value]="formGroup.get('title').value" formControlName="title" nz-input placeholder="请输入路线名字">
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3" nzRequired>路线简介</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <input [value]="formGroup.get('sub_title').value" formControlName="sub_title" nz-input placeholder="请输入副标题">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="3" nzRequired>路书号</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <input [value]="formGroup.get('map_name').value" formControlName="map_name" nz-input placeholder="请输入路书号">
+    </nz-form-control>
+  </nz-form-item>
   <div nz-row>
     <div nz-col nzSpan="3" style="text-align: right">路线介绍：</div>
     <div nz-col nzSpan="20">
@@ -26,14 +38,14 @@
       </app-quill>
     </div>
   </div>
-  <div nz-row style="margin-top: 96px">
+  <!-- <div nz-row style="margin-top: 96px">
     <div nz-col nzSpan="3" style="text-align: right">
       地图：
     </div>
     <div nz-col nzSpan="20" style="text-decoration: underline; color: #03A9F4; cursor: pointer;" (click)="onEideBMap()">
       编辑地图
     </div>
-  </div>
+  </div> -->
 
   <button [nzLoading]="loading" nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
 </form>

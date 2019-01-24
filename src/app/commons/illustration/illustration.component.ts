@@ -12,6 +12,10 @@ import { switchMap, tap } from 'rxjs/operators';
 })
 export class IllustrationComponent implements OnInit {
   @Input()
+  public height = '330px';
+  @Input()
+  public width = 'auto';
+  @Input()
   public uploadImgMessage = '建议(133*133)像素';
   @Input()
   public uploadImg: string = null;

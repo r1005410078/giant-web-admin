@@ -31,7 +31,7 @@ export class RouteBmapComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input() city = '宁波市';
   @Input() id = 'routerMap';
   @Input() className = 'bmap';
-  @Output() addMarker: EventEmitter<{}>;
+  @Output() addMarker: EventEmitter<{}> = new EventEmitter();
   @ViewChild('routerMap') mapElementRef: ElementRef;
   @ViewChild('autocompleteStart') autocompleteStartElementRef: ElementRef;
   @ViewChild('autocompleteEnd') autocompleteEndElementRef: ElementRef;

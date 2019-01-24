@@ -22,3 +22,8 @@ export const order_list_api = '/api/system/order/list'; // 订单列表
 export const order_paySuccess_api = '/api/system/order/paySuccess'; // 订单支付成功
 export const order_settlement_api = '/api/system/order/settlement'; // 订单结算
 export const order_updateDepositMoney_api = '/api/system/order/updateDepositMoney'; // 押金修改接口
+
+// 获取
+export const get_advert_saveOrUpdate = '/api/system/advert/list';
+// 上传首页广告图片
+export const advert_saveOrUpdate = '/api/system/advert/saveOrUpdate';

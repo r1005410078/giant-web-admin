@@ -32,6 +32,13 @@ export class ListComponent implements OnInit {
     });
   }
 
+  onZhiDing (item) {
+    this.http.post(article_update_api, {...item, order_weight: 1})
+      .subscribe(() => {
+        this.ngOnInit();
+      })
+  }
+
   onDelete (item) {
     item.status = 0;
     this.http.post(article_update_api, item)

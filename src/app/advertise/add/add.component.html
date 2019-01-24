@@ -1,0 +1,23 @@
+<nz-breadcrumb *ngIf="isHideNav" style="padding:15px 0; margin-bottom: 20px">
+  <nz-breadcrumb-item>轮播图广告</nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    添加轮播图广告
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<form class="advertise-add" [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <nz-form-item  nzFlex>
+    <nz-form-label nzSpan="4" nzRequired>轮播图</nz-form-label>
+    <nz-form-control nzSpan="12">
+      <app-illustration uploadImgMessage="建议(375*160)像素" [uploadImg]="formGroup.get('cover_img').value"></app-illustration>
+    </nz-form-control>
+  </nz-form-item>
+  <div nz-row>
+    <div nz-col nzSpan="4" style="text-align: right">轮播图介绍：</div>
+    <div nz-col nzSpan="18">
+      <app-quill>
+        {{formGroup.get('content').value}}
+      </app-quill>
+    </div>
+  </div>
+  <button [nzLoading]="loading" nz-button nzValue="large" [nzType]="'primary'" style="margin: 40px; float: right;">提交</button>
+</form>
